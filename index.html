@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>6P Horizon Strategist - Detailed Mockup v2</title>
+    <title>6P Horizon Strategist - 6P Detailed Mockup</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Basic Reset & Body */
@@ -106,7 +106,7 @@
         .main-app-area {
             display: flex;
             flex-grow: 1;
-            overflow: hidden;
+            overflow: hidden; /* Prevent app-wrapper scroll, allow internal scroll */
         }
         #left-main-nav {
             width: 230px;
@@ -116,12 +116,20 @@
             flex-shrink: 0;
             overflow-y: auto;
         }
-        #left-main-nav h3 {
+        #left-main-nav h3 { /* Section headers */
             font-size: 0.8rem;
             text-transform: uppercase;
             color: var(--light-font);
             padding: 0 1.5rem 0.5rem 1.5rem;
             margin: 1rem 0 0.5rem 0;
+        }
+         #left-main-nav .deal-name-indicator { /* Style for deal name */
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark-font);
+            padding: 0 1.5rem 0.8rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
         }
         #left-main-nav button {
             display: flex;
@@ -134,7 +142,7 @@
             cursor: pointer;
             border-left: 3px solid transparent;
         }
-        #left-main-nav button i { width: 18px; text-align: center; color: var(--light-font); }
+        #left-main-nav button i.fa-fw { width: 18px; text-align: center; color: var(--light-font); } /* FontAwesome fixed width */
         #left-main-nav button.active, #left-main-nav button:hover {
             background-color: #e8eaf6; /* Light primary variant */
             color: var(--primary-color);
@@ -142,32 +150,36 @@
             font-weight: 500;
         }
         #left-main-nav button.active i, #left-main-nav button:hover i { color: var(--primary-color); }
+
         #main-content-display {
             flex-grow: 1;
-            padding: 1.5rem 2rem;
-            overflow-y: auto;
+            padding: 1.5rem 2rem; /* Padding around content */
+            overflow-y: auto; /* Allow content to scroll */
             background-color: var(--light-bg);
         }
         .content-header {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
         }
+         .content-header-left { display: flex; align-items: center; gap: 1rem;}
         .content-header h1 { font-size: 1.8rem; color: var(--primary-color); margin: 0; }
         .content-header .actions button { margin-left: 0.5rem; }
+         .btn-back { /* Style for the new back button */
+            background: none; border: 1px solid var(--border-color);
+            color: var(--light-font); font-size: 0.9rem; padding: 0.3rem 0.8rem;
+        }
+         .btn-back:hover { background-color: var(--medium-bg); color: var(--dark-font); }
 
+
+        /* Page specific styles */
         .page { display: none; animation: fadeIn 0.3s; }
         .page.active-page { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Dashboard Page Styles */
-        #dashboard-page .dashboard-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* Main content and sidebar */
-            gap: 2rem;
-        }
+        #dashboard-page .dashboard-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
         #dashboard-page .dashboard-main { display: flex; flex-direction: column; gap: 2rem; }
         #dashboard-page .dashboard-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-
         #dashboard-page .dash-card { background-color: var(--light-bg); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; }
         #dashboard-page .dash-card h2 { margin-top: 0; font-size: 1.2rem; color: var(--primary-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
         #dashboard-page .deal-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); }
@@ -178,7 +190,6 @@
         #dashboard-page .quick-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
         #dashboard-page .quick-stat p { margin: 0.2rem 0; font-size:0.9rem;}
         #dashboard-page .quick-stat strong { font-size: 1.5rem; color: var(--secondary-color); }
-
         .six-p-explanation-section { background-color: var(--medium-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); }
         .six-p-explanation-section h2 { margin-top: 0; color: var(--primary-color); }
         .six-p-explanation-section > p { font-size: 0.95rem; margin-bottom: 1.5rem; }
@@ -188,7 +199,6 @@
         .p-explanation-card .p-header .p-icon { font-size: 1.8rem; margin-right: 0.8rem; width: 30px; text-align: center; }
         .p-explanation-card .p-header h3 { margin: 0; font-size: 1.1rem; color: var(--dark-font); }
         .p-explanation-card > p { font-size: 0.9rem; color: var(--medium-font); line-height: 1.5; }
-
         .p-explanation-card.project { border-left-color: var(--p-project-color); }
         .p-explanation-card.project .p-icon { color: var(--p-project-color); }
         .p-explanation-card.people { border-left-color: var(--p-people-color); }
@@ -202,13 +212,14 @@
         .p-explanation-card.posture { border-left-color: var(--p-posture-color); }
         .p-explanation-card.posture .p-icon { color: var(--p-posture-color); }
 
-
-        /* Project Assessment Module */
+        /* Styles for Assessment Pages (Project, People, Product etc.) */
         .assessment-section { margin-bottom: 2.5rem; }
         .assessment-section h2 {
             font-size: 1.3rem; color: var(--primary-color); margin-top:0; margin-bottom: 1rem;
             padding-bottom: 0.5rem; border-bottom: 2px solid var(--secondary-color);
+            display: flex; align-items: center; gap: 0.7rem; /* Align icon and title */
         }
+         .assessment-section h2 i { font-size: 1.1em; /* Adjust icon size relative to h2 */ }
         .assessment-item {
             background-color: var(--medium-bg); padding: 1.5rem;
             border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 1.5rem;
@@ -262,7 +273,7 @@
         .ai-status-error { background-color: var(--danger-color); }
 
         /* Collaboration Page */
-        .collaboration-container { display: flex; gap: 1.5rem; height: calc(100% - 70px); /* Adjusted for content header */ }
+        .collaboration-container { display: flex; gap: 1.5rem; height: calc(100vh - 200px); /* Adjusted height */ }
         .collaboration-canvas-area { flex-grow: 3; background-color: var(--medium-bg); border: 1px solid var(--border-color); border-radius: 6px; display:flex; align-items:center; justify-content:center; font-style:italic; color:var(--light-font); min-height:400px;}
         .collaboration-chat-panel { flex-grow: 1; background-color: var(--light-bg); border: 1px solid var(--border-color); border-radius: 6px; display: flex; flex-direction: column; padding: 1rem;}
         .collaboration-chat-panel h3 { margin-top:0; font-size:1.1rem; color:var(--primary-color); padding-bottom:0.5rem; border-bottom:1px solid var(--border-color);}
@@ -320,10 +331,10 @@
     <div id="app-wrapper">
         <header class="main-header">
             <div class="header-left">
-                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9Ijg3IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODciIHN0eWxlPSJmaWxsOiNmMmYyZjI7IiAvPgogIDx0ZXh0IHg9IjEwMCIgeT0iNDguNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemUj0IjI0IiBmaWxsPSIjY2NjY2NjIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5MT0dIPC90ZXh0Pgo8L3N2Zz4K" alt="Logo" class="logo-image" onclick="navigateToSection('dashboard-page', true)">
+                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9Ijg3IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODciIHN0eWxlPSJmaWxsOiNmMmYyZjI7IiAvPgogIDx0ZXh0IHg9IjEwMCIgeT0iNDguNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSIjY2NjY2NjIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5MT0dIPC90ZXh0Pgo8L3N2Zz4K" alt="Logo" class="logo-image" onclick="navigateToSection('dashboard-page', true)">
             </div>
             <div class="header-search">
-                <input type="search" placeholder="Search across deals, documents, insights...">
+                <input type="search" placeholder="Search across deals (e.g., Target Alpha), documents, insights...">
             </div>
             <div class="header-right">
                 <a href="#" class="nav-icon" aria-label="AI Assistant" title="AI Assistant"><i class="fas fa-wand-sparkles"></i></a>
@@ -340,7 +351,7 @@
 
         <div id="app-container">
             <section id="dashboard-page" class="page active-page">
-                <div style="padding:1.5rem 2rem;">
+                 <div style="padding:1.5rem 2rem;">
                     <div class="content-header">
                         <h1>Dashboard</h1>
                         <div class="actions">
@@ -349,26 +360,16 @@
                     </div>
                     <div class="dashboard-layout">
                         <div class="dashboard-main">
-                            <div class="dash-card">
+                             <div class="dash-card">
                                 <h2>Active Deal Focus: Target Alpha Inc.</h2>
                                 <div class="deal-item">
                                     <div>
-                                        <h3 onclick="loadDealLayout('Target Alpha Inc.')" style="font-size:1.2rem;">Target Alpha Inc.</h3>
-                                        <span class="status">Project Assessment - 40% Complete</span>
+                                        <h3 onclick="loadDealLayout('Target Alpha Inc.')" style="font-size:1.2rem;">Target Alpha Inc. <span style="font-size:0.8rem; color: var(--light-font); font-weight:normal;">(SaaS Solutions)</span></h3>
+                                        <span class="status">Status: 6P Assessment In Progress</span>
                                     </div>
-                                    <button class="btn btn-secondary" onclick="loadDealLayout('Target Alpha Inc.')"><i class="fas fa-arrow-right"></i> Go to Deal</button>
+                                    <button class="btn btn-secondary" onclick="loadDealLayout('Target Alpha Inc.')"><i class="fas fa-arrow-right"></i> Go to Deal Workspace</button>
                                 </div>
-                                <p style="font-size:0.9rem; margin-top:1rem;">This mockup focuses on "Target Alpha Inc." for detailed views. Other deals would follow a similar structure.</p>
-                                 <hr style="margin: 1.5rem 0; border:0; border-top:1px solid var(--border-color);">
-                                 <h3>Other Monitored Deals</h3>
-                                 <div class="deal-item">
-                                    <h3 onclick="alert('Detailed view for Beta Solutions Ltd. is not implemented in this mockup.')">Beta Solutions Ltd.</h3>
-                                    <span class="status">Performance Review - 85%</span>
-                                </div>
-                                <div class="deal-item">
-                                    <h3 onclick="alert('Detailed view for Gamma Corp. is not implemented in this mockup.')">Gamma Corp.</h3>
-                                    <span class="status">Initial Screening</span>
-                                </div>
+                                <p style="font-size:0.9rem; margin-top:1rem;">Click 'Go to Deal Workspace' to view the detailed 6P assessment, transformation plan, and other details for Target Alpha Inc.</p>
                             </div>
 
                             <section class="six-p-explanation-section">
@@ -426,8 +427,7 @@
                                 <div class="quick-stats-grid">
                                     <div class="quick-stat">
                                         <p>Active Deals</p>
-                                        <strong>3</strong>
-                                    </div>
+                                        <strong>1</strong> </div>
                                     <div class="quick-stat">
                                         <p>Pending Tasks</p>
                                         <strong>12</strong>
@@ -443,18 +443,18 @@
                                 </div>
                             </div>
                             <div class="dash-card">
-                                <h2>My High Priority Tasks</h2>
+                                <h2>My High Priority Tasks (Target Alpha Inc.)</h2>
                                 <ul style="list-style:none; padding:0; margin:0;">
-                                    <li style="font-size:0.9rem; margin-bottom:0.5rem;"><span class="text-danger"><i class="fas fa-flag"></i></span> Finalize 'Product IP' review for Target Alpha (Due: May 09, 2025)</li>
-                                    <li style="font-size:0.9rem; margin-bottom:0.5rem;"><span class="text-warning"><i class="fas fa-flag"></i></span> Schedule meeting with Beta Solutions CEO (Due: May 10, 2025)</li>
-                                     <li style="font-size:0.9rem; margin-bottom:0.5rem;">Review Q1 Financials for Gamma Corp.</li>
+                                    <li style="font-size:0.9rem; margin-bottom:0.5rem;"><span class="text-danger"><i class="fas fa-flag"></i></span> Finalize 'Product IP' review (Due: May 09, 2025)</li>
+                                    <li style="font-size:0.9rem; margin-bottom:0.5rem;"><span class="text-warning"><i class="fas fa-flag"></i></span> Schedule Legal Review Call for IP (Due: May 16, 2025)</li>
+                                     <li style="font-size:0.9rem; margin-bottom:0.5rem;">Review Q1 Financials Uploaded by Target (Due: May 11, 2025)</li>
                                 </ul>
                             </div>
                              <div class="dash-card">
-                                <h2>Recent AI Insights</h2>
+                                <h2>Recent AI Insights (Target Alpha Inc.)</h2>
                                 <ul style="list-style:none; padding:0; margin:0; font-size:0.9rem;">
-                                    <li style="margin-bottom:0.5rem;"><i class="fas fa-lightbulb text-success"></i> Potential market overlap identified between Target Alpha & Beta Solutions. <a href="#">Details...</a></li>
-                                    <li style="margin-bottom:0.5rem;"><i class="fas fa-lightbulb text-warning"></i> Risk flag: Target Alpha's customer concentration exceeds 30% for Client X. <a href="#">Details...</a></li>
+                                    <li style="margin-bottom:0.5rem;"><i class="fas fa-lightbulb text-warning"></i> Risk flag: Customer concentration exceeds 30% for Client X. <a href="#">Details...</a></li>
+                                    <li style="margin-bottom:0.5rem;"><i class="fas fa-lightbulb text-success"></i> Opportunity: Cross-sell Service Y (from Acquirer) to Target Alpha's Client Z identified. <a href="#">Details...</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -465,15 +465,21 @@
             <section id="main-app-layout" class="page">
                 <div class="main-app-area">
                     <nav id="left-main-nav">
-                        <button onclick="navigateToSection('dashboard-page', true)"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
-                        <h3 id="left-nav-deal-name">Target Alpha Inc.</h3>
-                        <button class="active" data-template="project-content" onclick="loadContent('project-content', this)"><i class="fas fa-bullseye"></i> Project</button>
-                        <button data-template="roadmap-content" onclick="loadContent('roadmap-content', this)"><i class="fas fa-map-signs"></i> Transformation Roadmap</button>
-                        <button data-template="documents-content" onclick="loadContent('documents-content', this)"><i class="fas fa-folder-open"></i> Documents</button>
-                        <button data-template="collaboration-content" onclick="loadContent('collaboration-content', this)"><i class="fas fa-users-cog"></i> Collaboration</button>
-                        <button data-template="tasks-content" onclick="loadContent('tasks-content', this)"><i class="fas fa-tasks"></i> Tasks</button>
-                        <button data-template="team-content" onclick="loadContent('team-content', this)"><i class="fas fa-users"></i> Team</button>
-                        <button data-template="reports-content" onclick="loadContent('reports-content', this)"><i class="fas fa-chart-pie"></i> Reports</button>
+                        <button onclick="navigateToSection('dashboard-page', true)"><i class="fas fa-arrow-left fa-fw"></i> Back to Dashboard</button>
+                        <div id="left-nav-deal-name" class="deal-name-indicator">Target Alpha Inc.</div>
+                        <h3>6P Assessment</h3>
+                        <button class="active" data-template="p-project-content" onclick="loadContent('p-project-content', this)"><i class="fas fa-bullseye fa-fw"></i> Project</button>
+                        <button data-template="p-people-content" onclick="loadContent('p-people-content', this)"><i class="fas fa-users fa-fw"></i> People</button>
+                        <button data-template="p-product-content" onclick="loadContent('p-product-content', this)"><i class="fas fa-cogs fa-fw"></i> Product</button>
+                        <button data-template="p-processes-content" onclick="loadContent('p-processes-content', this)"><i class="fas fa-project-diagram fa-fw"></i> Processes</button>
+                        <button data-template="p-performance-content" onclick="loadContent('p-performance-content', this)"><i class="fas fa-chart-line fa-fw"></i> Performance</button>
+                        <button data-template="p-posture-content" onclick="loadContent('p-posture-content', this)"><i class="fas fa-shield-alt fa-fw"></i> Posture</button>
+                        <h3>Integration & Value Creation</h3>
+                        <button data-template="roadmap-content" onclick="loadContent('roadmap-content', this)"><i class="fas fa-map-signs fa-fw"></i> Transformation Roadmap</button>
+                        <h3>Supporting Areas</h3>
+                        <button data-template="documents-content" onclick="loadContent('documents-content', this)"><i class="fas fa-folder-open fa-fw"></i> Documents</button>
+                        <button data-template="collaboration-content" onclick="loadContent('collaboration-content', this)"><i class="fas fa-comments fa-fw"></i> Collaboration</button> <button data-template="tasks-content" onclick="loadContent('tasks-content', this)"><i class="fas fa-tasks fa-fw"></i> Tasks</button>
+                        <button data-template="team-content" onclick="loadContent('team-content', this)"><i class="fas fa-user-friends fa-fw"></i> Team</button> <button data-template="reports-content" onclick="loadContent('reports-content', this)"><i class="fas fa-chart-pie fa-fw"></i> Reports</button>
                     </nav>
                     <main id="main-content-display">
                         </main>
@@ -484,134 +490,411 @@
         <footer class="main-footer-sticky">
             © 2025 Horizon Strategists Inc.
         </footer>
-    </div> <template id="project-content-template">
+    </div> <template id="p-project-content-template">
         <div class="content-header">
-            <h1>Project (Core DNA)</h1>
+             <div class="content-header-left">
+                <button class="btn btn-back" onclick="history.back()"><i class="fas fa-chevron-left"></i> Back</button>
+                <h1>Project (Core DNA)</h1>
+            </div>
             <div class="actions">
                 <span style="font-size:0.9rem; color:var(--light-font); margin-right:1rem;">Last saved: May 08, 2025 10:15 AM</span>
                 <button class="btn btn-secondary btn-small"><i class="fas fa-history"></i> View History</button>
                 <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
             </div>
         </div>
-
         <div class="assessment-section">
             <h2><i class="fas fa-low-vision p-icon" style="color:var(--p-project-color);"></i>Vision Assessment</h2>
             <div class="assessment-item">
                 <label for="vision-statement">Company's Articulated Long-Term Vision</label>
                 <div class="input-area">
-                    <textarea id="vision-statement" rows="5" placeholder="Describe the company's long-term vision. What does it aspire to be in 5-10 years? Consider market leadership, impact, and ultimate goals.">To be the undisputed global leader in sustainable urban mobility solutions, empowering cities and citizens with seamless, eco-friendly, and accessible transportation for a greener future.</textarea>
+                    <textarea id="vision-statement" rows="5" placeholder="Describe the company's long-term vision...">To be the undisputed global leader in sustainable urban mobility solutions, empowering cities and citizens with seamless, eco-friendly, and accessible transportation for a greener future.</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
                 <div class="ai-assist-panel">
                     <h4><i class="fas fa-lightbulb"></i> AI Insights & Suggestions</h4>
                     <p><em>Document Scan ('Annual Report 2024', pg. 5):</em> "Our vision is to revolutionize urban transport..." - <a href="#">View Source</a></p>
-                    <p><strong>Suggestion:</strong> Consider adding quantifiable aspects if available (e.g., "serving X million people," "reducing emissions by Y%").</p>
+                    <p><strong>Suggestion:</strong> Add quantifiable aspects (e.g., "serving X million people").</p>
                     <button class="btn btn-ai btn-secondary btn-small">Apply Suggestion</button>
                 </div>
             </div>
              <div class="assessment-item">
                 <label for="vision-clarity">Clarity & Communication of Vision</label>
                 <div class="input-area">
-                    <textarea id="vision-clarity" rows="4" placeholder="How clearly is the vision articulated and communicated internally and externally? Is it well understood by employees and stakeholders?">The vision is consistently referenced in all-hands meetings and investor briefings. Employee surveys indicate a 75% understanding rate, though some ambiguity exists in mid-management regarding tactical alignment.</textarea>
+                    <textarea id="vision-clarity" rows="4" placeholder="How clearly is the vision communicated...?">The vision is consistently referenced... 75% understanding rate...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
             </div>
         </div>
-
         <div class="assessment-section">
             <h2><i class="fas fa-flag-checkered p-icon" style="color:var(--p-project-color);"></i>Mission Assessment</h2>
-            <div class="assessment-item">
+             <div class="assessment-item">
                 <label for="mission-statement">Company's Core Mission</label>
                 <div class="input-area">
-                    <textarea id="mission-statement" rows="5" placeholder="What is the company's core purpose? Who does it serve, what needs does it meet, and how does it achieve this?">Our mission is to design, develop, and deploy innovative and affordable electric scooter sharing systems in partnership with municipalities, providing a reliable and convenient last-mile transportation alternative that reduces congestion and carbon footprint.</textarea>
+                    <textarea id="mission-statement" rows="5" placeholder="What is the company's core purpose...?">Our mission is to design, develop, and deploy innovative and affordable electric scooter sharing systems...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
                  <div class="ai-assist-panel">
                     <h4><i class="fas fa-lightbulb"></i> AI Insights & Suggestions</h4>
-                    <p><em>Comparison:</em> Competitor X focuses heavily on "data-driven optimization" in their mission. Is this relevant for Target Alpha's positioning?</p>
+                    <p><em>Comparison:</em> Competitor X emphasizes "data-driven optimization". Is this relevant?</p>
                 </div>
             </div>
             <div class="assessment-item">
                 <label for="mission-alignment">Alignment of Mission with Daily Operations</label>
                 <div class="input-area">
-                    <textarea id="mission-alignment" rows="4" placeholder="How well do the company's daily activities, product development, and market strategies align with its stated mission?">Product development heavily prioritizes affordability and reliability, directly supporting the mission. Market expansion strategy focuses on cities with strong green initiatives, aligning with the carbon reduction aspect. Some internal KPIs could be more directly tied to "convenience" for end-users.</textarea>
+                    <textarea id="mission-alignment" rows="4" placeholder="How well do daily activities align...?">Product development prioritizes affordability... Market expansion focuses on green cities...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
             </div>
         </div>
-
         <div class="assessment-section">
-            <h2><i class="fas fa-sitemap p-icon" style="color:var(--p-project-color);"></i>Strategy Clarity</h2>
-            <div class="assessment-item">
+             <h2><i class="fas fa-sitemap p-icon" style="color:var(--p-project-color);"></i>Strategy Clarity</h2>
+             <div class="assessment-item">
                 <label for="strategy-main">Main Strategic Pillars (3-5 Years)</label>
                 <div class="input-area">
-                    <textarea id="strategy-main" rows="6" placeholder="Outline the key strategic pillars or objectives for the next 3-5 years. How will the company achieve its vision and mission?">1. Technology Leadership: Invest in next-gen battery tech (target 30% longer range by 2027) and predictive maintenance AI (aim to reduce downtime by 20%).
-2. Geographic Expansion: Target 20 new Tier-2 cities in Europe and North America by end of 2026, focusing on exclusive partnerships.
-3. Partnership Ecosystem: Develop deeper integrations with public transport (API access) and MaaS platforms (target 5 major MaaS integrations).
-4. Operational Excellence: Achieve 15% reduction in operational costs per vehicle through automation in charging and rebalancing by 2027.
-5. Enhanced Rider Experience: Launch loyalty program and tiered vehicle options by Q2 2026.</textarea>
+                    <textarea id="strategy-main" rows="6" placeholder="Outline key strategic pillars...">1. Technology Leadership... 2. Geographic Expansion... 3. Partnership Ecosystem... 4. Operational Excellence... 5. Enhanced Rider Experience...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
             </div>
              <div class="assessment-item">
                 <label for="strategy-competitive">Competitive Differentiation & Market Positioning</label>
                 <div class="input-area">
-                    <textarea id="strategy-competitive" rows="5" placeholder="How does the strategy differentiate the company from competitors? What is its unique value proposition and market positioning?">Differentiation primarily through superior hardware durability (claims 2x lifespan of competitor average) and a more flexible city partnership model (revenue share vs. flat fee). Positioned as the premium, reliable operator rather than the cheapest. Value proposition emphasizes safety (regular maintenance, geofenced speed limits) and vehicle uptime.</textarea>
+                    <textarea id="strategy-competitive" rows="5" placeholder="How does the strategy differentiate...?">Differentiation via hardware durability and flexible city partnerships... Positioned as premium, reliable operator...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
                  <div class="ai-assist-panel">
                     <h4><i class="fas fa-lightbulb"></i> AI Insights & Suggestions</h4>
-                    <p><em>Market Trend:</em> Growing emphasis on B2B fleet solutions (corporate campuses, delivery services). Does the current strategy adequately address this potential revenue stream?</p>
-                    <p><em>Risk Identified:</em> High dependency on a single battery supplier (Supplier X) noted in 'Supplier Contracts.pdf'. <span class="text-warning">Consider this for risk assessment. Mitigation plan needed.</span></p>
+                    <p><em>Market Trend:</em> Growing B2B demand. Strategy impact?</p>
+                    <p><em>Risk Identified:</em> Single battery supplier dependency. <span class="text-warning">Mitigation needed.</span></p>
                 </div>
             </div>
         </div>
-
         <div class="assessment-section">
             <h2><i class="fas fa-user-shield p-icon" style="color:var(--p-project-color);"></i>Future-Proofing Against Client Needs</h2>
-            <div class="assessment-item">
+             <div class="assessment-item">
                 <label for="future-client-trends">Anticipated Client Needs & Market Trends (Next 5 Years)</label>
                 <div class="input-area">
-                    <textarea id="future-client-trends" rows="5" placeholder="What are the anticipated shifts in client needs, expectations, and broader market trends (e.g., technological, regulatory, societal) over the next 5 years?">1. Cities (Clients): Increased demand for data transparency for urban planning, seamless integration with smart city initiatives (e.g., dynamic pricing based on congestion), and stricter sustainability reporting (lifecycle emissions).
-2. End-Users: Expectation for more personalized services, varied vehicle types (e.g., e-bikes, cargo options), enhanced safety features (e.g., collision avoidance tech), and subscription models.
-3. Regulatory: Potential for stricter rules on sidewalk riding, parking, and data privacy. Shift towards designated micro-mobility hubs.
-4. Technological: Advances in battery density, autonomous rebalancing, V2X communication.</textarea>
+                    <textarea id="future-client-trends" rows="5" placeholder="Anticipated shifts...?">1. Cities: Data transparency, smart city integration... 2. End-Users: Personalization, varied vehicles... 3. Regulatory: Sidewalk rules, data privacy... 4. Technological: Battery density, autonomous tech...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
             </div>
             <div class="assessment-item">
                 <label for="future-proofing-strategy">Strategies to Adapt & Address Future Needs</label>
                 <div class="input-area">
-                    <textarea id="future-proofing-strategy" rows="5" placeholder="How is the company proactively addressing these anticipated changes? What's the strategy for adapting its products, services, and business model?">R&D roadmap includes a data analytics platform for cities (Project UrbanPulse, Q4 2025 launch). Exploring modular vehicle designs for diverse needs (e-bike prototype in H2 2025). Actively participating in regulatory discussions via industry consortiums. Pilot program for battery swapping stations to address range anxiety and reduce charging fleet needs. Evaluating partnerships for autonomous rebalancing tech integration (post-2026).</textarea>
+                    <textarea id="future-proofing-strategy" rows="5" placeholder="How is the company adapting...?">R&D includes UrbanPulse platform... Exploring modular designs... Active in regulatory discussions... Battery swapping pilot...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
             </div>
         </div>
-
         <div class="assessment-section">
             <h2><i class="fas fa-rocket p-icon" style="color:var(--p-project-color);"></i>Innovation Outlook</h2>
             <div class="assessment-item">
                 <label for="innovation-culture">Culture of Innovation & R&D Pipeline</label>
                 <div class="input-area">
-                    <textarea id="innovation-culture" rows="5" placeholder="Describe the company's culture regarding innovation. Is there a formal R&D process? What does the current innovation pipeline look like?">"Innovation Fridays" (10% time) encourage experimentation. Formal R&D process with quarterly reviews and dedicated budget (12% of revenue). Current pipeline:
-- Smart helmet integration (beta Q3 2025)
-- Advanced GPS-based anti-theft system (alpha Q2 2025)
-- New solid-state battery evaluation (ongoing research, potential prototype 2026)
-- AI-powered demand prediction for fleet rebalancing (v2 deployment Q4 2025)</textarea>
+                    <textarea id="innovation-culture" rows="5" placeholder="Describe innovation culture and pipeline...">'Innovation Fridays'... Formal R&D process (12% revenue)... Pipeline: Smart helmet, anti-theft, solid-state battery eval, AI demand prediction...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
                  <div class="ai-assist-panel">
                     <h4><i class="fas fa-lightbulb"></i> AI Insights & Suggestions</h4>
-                    <p><em>Patent Analysis (Placeholder):</em> Company holds 3 key patents in battery management and 2 pending for fleet rebalancing algorithms. <span class="text-success">Strength.</span> Potential overlap with Competitor Y's pending patent in rebalancing - legal review recommended.</p>
-                    <p><em>Employee Survey Snippet ('HR Feedback Q4'):</em> "More resources and dedicated lab space needed for blue-sky hardware projects." Score for 'Support for Innovation': 3.8/5.</p>
+                    <p><em>Patent Analysis:</em> 3 BMS granted, 2 rebalancing pending. <span class="text-success">Strength.</span> Potential overlap with Competitor Y - legal review needed.</p>
+                    <p><em>Employee Survey Snippet:</em> "More resources needed for blue-sky hardware projects." Score: 3.8/5.</p>
                 </div>
             </div>
              <div class="assessment-item">
                 <label for="innovation-ip">Intellectual Property & Competitive Edge from Innovation</label>
                 <div class="input-area">
-                    <textarea id="innovation-ip" rows="4" placeholder="What is the status of the company's IP (patents, trade secrets)? How does innovation contribute to a sustainable competitive edge?">Key patents (3 granted, 2 pending) secure proprietary battery management system (BMS) and operational algorithms for dynamic pricing. Trade secrets around operational data processing for efficiency. This provides an estimated 12-18 month lead on competitors in terms of battery life optimization and cost-effective fleet management. IP strategy focuses on core differentiating technologies.</textarea>
+                    <textarea id="innovation-ip" rows="4" placeholder="Status of IP...?">Key patents secure BMS & algorithms... Trade secrets for efficiency... Est. 12-18 month lead...</textarea>
                     <button class="comment-btn-inline" title="Comments"><i class="fas fa-comment-dots"></i></button>
                 </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="p-people-content-template">
+         <div class="content-header">
+             <div class="content-header-left">
+                 <button class="btn btn-back" onclick="history.back()"><i class="fas fa-chevron-left"></i> Back</button>
+                <h1>People (Social Architecture)</h1>
+            </div>
+            <div class="actions">
+                 <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-seedling p-icon" style="color:var(--p-people-color);"></i>Growth Culture Assessment</h2>
+            <div class="assessment-item">
+                <label>Learning & Development Environment</label>
+                <textarea rows="4" placeholder="Describe the company's approach to continuous learning, skill development, and fostering a growth mindset among employees. Are there formal training programs? Mentorship? Budget for learning?"></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Suggestion</h4><p>Check 'HR Policies.pdf' for L&D budget allocation.</p></div>
+            </div>
+            <div class="assessment-item">
+                <label>Adaptability & Resilience</label>
+                <textarea rows="4" placeholder="Assess the organization's ability to adapt to change, handle setbacks, and maintain morale during challenging times. How is resilience fostered?"></textarea>
+            </div>
+        </div>
+         <div class="assessment-section">
+            <h2><i class="fas fa-users-cog p-icon" style="color:var(--p-people-color);"></i>Leadership Principles</h2>
+            <div class="assessment-item">
+                <label>Leadership Style & Effectiveness</label>
+                <textarea rows="4" placeholder="Analyze the predominant leadership style(s) (e.g., transformational, servant, autocratic). How effective is the leadership team in setting direction, motivating teams, and achieving results?"></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Employee survey comments mention 'approachable leadership' but also 'siloed decision making'.</p></div>
+            </div>
+             <div class="assessment-item">
+                <label>Succession Planning & Bench Strength</label>
+                <textarea rows="4" placeholder="Evaluate the company's approach to succession planning for key leadership roles. Is there sufficient bench strength? How are future leaders identified and developed?"></textarea>
+            </div>
+        </div>
+         <div class="assessment-section">
+             <h2><i class="fas fa-user-graduate p-icon" style="color:var(--p-people-color);"></i>Talent Development Systems</h2>
+             <div class="assessment-item">
+                <label>Talent Acquisition & Onboarding</label>
+                <textarea rows="4" placeholder="Assess the effectiveness of processes for attracting, hiring, and onboarding new talent. What is the typical time-to-hire? What is the quality of hires? How is the employer brand perceived?"></textarea>
+             </div>
+              <div class="assessment-item">
+                <label>Performance Management & Rewards</label>
+                <textarea rows="4" placeholder="Analyze the performance management system (goal setting, feedback, reviews). How are high performers identified and rewarded? Is the system perceived as fair and effective?"></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Analysis of 'Compensation Bands.xlsx' suggests potential discrepancy in pay for similar roles across departments.</p></div>
+             </div>
+              <div class="assessment-item">
+                <label>Employee Engagement & Retention</label>
+                <textarea rows="4" placeholder="Evaluate employee engagement levels (e.g., survey results, eNPS) and retention rates (overall and for key talent). What are the main drivers of engagement and attrition?"></textarea>
+             </div>
+        </div>
+    </template>
+
+    <template id="p-product-content-template">
+        <div class="content-header">
+             <div class="content-header-left">
+                 <button class="btn btn-back" onclick="history.back()"><i class="fas fa-chevron-left"></i> Back</button>
+                <h1>Product (Innovation & IP)</h1>
+            </div>
+            <div class="actions">
+                 <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-server p-icon" style="color:var(--p-product-color);"></i>Technical Foundation Audit</h2>
+             <div class="assessment-item">
+                <label>Architecture & Scalability</label>
+                <textarea rows="4" placeholder="Assess the core architecture of the main product(s). Is it monolithic or microservices-based? How scalable is it to handle X% user growth or Y data volume increase? What are the key bottlenecks?"></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Code analysis report (placeholder) flags high cyclomatic complexity in Module Z. Tech debt identified.</p></div>
+            </div>
+            <div class="assessment-item">
+                <label>Technology Stack & Modernity</label>
+                <textarea rows="4" placeholder="Evaluate the technology stack (languages, frameworks, databases, cloud provider). Is it modern and well-supported? Are there dependencies on legacy systems or niche technologies?"></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Security Posture (Product-Level)</label>
+                <textarea rows="4" placeholder="Assess security practices related to the product itself (e.g., secure coding practices, vulnerability scanning, penetration testing frequency, handling of sensitive data within the app)."></textarea>
+            </div>
+        </div>
+        <div class="assessment-section">
+             <h2><i class="fas fa-code-branch p-icon" style="color:var(--p-product-color);"></i>Development Methodologies</h2>
+             <div class="assessment-item">
+                <label>SDLC Process & Agility</label>
+                <textarea rows="4" placeholder="Describe the Software Development Life Cycle (SDLC). Is it Agile (Scrum, Kanban), Waterfall, or hybrid? How effective are ceremonies (sprint planning, retrospectives)? What is the typical release cadence?"></textarea>
+             </div>
+             <div class="assessment-item">
+                <label>Code Quality & Testing Practices</label>
+                <textarea rows="4" placeholder="Evaluate practices around code reviews, automated testing (unit, integration, E2E), test coverage metrics, and CI/CD pipeline implementation."></textarea>
+                  <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Suggestion</h4><p>Check DevOps tool logs (placeholder) for build failure rates and test coverage reports.</p></div>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-clipboard-check p-icon" style="color:var(--p-product-color);"></i>Quality Assurance Processes</h2>
+             <div class="assessment-item">
+                <label>QA Team Structure & Process</label>
+                <textarea rows="4" placeholder="Describe the QA team's role, structure (embedded, separate), and process (manual vs. automated focus). How are test plans created and executed?"></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Bug Tracking & Resolution</label>
+                <textarea rows="4" placeholder="Analyze the process for reporting, tracking, prioritizing, and resolving bugs. What tools are used? What is the average time-to-resolution for critical bugs?"></textarea>
+            </div>
+        </div>
+         <div class="assessment-section">
+            <h2><i class="fas fa-lightbulb p-icon" style="color:var(--p-product-color);"></i>Intellectual Property (IP)</h2>
+             <div class="assessment-item">
+                <label>Patents, Trademarks, Trade Secrets</label>
+                <textarea rows="4" placeholder="Inventory key IP assets (granted/pending patents, registered trademarks, key trade secrets). Assess the strength and defensibility of the IP portfolio."></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Cross-reference patent list with competitor filings - potential overlap identified in Area X.</p></div>
+            </div>
+             <div class="assessment-item">
+                <label>IP Strategy & Contribution to Value</label>
+                <textarea rows="4" placeholder="Evaluate the company's strategy for protecting and leveraging its IP. How does IP contribute to the product's competitive advantage and overall company valuation?"></textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="p-processes-content-template">
+        <div class="content-header">
+             <div class="content-header-left">
+                 <button class="btn btn-back" onclick="history.back()"><i class="fas fa-chevron-left"></i> Back</button>
+                <h1>Processes (Dynamic Work Graph)</h1>
+            </div>
+            <div class="actions">
+                 <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+            </div>
+        </div>
+         <div class="assessment-section">
+            <h2><i class="fas fa-leaf p-icon" style="color:var(--p-processes-color);"></i>Operational Leanness</h2>
+             <div class="assessment-item">
+                <label>Core Process Efficiency</label>
+                <textarea rows="4" placeholder="Analyze key operational processes (e.g., order fulfillment, customer support, product deployment). Identify bottlenecks, waste, and opportunities for streamlining using Lean principles."></textarea>
+             </div>
+              <div class="assessment-item">
+                <label>Cross-Functional Collaboration & Handoffs</label>
+                <textarea rows="4" placeholder="Evaluate how effectively different departments work together on key processes. Are handoffs smooth or sources of delay/error?"></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Suggestion</h4><p>Review process maps (if available) or conduct interviews to identify handoff friction points.</p></div>
+            </div>
+        </div>
+         <div class="assessment-section">
+            <h2><i class="fas fa-robot p-icon" style="color:var(--p-processes-color);"></i>AI & Automation Adoption</h2>
+            <div class="assessment-item">
+                <label>Current Use of Automation/AI</label>
+                <textarea rows="4" placeholder="Inventory existing automation tools (RPA, scripts, workflow engines) and AI applications (e.g., chatbots, predictive analytics) within core processes. Assess their effectiveness and ROI."></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Potential for Further Automation/AI</label>
+                <textarea rows="4" placeholder="Identify high-potential areas for introducing or expanding automation and AI to improve efficiency, reduce errors, or enhance decision-making."></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Process mining analysis (placeholder) suggests high manual effort in invoice processing - candidate for RPA.</p></div>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-chart-pie p-icon" style="color:var(--p-processes-color);"></i>Resource Allocation</h2>
+            <div class="assessment-item">
+                <label>Alignment of Resources with Strategy</label>
+                <textarea rows="4" placeholder="Assess how financial and human resources are allocated across different departments, projects, and strategic initiatives. Does the allocation align with the stated strategic priorities (from Project P)?"></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Budgeting & Planning Process</label>
+                <textarea rows="4" placeholder="Evaluate the company's budgeting and operational planning process. Is it agile and responsive to changing conditions? How are resource trade-offs made?"></textarea>
+            </div>
+        </div>
+        <div class="assessment-section">
+             <h2><i class="fas fa-book-reader p-icon" style="color:var(--p-processes-color);"></i>Organizational Learning Capabilities</h2>
+            <div class="assessment-item">
+                <label>Knowledge Management & Sharing</label>
+                <textarea rows="4" placeholder="Assess how institutional knowledge is captured, stored, and shared within the organization. Are there effective tools and processes (e.g., wikis, shared drives, communities of practice)?"></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Feedback Loops & Continuous Improvement</label>
+                <textarea rows="4" placeholder="Evaluate the mechanisms for collecting feedback (customer, employee, operational), analyzing it, and incorporating learnings into process improvements or strategic adjustments."></textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="p-performance-content-template">
+         <div class="content-header">
+             <div class="content-header-left">
+                 <button class="btn btn-back" onclick="history.back()"><i class="fas fa-chevron-left"></i> Back</button>
+                <h1>Performance (Quest for Success)</h1>
+            </div>
+            <div class="actions">
+                 <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+            </div>
+        </div>
+        <div class="assessment-section">
+             <h2><i class="fas fa-tachometer-alt p-icon" style="color:var(--p-performance-color);"></i>KPI/OKR Frameworks</h2>
+              <div class="assessment-item">
+                <label>Goal Setting & Alignment</label>
+                <textarea rows="4" placeholder="Does the company use a formal goal-setting framework like OKRs or Balanced Scorecard? How well are individual/team goals aligned with company-level strategic objectives?"></textarea>
+             </div>
+              <div class="assessment-item">
+                <label>Key Performance Indicators (KPIs)</label>
+                <textarea rows="4" placeholder="Identify the key financial and operational KPIs tracked across the organization. Are they relevant, measurable, and actionable? How frequently are they reviewed?"></textarea>
+                <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Analysis of 'Board Deck Q1.pptx' shows KPIs X, Y, Z reported. Are there leading indicators missing?</p></div>
+             </div>
+        </div>
+         <div class="assessment-section">
+             <h2><i class="fas fa-hand-holding-usd p-icon" style="color:var(--p-performance-color);"></i>Financial Discipline</h2>
+             <div class="assessment-item">
+                <label>Historical Financial Performance</label>
+                <textarea rows="4" placeholder="Analyze key financial trends (revenue growth, profitability margins, cash flow) over the past 3-5 years. Compare against budget and industry benchmarks."></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Suggestion</h4><p>Upload historical financial statements (.xlsx, .csv) for automated trend analysis and charting.</p></div>
+            </div>
+             <div class="assessment-item">
+                <label>Budgeting Accuracy & Controls</label>
+                <textarea rows="4" placeholder="Evaluate the accuracy of past budgets versus actuals. Assess the effectiveness of financial controls and reporting processes."></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Unit Economics & Profitability Drivers</label>
+                <textarea rows="4" placeholder="Analyze key unit economics (e.g., CAC, LTV, contribution margin per unit/customer). Understand the core drivers of profitability."></textarea>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-cogs p-icon" style="color:var(--p-performance-color);"></i>AI-Enabled Execution</h2>
+            <div class="assessment-item">
+                <label>Use of Data/AI in Decision Making</label>
+                <textarea rows="4" placeholder="Assess how data analytics and AI are currently used to inform operational and strategic decisions (e.g., pricing optimization, churn prediction, resource allocation)."></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Data Infrastructure & Analytics Capabilities</label>
+                <textarea rows="4" placeholder="Evaluate the quality and accessibility of data, the data infrastructure (e.g., data warehouse, data lake), and the in-house analytics capabilities (tools, talent)."></textarea>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-network-wired p-icon" style="color:var(--p-performance-color);"></i>Ecosystem Leverage</h2>
+            <div class="assessment-item">
+                <label>Strategic Partnerships</label>
+                <textarea rows="4" placeholder="Analyze existing strategic partnerships (e.g., channel partners, technology partners, suppliers). Assess their contribution to revenue, innovation, or market access."></textarea>
+            </div>
+            <div class="assessment-item">
+                <label>Market Position & Network Effects</label>
+                <textarea rows="4" placeholder="Evaluate the company's position within its broader market ecosystem. Does it benefit from network effects? How strong is its brand reputation and influence?"></textarea>
+            </div>
+        </div>
+    </template>
+
+    <template id="p-posture-content-template">
+         <div class="content-header">
+             <div class="content-header-left">
+                 <button class="btn btn-back" onclick="history.back()"><i class="fas fa-chevron-left"></i> Back</button>
+                <h1>Posture (Mindful Self-Regulation)</h1>
+            </div>
+            <div class="actions">
+                 <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-balance-scale p-icon" style="color:var(--p-posture-color);"></i>Compliance Architecture</h2>
+             <div class="assessment-item">
+                <label>Regulatory Compliance</label>
+                <textarea rows="4" placeholder="Identify key applicable regulations (e.g., GDPR, CCPA, HIPAA, industry-specific). Assess the company's policies, procedures, and controls for ensuring compliance. Review any past violations or audits."></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Suggestion</h4><p>Scan 'Compliance Manual.pdf' for GDPR readiness checklist completion.</p></div>
+            </div>
+             <div class="assessment-item">
+                <label>Contractual Compliance</label>
+                <textarea rows="4" placeholder="Evaluate processes for managing and ensuring compliance with key customer, supplier, and partner contracts (e.g., SLAs, confidentiality, payment terms)."></textarea>
+            </div>
+        </div>
+        <div class="assessment-section">
+            <h2><i class="fas fa-exclamation-triangle p-icon" style="color:var(--p-posture-color);"></i>Risk Management</h2>
+             <div class="assessment-item">
+                <label>Risk Identification & Assessment Framework</label>
+                <textarea rows="4" placeholder="Does the company have a formal process for identifying, assessing (likelihood, impact), and prioritizing key business risks (strategic, operational, financial, compliance, cyber)?"></textarea>
+            </div>
+            <div class="assessment-item">
+                <label>Risk Mitigation & Controls</label>
+                <textarea rows="4" placeholder="Evaluate the effectiveness of existing mitigation strategies and internal controls for top identified risks. Is there a documented risk register?"></textarea>
+                 <div class="ai-assist-panel"><h4><i class="fas fa-lightbulb"></i> AI Insight</h4><p>Review 'Internal Audit Report Q4 2024' for findings related to control weaknesses.</p></div>
+            </div>
+            <div class="assessment-item">
+                <label>Business Continuity & Disaster Recovery</label>
+                <textarea rows="4" placeholder="Assess the company's BCP/DR plans. Have they been tested? How resilient are critical operations to potential disruptions?"></textarea>
+            </div>
+        </div>
+         <div class="assessment-section">
+            <h2><i class="fas fa-gavel p-icon" style="color:var(--p-posture-color);"></i>Audit & Accountability Processes</h2>
+             <div class="assessment-item">
+                <label>Internal & External Audit Functions</label>
+                <textarea rows="4" placeholder="Describe the scope and frequency of internal and external audits. How are audit findings tracked and remediated? Assess the independence and effectiveness of the audit functions."></textarea>
+            </div>
+            <div class="assessment-item">
+                <label>Governance Structure & Board Oversight</label>
+                <textarea rows="4" placeholder="Evaluate the company's governance structure (board composition, committees, charters). How effectively does the board provide oversight on strategy, risk, and compliance?"></textarea>
+            </div>
+             <div class="assessment-item">
+                <label>Ethical Culture & Whistleblower Mechanisms</label>
+                <textarea rows="4" placeholder="Assess the company's code of conduct/ethics policies and training. Are there effective and confidential mechanisms for employees to report concerns?"></textarea>
             </div>
         </div>
     </template>
@@ -625,7 +908,7 @@
             </div>
         </div>
         <div class="roadmap-main-view">
-            <div class="roadmap-phase">
+             <div class="roadmap-phase">
                 <h2>Q1 2025: Foundation & Quick Wins</h2>
                 <div class="initiative-card status-completed">
                     <h3>Finalize 6P Due Diligence</h3>
@@ -654,7 +937,7 @@
             </div>
             <div class="roadmap-phase">
                 <h2>Q2 2025: People & Process Alignment</h2>
-                <div class="initiative-card status-inprogress">
+                 <div class="initiative-card status-inprogress">
                     <h3>Harmonize HR Policies & Core Systems</h3>
                     <p class="initiative-owner">Owner: HR Leads (Acquirer & Target)</p>
                     <p>Review and align key HR policies (leave, performance), payroll, and benefits. Plan system migration for HRIS to unified platform.</p>
@@ -680,8 +963,8 @@
                 </div>
             </div>
             <div class="roadmap-phase">
-                <h2>Q3 2025: Execution & Early Value Capture</h2>
-                <div class="initiative-card status-planned">
+                 <h2>Q3 2025: Execution & Early Value Capture</h2>
+                 <div class="initiative-card status-planned">
                     <h3>Launch First Joint Product Offering/Bundle</h3>
                     <p class="initiative-owner">Owner: Product Management Leads</p>
                     <p>Develop and launch a bundled product/service leveraging strengths of both entities, targeting cross-sell opportunities identified in synergy analysis.</p>
@@ -726,26 +1009,32 @@
                     <p>Implement first unified performance review cycle using harmonized goals and metrics framework.</p>
                     <p class="initiative-kpis">KPIs: Cycle completed, employee feedback on process collected.</p>
                 </div>
+                <div class="initiative-card status-planned">
+                    <h3>Supply Chain Optimization (Battery Supplier Diversification)</h3>
+                    <p class="initiative-owner">Owner: Procurement & Ops</p>
+                    <p>Identify and qualify alternative battery suppliers to mitigate single-source dependency risk identified in DD.</p>
+                    <p class="initiative-kpis">KPIs: 1-2 alternative suppliers qualified, initial orders placed.</p>
+                </div>
             </div>
             <div class="roadmap-phase">
-                <h2>Q1 2026: Future Growth & Continuous Improvement</h2>
-                <div class="initiative-card status-planned">
-                    <h3>Explore New Market Segment (AI-Identified Opportunity)</h3>
+                 <h2>Q1 2026: Future Growth & Continuous Improvement</h2>
+                 <div class="initiative-card status-planned">
+                    <h3>Explore New Market Segment (AI-Identified Opportunity: B2B)</h3>
                     <p class="initiative-owner">Owner: Strategy & Innovation Team</p>
-                    <p>Based on AI insights from combined data and DD, conduct deep-dive market research and feasibility study for entering a new adjacent market segment or launching a new service line.</p>
+                    <p>Based on AI insights from combined data and DD (potential in B2B fleets), conduct deep-dive market research and feasibility study for launching B2B offering.</p>
                     <p class="initiative-kpis">KPIs: Market research & feasibility study complete, Go/No-Go decision presented.</p>
                 </div>
                 <div class="initiative-card status-planned">
                     <h3>Post-Integration Review & Lessons Learned</h3>
                     <p class="initiative-owner">Owner: Integration Lead, Key Stakeholders</p>
-                    <p>Conduct a comprehensive review of the integration process (successes, challenges), document lessons learned, and refine M&A playbook for future acquisitions.</p>
+                    <p>Conduct a comprehensive review of the integration process (successes, challenges across all 6Ps), document lessons learned, and refine M&A playbook.</p>
                     <p class="initiative-kpis">KPIs: Review complete, lessons learned documented, M&A playbook updated.</p>
                 </div>
                 <div class="initiative-card status-planned">
-                    <h3>Customer Feedback Loop Enhancement</h3>
+                    <h3>Customer Feedback Loop Enhancement & CSAT Improvement Plan</h3>
                     <p class="initiative-owner">Owner: Customer Success & Product</p>
-                    <p>Implement enhanced mechanisms for collecting, analyzing, and acting on customer feedback across all product lines and services.</p>
-                    <p class="initiative-kpis">KPIs: New feedback system live, NPS/CSAT trend improvement target.</p>
+                    <p>Implement enhanced mechanisms (e.g., in-app surveys, advisory board) for collecting, analyzing, and acting on customer feedback. Launch plan to address key CSAT drivers.</p>
+                    <p class="initiative-kpis">KPIs: New feedback system live, CSAT trend improvement target +5 points.</p>
                 </div>
             </div>
         </div>
@@ -755,106 +1044,50 @@
         <div class="content-header">
             <h1 id="documents-content-deal-name">Documents Hub</h1>
             <div class="actions">
-                <input type="text" placeholder="Search documents by name, tag, content..." style="padding:0.4rem 0.8rem; border-radius:4px; border:1px solid var(--border-color); font-size:0.9rem; width:250px;">
+                <input type="text" placeholder="Search documents..." style="padding:0.4rem 0.8rem; border-radius:4px; border:1px solid var(--border-color); font-size:0.9rem; width:250px;">
                 <select style="padding:0.4rem 0.8rem; border-radius:4px; border:1px solid var(--border-color); font-size:0.9rem;">
                     <option>Filter by Type</option>
-                    <option>Financial</option>
-                    <option>Legal</option>
-                    <option>Product</option>
-                    <option>HR</option>
-                    <option>Strategy</option>
+                    <option>Financial</option><option>Legal</option><option>Product</option><option>HR</option><option>Strategy</option>
                 </select>
                 <button class="btn btn-primary btn-small"><i class="fas fa-upload"></i> Upload Documents</button>
             </div>
         </div>
         <p style="font-size:0.9rem; color:var(--light-font);">Organize, review, and analyze all deal-related documents. Leverage AI for key insights extraction.</p>
         <table class="documents-table">
-            <thead>
+             <thead>
                 <tr>
-                    <th><input type="checkbox" /></th>
-                    <th>Name & Version</th>
-                    <th>Type/Category</th>
-                    <th>Uploaded By</th>
-                    <th>Date Uploaded</th>
-                    <th>Size</th>
-                    <th>AI Status</th>
-                    <th>Actions</th>
+                    <th><input type="checkbox" /></th><th>Name & Version</th><th>Type/Category</th><th>Uploaded By</th><th>Date</th><th>Size</th><th>AI Status</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Financial Statements Q4 2024_final_v2.pdf</td>
-                    <td>Financial</td>
-                    <td>Sarah Miller (Target)</td>
-                    <td>Apr 15, 2025</td>
-                    <td>2.3 MB</td>
+                    <td><input type="checkbox" /></td><td>Financial Statements Q4 2024_final_v2.pdf</td><td>Financial</td><td>Sarah Miller (Target)</td><td>Apr 15, 2025</td><td>2.3 MB</td>
                     <td><span class="ai-status-dot ai-status-analyzed"></span>Analyzed <i class="fas fa-lightbulb text-success" title="Insights Available"></i></td>
-                    <td>
-                        <button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button>
-                        <button class="btn btn-secondary btn-small" title="AI Summary"><i class="fas fa-robot"></i></button>
-                    </td>
+                    <td><button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button> <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button> <button class="btn btn-secondary btn-small" title="AI Summary"><i class="fas fa-robot"></i></button></td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Key Client Contracts Master Agreement_signed.docx</td>
-                    <td>Legal / Commercial</td>
-                    <td>Alex Chen (Acquirer)</td>
-                    <td>Apr 20, 2025</td>
-                    <td>850 KB</td>
+                    <td><input type="checkbox" /></td><td>Key Client Contracts Master Agreement_signed.docx</td><td>Legal / Commercial</td><td>Alex Chen (Acquirer)</td><td>Apr 20, 2025</td><td>850 KB</td>
                     <td><span class="ai-status-dot ai-status-analyzed"></span>Analyzed</td>
-                    <td>
-                        <button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button>
-                        <button class="btn btn-secondary btn-small" title="AI Summary"><i class="fas fa-robot"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Product Roadmap v3_internal_draft.pptx</td>
-                    <td>Product / Strategy</td>
-                    <td>John Doe (Target Product Lead)</td>
-                    <td>May 01, 2025</td>
-                    <td>5.1 MB</td>
-                    <td><span class="ai-status-dot ai-status-pending"></span>Pending Analysis</td>
-                     <td>
-                        <button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Analyze Now" disabled><i class="fas fa-robot"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Employee Handbook 2024.pdf</td>
-                    <td>HR</td>
-                    <td>Sarah Miller (Target)</td>
-                    <td>May 05, 2025</td>
-                    <td>1.2 MB</td>
-                    <td><span class="ai-status-dot ai-status-error"></span>Analysis Error <i class="fas fa-exclamation-triangle text-danger" title="Unsupported Format or Corrupted"></i></td>
-                     <td>
-                        <button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Retry Analysis"><i class="fas fa-sync-alt"></i></button>
-                    </td>
+                    <td><button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button> <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button> <button class="btn btn-secondary btn-small" title="AI Summary"><i class="fas fa-robot"></i></button></td>
                 </tr>
                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>Market Research - Competitor Landscape Q1 2025.xlsx</td>
-                    <td>Strategy / Market Intel</td>
-                    <td>Alex Chen (Acquirer)</td>
-                    <td>May 07, 2025</td>
-                    <td>3.5 MB</td>
+                    <td><input type="checkbox" /></td><td>Product Roadmap v3_internal_draft.pptx</td><td>Product / Strategy</td><td>John Doe (Target)</td><td>May 01, 2025</td><td>5.1 MB</td>
+                    <td><span class="ai-status-dot ai-status-pending"></span>Pending</td>
+                     <td><button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button> <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button> <button class="btn btn-secondary btn-small" title="Analyze Now" disabled><i class="fas fa-robot"></i></button></td>
+                </tr>
+                 <tr>
+                    <td><input type="checkbox" /></td><td>Employee Handbook 2024.pdf</td><td>HR</td><td>Sarah Miller (Target)</td><td>May 05, 2025</td><td>1.2 MB</td>
+                    <td><span class="ai-status-dot ai-status-error"></span>Error <i class="fas fa-exclamation-triangle text-danger" title="Unsupported Format"></i></td>
+                     <td><button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button> <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button> <button class="btn btn-secondary btn-small" title="Retry Analysis"><i class="fas fa-sync-alt"></i></button></td>
+                </tr>
+                 <tr>
+                    <td><input type="checkbox" /></td><td>Market Research - Competitor Landscape Q1 2025.xlsx</td><td>Strategy / Market</td><td>Alex Chen (Acquirer)</td><td>May 07, 2025</td><td>3.5 MB</td>
                     <td><span class="ai-status-dot ai-status-analyzed"></span>Analyzed <i class="fas fa-lightbulb text-success" title="Insights Available"></i></td>
-                     <td>
-                        <button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button>
-                        <button class="btn btn-secondary btn-small" title="AI Summary"><i class="fas fa-robot"></i></button>
-                    </td>
+                     <td><button class="btn btn-secondary btn-small" title="View Details"><i class="fas fa-eye"></i></button> <button class="btn btn-secondary btn-small" title="Download"><i class="fas fa-download"></i></button> <button class="btn btn-secondary btn-small" title="AI Summary"><i class="fas fa-robot"></i></button></td>
                 </tr>
             </tbody>
         </table>
-        <p style="margin-top:1rem; font-size:0.8rem; color:var(--light-font);">Showing 1-5 of 27 documents. <a href="#">View All</a></p>
+         <p style="margin-top:1rem; font-size:0.8rem; color:var(--light-font);">Showing 1-5 of 27 documents. <a href="#">View All</a></p>
     </template>
 
     <template id="collaboration-content-template">
@@ -873,25 +1106,13 @@
             <div class="collaboration-chat-panel">
                 <h3><i class="fas fa-comments"></i> Deal Discussion Stream</h3>
                 <div class="chat-messages">
-                    <div class="chat-message">
-                        <p><strong>Alex Chen:</strong> @Sarah Miller Quick question on the "Future-Proofing" section of Project. Could we elaborate on the competitive response to Trend X?</p>
-                        <small>May 08, 2025 - 11:30 AM</small>
-                    </div>
-                    <div class="chat-message">
-                        <p><strong>Sarah Miller:</strong> @Alex Chen Good point. I've added some notes to the shared document on our mitigation strategies for Trend X. Also, see attached competitive brief in Documents section.</p>
-                        <small>May 08, 2025 - 11:45 AM</small>
-                    </div>
-                     <div class="chat-message">
-                        <p><strong>AI Assistant <i class="fas fa-robot" style="color:var(--accent-color-ai)"></i>:</strong> New document "Competitive Brief - Trend X Response.pdf" uploaded by Sarah Miller.</p>
-                        <small>May 08, 2025 - 11:46 AM</small>
-                    </div>
-                    <div class="chat-message">
-                        <p><strong>Jane Doe (Acquirer Analyst):</strong> Reviewing the patent portfolio now. Initial thoughts: strong coverage in area Y, potential weakness in Z.</p>
-                        <small>May 08, 2025 - 12:15 PM</small>
-                    </div>
+                    <div class="chat-message"><p><strong>Alex Chen:</strong> @Sarah Miller Quick question on the "Future-Proofing" section of Project. Could we elaborate on the competitive response to Trend X?</p><small>May 08, 2025 - 11:30 AM</small></div>
+                    <div class="chat-message"><p><strong>Sarah Miller:</strong> @Alex Chen Good point. I've added notes to shared doc. Also, see attached competitive brief in Docs.</p><small>May 08, 2025 - 11:45 AM</small></div>
+                     <div class="chat-message"><p><strong>AI Assistant <i class="fas fa-robot" style="color:var(--accent-color-ai)"></i>:</strong> New document "Competitive Brief - Trend X Response.pdf" uploaded by Sarah Miller.</p><small>May 08, 2025 - 11:46 AM</small></div>
+                    <div class="chat-message"><p><strong>Jane Doe:</strong> Reviewing patent portfolio. Initial thoughts: strong coverage in area Y, potential weakness in Z.</p><small>May 08, 2025 - 12:15 PM</small></div>
                 </div>
                 <div class="chat-input">
-                    <textarea rows="2" placeholder="Type your message or @mention someone..."></textarea>
+                    <textarea rows="2" placeholder="Type your message or @mention..."></textarea>
                     <button class="btn btn-primary btn-small" title="Send Message"><i class="fas fa-paper-plane"></i></button>
                     <button class="btn btn-secondary btn-small" title="Attach File"><i class="fas fa-paperclip"></i></button>
                 </div>
@@ -903,12 +1124,7 @@
         <div class="content-header">
             <h1 id="tasks-content-deal-name">Task Board</h1>
             <div class="actions">
-                 <select style="padding:0.4rem 0.8rem; border-radius:4px; border:1px solid var(--border-color); font-size:0.9rem;">
-                    <option>Filter by Assignee</option>
-                    <option>Alex Chen</option>
-                    <option>Sarah Miller</option>
-                    <option>Jane Doe</option>
-                 </select>
+                 <select style="padding:0.4rem 0.8rem; border-radius:4px; border:1px solid var(--border-color); font-size:0.9rem;"><option>Filter by Assignee</option><option>Alex Chen</option><option>Sarah Miller</option><option>Jane Doe</option></select>
                  <button class="btn btn-primary btn-small"><i class="fas fa-plus"></i> New Task</button>
             </div>
         </div>
@@ -916,53 +1132,23 @@
         <div class="tasks-board">
             <div class="task-column">
                 <h3><i class="fas fa-clipboard-list"></i> To Do (5)</h3>
-                <div class="task-card task-priority-high">
-                    <h4>Finalize Financial Model v2</h4>
-                    <p>Integrate latest Q1 actuals and synergy projections.</p>
-                    <p>Due: May 12, 2025 <span class="task-assignee" title="Alex Chen">AC</span></p>
-                </div>
-                <div class="task-card">
-                    <h4>Draft Initial Risk Assessment Report</h4>
-                    <p>Based on 6P findings, particularly Posture and Project.</p>
-                    <p>Due: May 15, 2025 <span class="task-assignee" title="Jane Doe">JD</span></p>
-                </div>
-                <div class="task-card task-priority-medium">
-                    <h4>Schedule Legal Review Call for IP</h4>
-                    <p>Coordinate with internal/external counsel.</p>
-                    <p>Due: May 16, 2025 <span class="task-assignee" title="Alex Chen">AC</span></p>
-                </div>
+                <div class="task-card task-priority-high"><h4>Finalize Financial Model v2</h4><p>Integrate Q1 actuals & synergies.</p><p>Due: May 12, 2025 <span class="task-assignee" title="Alex Chen">AC</span></p></div>
+                <div class="task-card"><h4>Draft Initial Risk Assessment Report</h4><p>Based on 6P findings.</p><p>Due: May 15, 2025 <span class="task-assignee" title="Jane Doe">JD</span></p></div>
+                <div class="task-card task-priority-medium"><h4>Schedule Legal Review Call for IP</h4><p>Coordinate with counsel.</p><p>Due: May 16, 2025 <span class="task-assignee" title="Alex Chen">AC</span></p></div>
             </div>
             <div class="task-column">
                 <h3><i class="fas fa-tasks-alt"></i> In Progress (3)</h3>
-                <div class="task-card task-priority-medium">
-                    <h4>Review Target Co. Key Client Contracts</h4>
-                    <p>Identify change of control clauses, revenue concentration.</p>
-                    <p>Due: May 10, 2025 <span class="task-assignee" title="Sarah Miller (Target)">SM</span></p>
-                </div>
-                 <div class="task-card">
-                    <h4>Prepare Tech Stack Inventory & Gap Analysis</h4>
-                    <p>Document all current systems at Target Co.</p>
-                    <p>Due: May 14, 2025 <span class="task-assignee" title="Tech Lead (Target)">TL</span></p>
-                </div>
+                <div class="task-card task-priority-medium"><h4>Review Target Co. Key Client Contracts</h4><p>Check change of control clauses.</p><p>Due: May 10, 2025 <span class="task-assignee" title="Sarah Miller (Target)">SM</span></p></div>
+                 <div class="task-card"><h4>Prepare Tech Stack Inventory</h4><p>Document current systems.</p><p>Due: May 14, 2025 <span class="task-assignee" title="Tech Lead (Target)">TL</span></p></div>
             </div>
             <div class="task-column">
                 <h3><i class="fas fa-clipboard-check"></i> In Review (1)</h3>
-                 <div class="task-card">
-                    <h4>Market Sizing & Competitor Analysis Report</h4>
-                    <p>Submitted by Mark K. Awaiting Alex C.'s review.</p>
-                    <p>Due: May 08, 2025 <span class="task-assignee" title="Mark K.">MK</span></p>
-                </div>
+                 <div class="task-card"><h4>Market Sizing Analysis Report</h4><p>Submitted by Mark K.</p><p>Due: May 08, 2025 <span class="task-assignee" title="Mark K.">MK</span></p></div>
             </div>
             <div class="task-column">
                 <h3><i class="fas fa-check-double"></i> Done (8)</h3>
-                <div class="task-card" style="opacity:0.7;">
-                    <h4>Upload NDA Documents to Data Room</h4>
-                    <p>Completed: May 01, 2025 <span class="task-assignee" title="Alex Chen">AC</span></p>
-                </div>
-                 <div class="task-card" style="opacity:0.7;">
-                    <h4>Initial Call with Target Co. Management</h4>
-                    <p>Completed: Apr 28, 2025 <span class="task-assignee" title="Alex Chen">AC</span></p>
-                </div>
+                <div class="task-card" style="opacity:0.7;"><h4>Upload NDA Documents</h4><p>Completed: May 01 <span class="task-assignee" title="Alex Chen">AC</span></p></div>
+                 <div class="task-card" style="opacity:0.7;"><h4>Initial Call with Target Mgmt</h4><p>Completed: Apr 28 <span class="task-assignee" title="Alex Chen">AC</span></p></div>
             </div>
         </div>
     </template>
@@ -976,46 +1162,11 @@
         </div>
         <p style="font-size:0.9rem; color:var(--light-font);">Manage access and roles for individuals involved in the <strong id="team-deal-name-placeholder">Target Alpha Inc.</strong> due diligence process.</p>
         <div class="team-grid">
-            <div class="team-member-card">
-                <span class="avatar-placeholder">AC</span>
-                <h3>Alex Chen</h3>
-                <p class="role">Acquirer Lead</p>
-                <p>alex.chen@acquirer.com</p>
-                <p><small><i class="fas fa-key"></i> Full Access, Admin</small></p>
-                <button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button>
-            </div>
-            <div class="team-member-card">
-                <span class="avatar-placeholder">SM</span>
-                <h3>Sarah Miller</h3>
-                <p class="role">Target CEO</p>
-                <p>sarah.miller@targetco.com</p>
-                <p><small><i class="fas fa-pencil-alt"></i> Contributor (Project, People, Documents)</small></p>
-                 <button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button>
-            </div>
-            <div class="team-member-card">
-                <span class="avatar-placeholder">JD</span>
-                <h3>Jane Doe</h3>
-                <p class="role">Acquirer Analyst</p>
-                <p>jane.doe@acquirer.com</p>
-                <p><small><i class="fas fa-edit"></i> Editor (All Sections)</small></p>
-                 <button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button>
-            </div>
-            <div class="team-member-card">
-                <span class="avatar-placeholder">TL</span>
-                <h3>Tech Lead (Target Co.)</h3>
-                <p class="role">Target Technical Contact</p>
-                <p>tech.lead@targetco.com</p>
-                <p><small><i class="fas fa-pencil-alt"></i> Contributor (Product, Processes)</small></p>
-                 <button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button>
-            </div>
-            <div class="team-member-card">
-                <span class="avatar-placeholder">LG</span>
-                <h3>Legal Counsel (Acquirer)</h3>
-                <p class="role">Acquirer Legal</p>
-                <p>legal@acquirer.com</p>
-                <p><small><i class="fas fa-eye"></i> Viewer (Documents, Posture)</small></p>
-                 <button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button>
-            </div>
+            <div class="team-member-card"><span class="avatar-placeholder">AC</span><h3>Alex Chen</h3><p class="role">Acquirer Lead</p><p>alex.chen@acquirer.com</p><p><small><i class="fas fa-key"></i> Full Access, Admin</small></p><button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button></div>
+            <div class="team-member-card"><span class="avatar-placeholder">SM</span><h3>Sarah Miller</h3><p class="role">Target CEO</p><p>sarah.miller@targetco.com</p><p><small><i class="fas fa-pencil-alt"></i> Contributor (Project, People, Docs)</small></p><button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button></div>
+            <div class="team-member-card"><span class="avatar-placeholder">JD</span><h3>Jane Doe</h3><p class="role">Acquirer Analyst</p><p>jane.doe@acquirer.com</p><p><small><i class="fas fa-edit"></i> Editor (All Sections)</small></p><button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button></div>
+            <div class="team-member-card"><span class="avatar-placeholder">TL</span><h3>Tech Lead (Target)</h3><p class="role">Target Technical Contact</p><p>tech.lead@targetco.com</p><p><small><i class="fas fa-pencil-alt"></i> Contributor (Product, Processes)</small></p><button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button></div>
+            <div class="team-member-card"><span class="avatar-placeholder">LG</span><h3>Legal Counsel (Acquirer)</h3><p class="role">Acquirer Legal</p><p>legal@acquirer.com</p><p><small><i class="fas fa-eye"></i> Viewer (Documents, Posture)</small></p><button class="btn btn-secondary btn-small" style="margin-top:0.5rem;">Edit Permissions</button></div>
         </div>
     </template>
 
@@ -1029,36 +1180,12 @@
         <p style="font-size:0.9rem; color:var(--light-font);">Generate, view, and export key reports for <strong id="reports-deal-name-placeholder">Target Alpha Inc.</strong></p>
         <h3>Available Report Templates</h3>
         <div class="reports-grid">
-            <div class="report-card">
-                <h3><i class="fas fa-file-invoice-dollar"></i> Due Diligence Summary</h3>
-                <p>Comprehensive overview of the 6P assessment findings, key risks, opportunities, and red flags. Customizable sections.</p>
-                <button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button>
-            </div>
-            <div class="report-card">
-                <h3><i class="fas fa-shield-alt"></i> Risk Assessment Matrix</h3>
-                <p>Detailed matrix of identified risks, their probability, impact, mitigation strategies, and owners. Exportable to Excel.</p>
-                <button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button>
-            </div>
-            <div class="report-card">
-                <h3><i class="fas fa-map-signs"></i> Transformation Masterplan</h3>
-                <p>The collaboratively built post-acquisition transformation plan with initiatives, timelines, owners, and KPIs. Visual and tabular formats.</p>
-                <button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button>
-            </div>
-             <div class="report-card">
-                <h3><i class="fas fa-bullseye"></i> Project Pillar Deep Dive</h3>
-                <p>Specific detailed report on the Project (Core DNA) assessment, including all inputs, AI insights, and comments.</p>
-                <button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button>
-            </div>
-             <div class="report-card">
-                <h3><i class="fas fa-users"></i> People Pillar Deep Dive</h3>
-                <p>Detailed report on People (Social Architecture), covering culture, leadership, and talent systems.</p>
-                <button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button>
-            </div>
-             <div class="report-card">
-                <h3><i class="fas fa-chart-line"></i> Performance Snapshot</h3>
-                <p>Key financial and operational KPIs from the Performance pillar, with trend analysis if data available.</p>
-                <button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button>
-            </div>
+            <div class="report-card"><h3><i class="fas fa-file-invoice-dollar"></i> Due Diligence Summary</h3><p>Comprehensive overview of 6P findings, risks, opportunities. Customizable.</p><button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button></div>
+            <div class="report-card"><h3><i class="fas fa-shield-alt"></i> Risk Assessment Matrix</h3><p>Detailed matrix of risks, probability, impact, mitigations. Exportable.</p><button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button></div>
+            <div class="report-card"><h3><i class="fas fa-map-signs"></i> Transformation Masterplan</h3><p>The post-acquisition plan with initiatives, timelines, owners, KPIs.</p><button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button></div>
+             <div class="report-card"><h3><i class="fas fa-bullseye"></i> Project Pillar Deep Dive</h3><p>Specific detailed report on the Project (Core DNA) assessment.</p><button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button></div>
+             <div class="report-card"><h3><i class="fas fa-users"></i> People Pillar Deep Dive</h3><p>Detailed report on People (Social Architecture), covering culture, leadership, talent.</p><button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button></div>
+             <div class="report-card"><h3><i class="fas fa-chart-line"></i> Performance Snapshot</h3><p>Key financial and operational KPIs from the Performance pillar.</p><button class="btn btn-primary btn-small"><i class="fas fa-cogs"></i> Configure & Generate</button></div>
         </div>
         <div style="margin-top:2rem;">
             <h3><i class="fas fa-archive"></i> Recently Generated Reports</h3>
@@ -1093,6 +1220,12 @@
         }
 
         function loadDealLayout(dealName) {
+            // Only proceed if it's the detailed example deal
+            if (dealName !== 'Target Alpha Inc.') {
+                alert('Detailed view for ' + dealName + ' is not implemented in this mockup.');
+                return;
+            }
+
             currentDealNameGlobal = dealName;
             if(leftNavDealName) leftNavDealName.textContent = dealName;
 
@@ -1100,48 +1233,76 @@
                 dashboardPage.classList.remove('active-page');
                 mainAppLayout.classList.add('active-page');
             }
-            const initialButton = document.querySelector('#left-main-nav button[data-template="project-content"]');
-            loadContent('project-content', initialButton || document.querySelector('#left-main-nav button'));
+            // Load initial content for the deal (first P: Project)
+            const initialButton = document.querySelector('#left-main-nav button[data-template="p-project-content"]');
+             if (initialButton) {
+                 loadContent('p-project-content', initialButton);
+             } else {
+                 // Fallback if button not found (should not happen with current setup)
+                 console.error("Initial button for Project content not found.");
+             }
         }
 
         function loadContent(templateIdSuffix, clickedButton) {
-            if (mainContentDisplay) {
-                const template = document.getElementById(`${templateIdSuffix}-template`);
-                if (template) {
-                    mainContentDisplay.innerHTML = template.innerHTML;
-                    // Update dynamic deal names within the loaded content
-                    mainContentDisplay.querySelectorAll('[id$="-deal-name"], [id$="-deal-name-placeholder"]').forEach(el => {
-                        const baseTextMatch = el.id.match(/^(.*?)(-deal-name|-deal-name-placeholder)$/);
-                        const baseText = baseTextMatch ? baseTextMatch[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : ''; // e.g. "Project Content"
+            if (!mainContentDisplay) return;
 
-                        if (el.id.includes("placeholder")) { // For simple span placeholders
-                            el.textContent = currentDealNameGlobal;
-                        } else { // For H1 titles
-                             el.textContent = `${currentDealNameGlobal} - ${baseText}`;
-                             if (templateIdSuffix === 'project-content' && baseText === 'Project Content') el.textContent = `Project (Core DNA)`; // Specific title for project
-                             if (templateIdSuffix === 'roadmap-content' && baseText === 'Roadmap Content') el.textContent = `${currentDealNameGlobal} - Transformation Roadmap`;
-                             if (templateIdSuffix === 'documents-content' && baseText === 'Documents Content') el.textContent = `${currentDealNameGlobal} - Documents Hub`;
-                             if (templateIdSuffix === 'collaboration-content' && baseText === 'Collaboration Content') el.textContent = `${currentDealNameGlobal} - Collaboration Hub`;
-                             if (templateIdSuffix === 'tasks-content' && baseText === 'Tasks Content') el.textContent = `${currentDealNameGlobal} - Task Board`;
-                             if (templateIdSuffix === 'team-content' && baseText === 'Team Content') el.textContent = `${currentDealNameGlobal} - Deal Team`;
-                             if (templateIdSuffix === 'reports-content' && baseText === 'Reports Content') el.textContent = `${currentDealNameGlobal} - Reporting Center`;
-                        }
-                    });
-                     mainContentDisplay.querySelectorAll('.current-deal-breadcrumb').forEach(el => {
-                        el.textContent = currentDealNameGlobal;
-                    });
+            const template = document.getElementById(`${templateIdSuffix}-template`);
+            if (template) {
+                mainContentDisplay.innerHTML = template.innerHTML;
+                updateDynamicContent(); // Update deal names etc.
 
-                    document.querySelectorAll('#left-main-nav button').forEach(btn => btn.classList.remove('active'));
-                    if (clickedButton) {
-                        clickedButton.classList.add('active');
-                    }
-                } else {
-                    mainContentDisplay.innerHTML = `<div class="content-header"><h1>Error</h1></div><p>Content template for "${templateIdSuffix}" not found.</p>`;
+                // Update active state for left nav
+                document.querySelectorAll('#left-main-nav button').forEach(btn => btn.classList.remove('active'));
+                if (clickedButton) {
+                    clickedButton.classList.add('active');
                 }
+
+            } else {
+                 mainContentDisplay.innerHTML = `<div class="content-header"><h1>${formatTitle(templateIdSuffix)}</h1></div><p>Content for ${formatTitle(templateIdSuffix)} is under construction.</p>`;
+                 // Still update active state
+                 document.querySelectorAll('#left-main-nav button').forEach(btn => btn.classList.remove('active'));
+                 if (clickedButton) clickedButton.classList.add('active');
             }
-            if (mainContentDisplay) mainContentDisplay.scrollTop = 0;
+
+            if (mainContentDisplay) mainContentDisplay.scrollTop = 0; // Scroll content area to top
         }
 
+        // Helper to update dynamic content after loading template
+        function updateDynamicContent() {
+             mainContentDisplay.querySelectorAll('[id$="-deal-name"], [id$="-deal-name-placeholder"]').forEach(el => {
+                const baseTextMatch = el.id.match(/^(.*?)(-deal-name|-deal-name-placeholder)$/);
+                let baseText = baseTextMatch ? formatTitle(baseTextMatch[1]) : '';
+
+                if (el.id.includes("placeholder")) {
+                    el.textContent = currentDealNameGlobal;
+                } else { // For H1 titles - Keep original title from Template if specific enough
+                    const h1Title = el.closest('.content-header')?.querySelector('h1');
+                    if (!h1Title || h1Title.textContent.includes('Content')) { // Only override generic titles
+                         el.textContent = `${currentDealNameGlobal} - ${baseText}`;
+                    }
+                 }
+            });
+             mainContentDisplay.querySelectorAll('.current-deal-breadcrumb').forEach(el => {
+                el.textContent = currentDealNameGlobal;
+            });
+        }
+
+         // Helper to format template IDs into titles
+        function formatTitle(idSuffix) {
+            // Specific overrides for P-templates
+            if (idSuffix === 'p-project-content') return 'Project (Core DNA)';
+            if (idSuffix === 'p-people-content') return 'People (Social Architecture)';
+            if (idSuffix === 'p-product-content') return 'Product (Innovation & IP)';
+            if (idSuffix === 'p-processes-content') return 'Processes (Dynamic Work Graph)';
+            if (idSuffix === 'p-performance-content') return 'Performance (Quest for Success)';
+            if (idSuffix === 'p-posture-content') return 'Posture (Mindful Self-Regulation)';
+
+            // General formatting
+             return idSuffix.replace('-content', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+
+        // Initial Load
         document.addEventListener('DOMContentLoaded', () => {
             navigateToSection('dashboard-page');
         });
