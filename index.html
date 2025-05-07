@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVIDENT 6P Horizon Strategist - Mockup</title>
+    <title>6P Horizon Strategist - Mockup (White Theme)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Basic Reset & Body */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            background-color: #F4F7F6; /* Light grayish background */
-            color: #333;
+            background-color: rgb(230, 255, 0); /* Bright Yellow/Lime border margin color */
+            color: #212121; /* Dark font color */
             line-height: 1.6;
+            padding: 20px; /* This creates the "border margin" effect */
+            display: flex; /* For centering app-wrapper if needed, and footer */
+            flex-direction: column;
+            min-height: calc(100vh - 40px); /* Adjust for body padding */
+        }
+
+        #app-wrapper {
+            background-color: #FFFFFF; /* White app background */
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
+            border-radius: 8px; /* Optional: rounded corners for the app wrapper */
+            overflow: hidden; /* Ensures children conform to rounded corners */
         }
 
         a { text-decoration: none; color: #007bff; }
@@ -23,23 +34,56 @@
 
         /* Header */
         .main-header {
-            background-color: #1A237E; /* Deep Blue */
-            color: white;
-            padding: 1rem 2rem;
+            background-color: #FFFFFF; /* White header background */
+            color: #212121; /* Dark text for header */
+            padding: 0.8rem 1.5rem; /* Adjusted padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #E0E0E0; /* Light border for separation */
             position: sticky;
-            top: 0;
+            top: 0; /* Sticky within app-wrapper if #app-wrapper is scrollable */
             z-index: 1000;
         }
-        .logo { font-size: 1.5rem; font-weight: bold; cursor: pointer;}
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .logo-placeholder {
+            width: 120px; /* Adjust as needed */
+            height: 40px; /* Adjust as needed */
+            background-color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #757575;
+            margin-right: 1.5rem; /* Space between logo and title */
+            border-radius: 4px;
+        }
+        .app-title { /* Formerly .logo */
+            font-size: 1.4rem; /* Slightly smaller if logo takes space */
+            font-weight: bold;
+            cursor: pointer;
+            color: #1A237E; /* Keep brand color for title */
+        }
         .top-nav { display: flex; align-items: center; gap: 1.5rem; }
-        .global-search { padding: 0.5rem; border-radius: 4px; border: 1px solid #4A56A8; background-color: #2F3A94; color: white;}
-        .nav-icon { font-size: 1.2rem; color: white; position: relative; cursor: pointer;}
+        .global-search {
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #BDBDBD;
+            background-color: #F5F5F5;
+            color: #212121;
+        }
+        .nav-icon {
+            font-size: 1.2rem;
+            color: #555555; /* Darker icon color */
+            position: relative;
+            cursor: pointer;
+        }
+        .nav-icon:hover { color: #1A237E; }
         .badge {
-            background-color: #FF3B30; /* Red for notifications */
+            background-color: #D32F2F; /* Keep notification badge distinct */
             color: white;
             border-radius: 50%;
             padding: 0.1em 0.4em;
@@ -48,11 +92,12 @@
             top: -5px;
             right: -8px;
         }
-        .user-profile { display: flex; align-items: center; gap: 0.5rem; cursor: pointer;}
+        .user-profile { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #212121;}
         .avatar-placeholder {
-            width: 30px; height: 30px; border-radius: 50%; background-color: #757575;
+            width: 30px; height: 30px; border-radius: 50%; background-color: #BDBDBD; /* Lighter grey for placeholder */
             display: inline-flex; align-items: center; justify-content: center;
             font-size: 0.8rem;
+            color: #FFFFFF;
         }
 
 
@@ -63,44 +108,42 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background-color 0.2s ease-in-out;
-            display: inline-flex; /* For icon alignment */
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem; /* Space between icon and text */
+            gap: 0.5rem;
         }
-        .btn i { font-size: 0.9em; } /* Adjust icon size within button */
-        .btn-primary { background-color: #009688; /* Teal Accent */ color: white; }
-        .btn-primary:hover { background-color: #00796B; }
-        .btn-secondary { background-color: #E0E0E0; color: #333; }
-        .btn-secondary:hover { background-color: #BDBDBD; }
+        .btn i { font-size: 0.9em; }
+        .btn-primary { background-color: #00897B; /* Slightly darker teal for better contrast on white */ color: white; }
+        .btn-primary:hover { background-color: #00695C; }
+        .btn-secondary { background-color: #E0E0E0; color: #333; border: 1px solid #BDBDBD;}
+        .btn-secondary:hover { background-color: #D4D4D4; }
         .btn-small { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
-        .btn-ai-accept { background-color: #66BB6A; color:white; margin-right:0.5rem;}
-        .btn-ai-accept:hover { background-color: #4CAF50; }
-        .btn-ai-dismiss { background-color: #FF7043; color:white; }
-        .btn-ai-dismiss:hover { background-color: #F4511E; }
+        .btn-ai-accept { background-color: #558B2F; color:white; margin-right:0.5rem;} /* Darker green */
+        .btn-ai-accept:hover { background-color: #33691E; }
+        .btn-ai-dismiss { background-color: #D84315; color:white; } /* Darker orange/red */
+        .btn-ai-dismiss:hover { background-color: #BF360C; }
 
-        /* Main App Container */
+        /* Main App Container (within #app-wrapper) */
         #app-container {
-            flex-grow: 1; /* Takes remaining vertical space */
+            flex-grow: 1;
             width: 100%;
+            background-color: #FFFFFF; /* Ensure app container itself is white */
         }
         .page {
-            display: none; /* Hidden by default */
+            display: none;
             animation: fadeIn 0.5s;
+            background-color: #FFFFFF; /* Each page section background */
+            min-height: 100%; /* Ensure page takes up space */
         }
-        .page.active-page {
-            display: block; /* Show active page */
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .page.active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Dashboard Page */
         .dashboard-container {
-            padding: 2rem;
+            padding: 1.5rem; /* Slightly reduced padding */
             display: grid;
-            gap: 2rem;
+            gap: 1.5rem;
             grid-template-areas:
                 "header header"
                 "stats stats"
@@ -114,9 +157,9 @@
             justify-content: space-between;
             align-items: center;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #DDD;
+            border-bottom: 1px solid #E0E0E0;
         }
-        .dashboard-header h1 { margin: 0; color: #1A237E; }
+        .dashboard-header h1 { margin: 0; color: #1A237E; font-size: 1.8rem; }
         .quick-stats {
             grid-area: stats;
             display: flex;
@@ -124,20 +167,20 @@
             justify-content: space-around;
         }
         .stat-card {
-            background-color: white;
+            background-color: #FFFFFF;
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            border: 1px solid #E0E0E0; /* Add border to cards on white bg */
             text-align: center;
             flex-grow: 1;
         }
-        .stat-card h2 { margin-top: 0; font-size: 1rem; color: #757575; }
+        .stat-card h2 { margin-top: 0; font-size: 1rem; color: #555555; }
         .stat-value { font-size: 2rem; font-weight: bold; color: #1A237E; margin-bottom: 0;}
-        .active-deals { grid-area: deals; background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-        .active-deals h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #009688; padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        .active-deals { grid-area: deals; background-color: #FFFFFF; padding: 1.5rem; border-radius: 6px; border: 1px solid #E0E0E0;}
+        .active-deals h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #00897B; padding-bottom: 0.5rem; margin-bottom: 1rem;}
         .deal-card {
-            background-color: #F9F9F9;
-            border: 1px solid #EEE;
+            background-color: #F9F9F9; /* Light grey for card distinctness */
+            border: 1px solid #E0E0E0;
             padding: 1rem;
             margin-bottom: 1rem;
             border-radius: 6px;
@@ -146,40 +189,40 @@
             align-items: center;
             transition: box-shadow 0.2s ease;
         }
-        .deal-card:hover { box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .deal-card:hover { box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
         .deal-info h3 { margin: 0 0 0.3rem 0; color: #007bff; cursor: pointer;}
-        .deal-info p { margin: 0; font-size: 0.9rem; color: #555; }
+        .deal-info p { margin: 0; font-size: 0.9rem; color: #424242; }
         .progress-bar-container { width: 150px; height: 10px; background-color: #E0E0E0; border-radius: 5px; overflow: hidden; }
-        .progress-bar { height: 100%; background-color: #009688; /* Teal */ border-radius: 5px; font-size: 0.7rem; color: white; text-align: center; line-height: 10px;}
+        .progress-bar { height: 100%; background-color: #00897B; /* Darker Teal */ border-radius: 5px; font-size: 0.7rem; color: white; text-align: center; line-height: 10px;}
         .deal-actions { display: flex; align-items: center; gap: 0.5rem; }
-        .risk-flag { color: #D32F2F; font-weight: bold; font-size:0.9rem; } /* Red for risk */
-        .opportunity-flag { color: #FFC107; font-weight:bold; font-size:0.9rem; } /* Amber for opportunity */
+        .risk-flag { color: #C62828; font-weight: bold; font-size:0.9rem; } /* Darker Red for risk */
+        .opportunity-flag { color: #FF8F00; font-weight:bold; font-size:0.9rem; } /* Darker Amber for opportunity */
         .sidebar-tasks-activity { grid-area: sidebar; display: flex; flex-direction: column; gap: 1.5rem; }
-        .my-tasks, .recent-activity-dashboard { background-color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-        .my-tasks h2, .recent-activity-dashboard h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #009688; padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        .my-tasks, .recent-activity-dashboard { background-color: #FFFFFF; padding: 1.5rem; border-radius: 6px; border: 1px solid #E0E0E0;}
+        .my-tasks h2, .recent-activity-dashboard h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #00897B; padding-bottom: 0.5rem; margin-bottom: 1rem;}
         .my-tasks ul, .recent-activity-dashboard ul { list-style: none; padding: 0; margin: 0; }
-        .my-tasks li, .recent-activity-dashboard li { margin-bottom: 0.75rem; font-size: 0.9rem; padding-left:10px; border-left:3px solid #757575;}
-        .my-tasks li a { color: #333; }
+        .my-tasks li, .recent-activity-dashboard li { margin-bottom: 0.75rem; font-size: 0.9rem; padding-left:10px; border-left:3px solid #9E9E9E;}
+        .my-tasks li a { color: #212121; }
 
         /* Deal Workspace & 6P Overview Page */
-        .deal-workspace-page-container { /* Renamed to avoid conflict */
+        .deal-workspace-page-container {
             display: grid;
-            grid-template-columns: 220px 1fr auto; /* Nav, Main, Sidebar */
+            grid-template-columns: 220px 1fr auto;
             grid-template-areas: "subnav main sidebar";
             gap: 1.5rem;
             padding: 1.5rem;
-            /* height: calc(100vh - 60px - 40px); Full height minus header and footer */
+            background-color: #FFFFFF;
         }
         .deal-sub-nav {
             grid-area: subnav;
-            background-color: white;
+            background-color: #F9F9F9; /* Light grey for nav distinctness */
             padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
             display: flex;
             flex-direction: column;
         }
-        .deal-sub-nav a, .deal-sub-nav button { /* Treat buttons like nav links for styling */
+        .deal-sub-nav a, .deal-sub-nav button {
             padding: 0.8rem 1rem;
             color: #333;
             border-radius: 4px;
@@ -194,95 +237,91 @@
         }
         .deal-sub-nav a.active, .deal-sub-nav button.active,
         .deal-sub-nav a:hover, .deal-sub-nav button:hover {
-            background-color: #E3F2FD; /* Light blue */
-            color: #1A237E; /* Dark Blue */
+            background-color: #E0F2F1; /* Light teal for active/hover */
+            color: #00695C; /* Darker teal text */
             font-weight: bold;
             text-decoration: none;
         }
         .deal-main-content {
             grid-area: main;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            background-color: #FFFFFF;
+            padding: 1.5rem; /* Reduced padding */
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
             overflow-y: auto;
         }
         .deal-main-header h1 {
             color: #1A237E;
+            font-size: 1.6rem; /* Adjusted size */
             margin-top: 0;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid #009688;
+            border-bottom: 2px solid #00897B;
             padding-bottom: 0.5rem;
         }
         .six-p-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Slightly smaller minmax */
+            gap: 1rem; /* Reduced gap */
         }
         .p-card {
-            background-color: #F9FAFB;
-            border: 1px solid #E5E7EB;
-            border-left: 5px solid; /* Pillar specific color */
-            padding: 1.5rem;
-            border-radius: 8px;
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-left: 5px solid;
+            padding: 1.2rem; /* Adjusted padding */
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+        /* Pillar specific border colors (already defined, should be fine) */
         .p-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-3px); /* Reduced hover effect */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
         }
-        .p-card.project { border-left-color: #EF5350; } /* Red */
-        .p-card.people { border-left-color: #42A5F5; } /* Blue */
-        .p-card.product { border-left-color: #66BB6A; } /* Green */
-        .p-card.processes { border-left-color: #FFA726; } /* Orange */
-        .p-card.performance { border-left-color: #AB47BC; } /* Purple */
-        .p-card.posture { border-left-color: #78909C; } /* Blue Grey */
         .p-card-header { display: flex; align-items: center; margin-bottom: 0.5rem; }
-        .p-icon { font-size: 1.8rem; margin-right: 0.8rem; width:30px; text-align:center; }
-        .p-card.project .p-icon { color: #EF5350; }
-        .p-card.people .p-icon { color: #42A5F5; }
-        .p-card.product .p-icon { color: #66BB6A; }
-        .p-card.processes .p-icon { color: #FFA726; }
-        .p-card.performance .p-icon { color: #AB47BC; }
-        .p-card.posture .p-icon { color: #78909C; }
-        .p-card h2 { font-size: 1.2rem; margin: 0; color: #1A237E; }
-        .p-description { font-size: 0.85rem; color: #555; flex-grow: 1; margin-bottom: 1rem; }
-        .p-status { font-size: 0.8rem; color: #757575; margin-bottom: 1rem; }
-        .p-status span { margin-right: 0.8rem; display:inline-block; }
-        .ai-insight-flag { color: #009688; font-weight: bold; } /* Teal for AI insights */
-        .risk-flag-pillar { color: #D32F2F; font-weight: bold; }
+        .p-icon { font-size: 1.6rem; margin-right: 0.8rem; width:28px; text-align:center; }
+        .p-card h2 { font-size: 1.1rem; margin: 0; color: #1A237E; }
+        .p-description { font-size: 0.8rem; color: #424242; flex-grow: 1; margin-bottom: 0.8rem; }
+        .p-status { font-size: 0.75rem; color: #555555; margin-bottom: 0.8rem; }
+        .p-status span { margin-right: 0.8rem; display:inline-flex; align-items:center; gap: 0.3rem; }
+        .p-status .progress-bar { font-size: 0.65rem;}
+        .ai-insight-flag { color: #00897B; font-weight: bold; }
+        .risk-flag-pillar { color: #C62828; font-weight: bold; }
         .p-action { align-self: flex-start; }
+
         .deal-sidebar {
             grid-area: sidebar;
-            background-color: white;
+            background-color: #F9F9F9; /* Light grey for sidebar distinctness */
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
             overflow-y: auto;
-            width: 280px; /* Fixed width for sidebar */
+            width: 260px; /* Adjusted width */
         }
         .key-deal-info h3, .ai-summary-widget h3, .deal-recent-activity h3 {
             margin-top: 0;
             color: #1A237E;
-            font-size: 1rem;
-            border-bottom: 1px solid #EEE;
+            font-size: 0.9rem; /* Slightly smaller sidebar headers */
+            border-bottom: 1px solid #E0E0E0;
             padding-bottom: 0.5rem;
             margin-bottom: 0.8rem;
         }
-        .key-deal-info p { margin: 0.3rem 0; font-size: 0.9rem; }
-        .ai-summary-widget .fa-brain { color: #009688; margin-right: 0.3rem;}
-        .ai-insight-text { font-size: 0.85rem; font-style: italic; color: #424242; background-color: #E0F2F1; padding: 0.5rem; border-radius:4px; border-left: 3px solid #009688;}
+        .key-deal-info p { margin: 0.3rem 0; font-size: 0.85rem; color: #212121;}
+        .ai-summary-widget .fa-brain { color: #00897B; margin-right: 0.3rem;}
+        .ai-insight-text {
+            font-size: 0.8rem; font-style: italic; color: #212121;
+            background-color: #E0F2F1; padding: 0.5rem; border-radius:4px;
+            border-left: 3px solid #00897B;
+        }
         .deal-recent-activity ul { list-style: none; padding: 0; margin: 0; }
-        .deal-recent-activity li { margin-bottom: 0.5rem; font-size: 0.85rem; color: #555; }
+        .deal-recent-activity li { margin-bottom: 0.5rem; font-size: 0.8rem; color: #424242; }
 
         /* Project Assessment Page */
-        .module-assessment-content { padding: 1.5rem; }
-        .breadcrumbs { font-size: 0.9rem; color: #555; margin-bottom: 1rem; }
+        .module-assessment-content { padding: 1.5rem; background-color: #FFFFFF;}
+        .breadcrumbs { font-size: 0.85rem; color: #555555; margin-bottom: 1rem; }
         .breadcrumbs a { color: #007bff; }
         .module-header-actions {
             display: flex;
@@ -290,26 +329,25 @@
             align-items: center;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #DDD;
+            border-bottom: 1px solid #E0E0E0;
         }
-        .module-header-actions h1 { margin: 0; display:flex; align-items:center; gap:0.5rem; }
-        .module-header-actions h1 .p-icon.project { color: #EF5350; } /* Ensure icon color */
-        .module-progress { font-size: 0.9rem; color: #757575; margin-right: 1rem; }
-        .header-buttons { display: flex; gap: 0.5rem; }
+        .module-header-actions h1 { margin: 0; display:flex; align-items:center; gap:0.5rem; color: #1A237E; font-size: 1.5rem;}
+        .module-header-actions h1 .p-icon.project { color: #EF5350; }
+        .module-progress { font-size: 0.9rem; color: #555555; margin-right: 1rem; }
         .assessment-layout {
             display: grid;
-            grid-template-columns: 2.5fr 1fr; /* Main assessment area and sidebar */
+            grid-template-columns: 2.5fr 1fr;
             gap: 1.5rem;
         }
         .assessment-main {
-            background-color: #fff; /* White background for assessment area */
+            background-color: #FFFFFF;
             padding:1.5rem;
             border-radius:6px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
         }
         .tab-navigation {
             display: flex;
-            border-bottom: 2px solid #009688; /* Teal underline for active area */
+            border-bottom: 2px solid #00897B;
             margin-bottom: 1.5rem;
         }
         .tab-button {
@@ -317,25 +355,25 @@
             border: none;
             background-color: transparent;
             cursor: pointer;
-            font-size: 1rem;
-            color: #757575;
-            border-bottom: 2px solid transparent; /* For inactive state */
-            margin-bottom: -2px; /* To align with the main border */
+            font-size: 0.95rem; /* Adjusted size */
+            color: #555555;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
             transition: color 0.2s, border-color 0.2s;
         }
         .tab-button.active, .tab-button:hover {
-            color: #009688; /* Teal */
+            color: #00897B;
             font-weight: bold;
-            border-bottom-color: #009688;
+            border-bottom-color: #00897B;
         }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         .assessment-item {
             margin-bottom: 2rem;
             padding: 1rem;
-            background-color: #F9FAFB;
+            background-color: #F9F9F9; /* Light grey for item distinctness */
             border-radius: 4px;
-            border: 1px solid #E5E7EB;
+            border: 1px solid #E0E0E0;
         }
         .assessment-item label {
             display: block;
@@ -346,16 +384,18 @@
         .input-area {
             position: relative;
             display: flex;
-            align-items: flex-start; /* Align textarea and button nicely */
+            align-items: flex-start;
         }
         .input-area textarea {
-            width: calc(100% - 40px); /* Adjust width to make space for button */
+            width: calc(100% - 40px);
             padding: 0.8rem;
-            border: 1px solid #CCC;
+            border: 1px solid #BDBDBD; /* Slightly darker border */
             border-radius: 4px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             min-height: 80px;
+            background-color: #FFFFFF;
+            color: #212121;
         }
         .input-area .comment-btn {
             background: transparent;
@@ -364,437 +404,453 @@
             font-size: 1.2rem;
             padding: 0.5rem;
             cursor: pointer;
-            margin-left: 0.5rem; /* Space from textarea */
+            margin-left: 0.5rem;
             position:relative;
         }
         .input-area .comment-btn .badge { top: 0px; right: -2px; font-size:0.6rem; }
         .input-area .comment-btn:hover { color: #007bff; }
         .ai-assist-panel {
-            background-color: #E0F2F1; /* Light Teal */
-            border: 1px solid #B2DFDB;
-            border-left: 4px solid #009688; /* Teal accent */
+            background-color: #E0F2F1;
+            border: 1px solid #A7FFEB; /* Lighter teal border */
+            border-left: 4px solid #00897B;
             padding: 1rem;
             margin-top: 0.8rem;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem; /* Adjusted size */
+            color: #212121;
         }
-        .ai-assist-panel h4 { margin-top: 0; color: #00796B; font-size:0.9rem; }
-        .ai-assist-panel p em { font-style:normal; background-color: #FFFDE7; padding:0.1rem 0.3rem; border-radius:3px;}
+        .ai-assist-panel h4 { margin-top: 0; color: #00695C; font-size:0.85rem; }
+        .ai-assist-panel p em { font-style:normal; background-color: #FFF9C4; padding:0.1rem 0.3rem; border-radius:3px;} /* Lighter yellow */
         .supporting-docs { margin-top: 1rem; }
-        .supporting-docs label { font-size: 0.85rem; color: #555; }
-        .supporting-docs input[type="file"] { font-size: 0.85rem; }
+        .supporting-docs label { font-size: 0.8rem; color: #424242; }
+        .supporting-docs input[type="file"] { font-size: 0.8rem; }
+
         .assessment-sidebar {
-            background-color: #F9FAFB;
+            background-color: #F9F9F9; /* Light grey for distinctness */
             padding: 1.5rem;
             border-radius: 6px;
-            border: 1px solid #E5E7EB;
+            border: 1px solid #E0E0E0;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
         .assessment-sidebar section h3 {
-            font-size: 1rem;
+            font-size: 0.9rem; /* Smaller headers */
             color: #1A237E;
             margin-top: 0;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid #DDD;
+            border-bottom: 1px solid #E0E0E0;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        .assessment-sidebar .fa-brain { color: #009688; }
-        .assessment-sidebar .fa-tasks { color: #42A5F5; }
-        .assessment-sidebar .fa-comments { color: #FFA726; }
-        .linked-tasks-module ul { list-style: disc; padding-left: 1.2rem; margin: 0; font-size:0.85rem; }
+        .assessment-sidebar .fa-brain { color: #00897B; }
+        .assessment-sidebar .fa-tasks { color: #1E88E5; } /* Slightly darker blue */
+        .assessment-sidebar .fa-comments { color: #F9A825; } /* Slightly darker yellow/orange */
+        .linked-tasks-module ul { list-style: disc; padding-left: 1.2rem; margin: 0; font-size:0.8rem; }
         .linked-tasks-module li { margin-bottom: 0.4rem; }
         .pillar-comments .comment-item {
-            font-size: 0.85rem;
-            background-color: #FFF;
+            font-size: 0.8rem;
+            background-color: #FFFFFF;
             padding: 0.6rem;
             border-radius: 4px;
             margin-bottom: 0.5rem;
-            border:1px solid #EEE;
+            border:1px solid #E0E0E0;
         }
         .pillar-comments .comment-item strong { color: #007bff; }
-        .pillar-comments .comment-time { font-size: 0.75rem; color: #999; display:block; text-align:right;}
-        .pillar-comments textarea { width: calc(100% - 1.2rem); padding:0.5rem; border:1px solid #DDD; border-radius:4px; margin-bottom:0.5rem; font-size:0.85rem;}
+        .pillar-comments .comment-time { font-size: 0.7rem; color: #757575; display:block; text-align:right;}
+        .pillar-comments textarea { width: calc(100% - 1.2rem); padding:0.5rem; border:1px solid #BDBDBD; border-radius:4px; margin-bottom:0.5rem; font-size:0.8rem;}
 
         /* Transformation Roadmap Page */
         .roadmap-container {
-            padding: 2rem;
+            padding: 1.5rem; /* Adjusted padding */
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            background-color: #FFFFFF;
         }
         .roadmap-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #DDD;
+            border-bottom: 1px solid #E0E0E0;
         }
-        .roadmap-header h1 { margin: 0; color: #1A237E; }
-        .roadmap-controls { display: flex; gap: 1rem; }
+        .roadmap-header h1 { margin: 0; color: #1A237E; font-size: 1.6rem; }
+        .roadmap-controls { display: flex; gap: 1rem; align-items: center;}
+        .roadmap-controls select, .roadmap-controls .btn { font-size: 0.85rem; padding: 0.4rem 0.8rem;}
         .roadmap-main {
-            display: flex; /* For horizontal layout of phases */
+            display: flex;
             gap: 1.5rem;
-            overflow-x: auto; /* Allow horizontal scrolling for many phases */
-            padding-bottom: 1rem; /* Space for scrollbar */
+            overflow-x: auto;
+            padding: 0.5rem; /* Padding for visual separation and scrollbar */
+            background-color: #F9F9F9; /* Light grey background for the scrollable area */
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
         }
         .roadmap-phase {
-            background-color: #F9FAFB;
-            min-width: 300px; /* Minimum width for a phase column */
+            background-color: #FFFFFF;
+            min-width: 320px; /* Slightly wider */
             padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* Subtle shadow for phases */
         }
         .roadmap-phase h2 {
-            font-size: 1.1rem;
+            font-size: 1.05rem; /* Adjusted size */
             color: #1A237E;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #009688;
+            border-bottom: 2px solid #00897B;
             margin-top: 0;
             margin-bottom: 1rem;
         }
         .initiative-card {
-            background-color: white;
-            border: 1px solid #DDD;
-            border-left: 4px solid; /* Status color */
-            padding: 1rem;
+            background-color: #FFFFFF;
+            border: 1px solid #D1D1D1; /* Slightly darker border for cards */
+            border-left: 4px solid;
+            padding: 0.8rem; /* Adjusted padding */
             margin-bottom: 1rem;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 4px; /* Sharper radius */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
         }
-        .initiative-card h3 { font-size: 1rem; margin-top: 0; margin-bottom: 0.3rem; color: #007bff;}
-        .initiative-card p { margin: 0.2rem 0; font-size: 0.85rem; color: #555; }
-        .initiative-owner { font-weight: bold; font-size: 0.8rem; }
-        .initiative-kpis { font-style: italic; font-size: 0.8rem; color: #009688;}
-        .status-planned { border-left-color: #78909C; } /* Grey */
-        .status-inprogress { border-left-color: #42A5F5; } /* Blue */
-        .status-completed { border-left-color: #66BB6A; } /* Green */
-        .status-onhold { border-left-color: #FFA726; } /* Orange */
+        .initiative-card h3 { font-size: 0.95rem; margin-top: 0; margin-bottom: 0.3rem; color: #007bff;}
+        .initiative-card p { margin: 0.2rem 0; font-size: 0.8rem; color: #333333; }
+        .initiative-owner { font-weight: bold; font-size: 0.75rem; }
+        .initiative-kpis { font-style: italic; font-size: 0.75rem; color: #00897B;}
+        .status-planned { border-left-color: #78909C; }
+        .status-inprogress { border-left-color: #1E88E5; } /* Brighter Blue */
+        .status-completed { border-left-color: #43A047; } /* Brighter Green */
+        .status-onhold { border-left-color: #FB8C00; } /* Brighter Orange */
 
         /* Footer */
         .main-footer-sticky {
-            background-color: #333;
-            color: #AAA;
+            background-color: #FFFFFF; /* White footer */
+            color: #555555; /* Dark grey text */
             text-align: center;
-            padding: 0.8rem;
+            padding: 1rem; /* Increased padding */
             font-size: 0.85rem;
-            border-top: 1px solid #444;
-            margin-top: auto; /* Pushes footer to bottom in flex container */
+            border-top: 1px solid #E0E0E0; /* Light border */
+            /* margin-top: auto; This is handled by app-wrapper flex */
         }
 
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="logo" onclick="navigateTo('dashboard-page')">EVIDENT 6P Horizon Strategist</div>
-        <nav class="top-nav">
-            <input type="search" placeholder="Search..." class="global-search">
-            <a href="#" class="nav-icon" aria-label="Notifications">🔔 <span class="badge">3</span></a>
-            <div class="user-profile">
-                <span>Alex Chen</span>
-                <span class="avatar-placeholder">AC</span>
+    <div id="app-wrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <div class="logo-placeholder">LOGO</div>
+                <div class="app-title" onclick="navigateTo('dashboard-page')">6P Horizon Strategist</div>
             </div>
-        </nav>
-    </header>
-
-    <div id="app-container">
-        <section id="dashboard-page" class="page active-page">
-            <div class="dashboard-container">
-                <div class="dashboard-header">
-                    <h1>Welcome back, Alex!</h1>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Initiate New Deal</button>
+            <nav class="top-nav">
+                <input type="search" placeholder="Search..." class="global-search">
+                <a href="#" class="nav-icon" aria-label="Notifications">🔔 <span class="badge">3</span></a>
+                <div class="user-profile">
+                    <span>Alex Chen</span>
+                    <span class="avatar-placeholder">AC</span>
                 </div>
+            </nav>
+        </header>
 
-                <section class="quick-stats">
-                    <div class="stat-card">
-                        <h2>Active Deals</h2>
-                        <p class="stat-value">5</p>
+        <div id="app-container">
+            <section id="dashboard-page" class="page active-page">
+                <div class="dashboard-container">
+                    <div class="dashboard-header">
+                        <h1>Welcome back, Alex!</h1>
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Initiate New Deal</button>
                     </div>
-                    <div class="stat-card">
-                        <h2>High-Priority Tasks</h2>
-                        <p class="stat-value">8</p>
-                    </div>
-                    <div class="stat-card">
-                        <h2>Unread Notifications</h2>
-                        <p class="stat-value">3</p>
-                    </div>
-                </section>
 
-                <section class="active-deals">
-                    <h2>My Active Deals</h2>
-                    <div class="deal-card">
-                        <div class="deal-info">
-                            <h3 onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')">Target Alpha Inc.</h3>
-                            <p>Status: Project (Core DNA) - 40% Complete</p>
+                    <section class="quick-stats">
+                        <div class="stat-card">
+                            <h2>Active Deals</h2>
+                            <p class="stat-value">5</p>
                         </div>
-                        <div class="deal-progress">
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: 40%;">40%</div>
+                        <div class="stat-card">
+                            <h2>High-Priority Tasks</h2>
+                            <p class="stat-value">8</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>Unread Notifications</h2>
+                            <p class="stat-value">3</p>
+                        </div>
+                    </section>
+
+                    <section class="active-deals">
+                        <h2>My Active Deals</h2>
+                        <div class="deal-card">
+                            <div class="deal-info">
+                                <h3 onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')">Target Alpha Inc.</h3>
+                                <p>Status: Project (Core DNA) - 40% Complete</p>
                             </div>
-                        </div>
-                        <div class="deal-actions">
-                            <span class="risk-flag">⚠️ 2 Risks</span>
-                            <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')"><i class="fas fa-folder-open"></i> View Workspace</button>
-                        </div>
-                    </div>
-                    <div class="deal-card">
-                        <div class="deal-info">
-                            <h3 onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')">Beta Solutions Ltd.</h3>
-                            <p>Status: Performance - 85% Complete</p>
-                        </div>
-                        <div class="deal-progress">
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" style="width: 85%;">85%</div>
-                            </div>
-                        </div>
-                        <div class="deal-actions">
-                             <span class="opportunity-flag">✨ 1 Opportunity</span>
-                            <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')"><i class="fas fa-folder-open"></i> View Workspace</button>
-                        </div>
-                    </div>
-                </section>
-
-                <aside class="sidebar-tasks-activity">
-                    <section class="my-tasks">
-                        <h2>My Tasks</h2>
-                        <ul>
-                            <li><a href="#">Finalize 'Product IP' review for Target Alpha</a> (Due: May 9)</li>
-                            <li><a href="#">Schedule meeting with Beta Solutions CEO</a> (Due: May 10)</li>
-                        </ul>
-                    </section>
-                    <section class="recent-activity-dashboard">
-                        <h2>Recent Activity</h2>
-                        <ul>
-                            <li>Sarah Miller (Target Alpha) commented on 'Mission Statement'.</li>
-                            <li>'Financials Q1' document uploaded for Beta Solutions.</li>
-                        </ul>
-                    </section>
-                </aside>
-            </div>
-        </section>
-
-        <section id="deal-workspace-page" class="page">
-            <div class="deal-workspace-page-container">
-                <nav class="deal-sub-nav">
-                    <button class="active" data-deal-page="6p-overview-content" onclick="navigateToDealSubPage(this, '6p-overview-content')">6P Framework</button>
-                    <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
-                    <button data-deal-page="collaboration-content" onclick="navigateToDealSubPage(this, 'collaboration-content')">Collaboration Canvas</button>
-                    <button data-deal-page="tasks-content" onclick="navigateToDealSubPage(this, 'tasks-content')">Tasks <span class="badge">12</span></button>
-                    <button data-deal-page="team-content" onclick="navigateToDealSubPage(this, 'team-content')">Team <span class="badge">5</span></button>
-                    <button data-deal-page="reports-content" onclick="navigateToDealSubPage(this, 'reports-content')">Reports</button>
-                    <button data-deal-page="transformation-plan-content" onclick="navigateTo('transformation-roadmap-page')">Transformation Plan</button>
-                     <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
-                </nav>
-
-                <main id="deal-main-content-area" class="deal-main-content">
-                    </main>
-
-                <aside class="deal-sidebar">
-                    <section class="key-deal-info">
-                        <h3 id="sidebar-deal-name">Target Alpha Inc.</h3>
-                        <p><strong>Industry:</strong> SaaS Solutions</p>
-                        <p><strong>Primary Contact:</strong> Sarah Miller (CEO)</p>
-                    </section>
-                    <section class="ai-summary-widget">
-                        <h3><i class="fas fa-brain"></i> AI Quick Insights</h3>
-                        <p class="ai-insight-text">Consider potential misalignment between stated 'Project' innovation goals and current 'Product' development velocity.</p>
-                        <a href="#">Explore Insights</a>
-                    </section>
-                    <section class="deal-recent-activity">
-                        <h3>Recent Activity</h3>
-                        <ul id="deal-specific-activity-list">
-                            <li>Alex C. started assessment for 'Project'.</li>
-                            <li>Document 'Company Pitch Deck Q1' uploaded.</li>
-                        </ul>
-                    </section>
-                </aside>
-            </div>
-        </section>
-
-        <template id="project-assessment-template">
-            <div class="module-assessment-content">
-                <div class="breadcrumbs">
-                    <span class="current-deal-breadcrumb">Target Alpha Inc.</span> &gt;
-                    <a href="#" onclick="loadDealWorkspaceContent('6p-overview-content')">6P Framework</a> &gt;
-                    <span>Project (Core DNA)</span>
-                </div>
-
-                <div class="module-header-actions">
-                    <h1><i class="fas fa-bullseye p-icon project"></i> Project (Core DNA) Assessment</h1>
-                    <div class="header-buttons">
-                        <span class="module-progress">Progress: 40%</span>
-                        <button class="btn btn-secondary btn-small"><i class="fas fa-eye"></i> View Related Docs</button>
-                        <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
-                    </div>
-                </div>
-
-                <div class="assessment-layout">
-                    <div class="assessment-main">
-                        <div class="tab-navigation">
-                            <button class="tab-button active" data-tab="vision">Vision</button>
-                            <button class="tab-button" data-tab="mission">Mission</button>
-                            <button class="tab-button" data-tab="strategy">Strategy</button>
-                            <button class="tab-button" data-tab="client-needs">Client Needs</button>
-                            <button class="tab-button" data-tab="innovation">Innovation Outlook</button>
-                        </div>
-
-                        <div id="vision" class="tab-content active">
-                            <div class="assessment-item">
-                                <label for="vision-text">What is the company's articulated long-term vision?</label>
-                                <div class="input-area">
-                                    <textarea id="vision-text" rows="6" placeholder="Enter vision statement..."></textarea>
-                                    <button class="comment-btn" aria-label="View comments on Vision"><i class="fas fa-comment-dots"></i> <span class="badge">2</span></button>
-                                </div>
-                                <div class="ai-assist-panel">
-                                    <h4><i class="fas fa-lightbulb"></i> AI Suggester</h4>
-                                    <p>Based on <em>'pitch_deck_q1.pdf' (p.3)</em>, the vision is stated as: "To be the leading global provider of sustainable energy solutions."</p>
-                                    <button class="btn btn-ai-accept btn-small">Use This Text</button>
-                                    <button class="btn btn-ai-dismiss btn-small">Dismiss</button>
-                                </div>
-                                 <div class="supporting-docs">
-                                    <label for="vision-docs">Attach supporting documents:</label>
-                                    <input type="file" id="vision-docs" multiple>
+                            <div class="deal-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 40%;">40%</div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div id="mission" class="tab-content">
-                            <div class="assessment-item">
-                                <label for="mission-text">Describe the company's mission.</label>
-                                 <div class="input-area">
-                                    <textarea id="mission-text" rows="6" placeholder="Enter mission statement..."></textarea>
-                                     <button class="comment-btn" aria-label="View comments on Mission"><i class="fas fa-comment-dots"></i></button>
-                                </div>
+                            <div class="deal-actions">
+                                <span class="risk-flag">⚠️ 2 Risks</span>
+                                <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')"><i class="fas fa-folder-open"></i> View Workspace</button>
                             </div>
                         </div>
-                        <div id="strategy" class="tab-content"><p>Strategy assessment items...</p></div>
-                         <div id="client-needs" class="tab-content"><p>Client Needs assessment items...</p></div>
-                         <div id="innovation" class="tab-content"><p>Innovation Outlook assessment items...</p></div>
-                    </div>
+                        <div class="deal-card">
+                            <div class="deal-info">
+                                <h3 onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')">Beta Solutions Ltd.</h3>
+                                <p>Status: Performance - 85% Complete</p>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 85%;">85%</div>
+                                </div>
+                            </div>
+                            <div class="deal-actions">
+                                 <span class="opportunity-flag">✨ 1 Opportunity</span>
+                                <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')"><i class="fas fa-folder-open"></i> View Workspace</button>
+                            </div>
+                        </div>
+                    </section>
 
-                    <aside class="assessment-sidebar">
-                        <section class="ai-pillar-summary">
-                            <h3><i class="fas fa-brain"></i> Project Pillar AI Summary</h3>
-                            <p class="ai-insight-text">Vision and Mission appear well-defined. Strategy section requires further detail on competitive differentiation for future-proofing.</p>
-                        </section>
-                        <section class="linked-tasks-module">
-                            <h3><i class="fas fa-tasks"></i> Related Tasks</h3>
+                    <aside class="sidebar-tasks-activity">
+                        <section class="my-tasks">
+                            <h2>My Tasks</h2>
                             <ul>
-                                <li>Alex: Clarify innovation roadmap (Due May 10)</li>
-                                <li>Sarah M: Upload strategic plan document (Due May 12)</li>
+                                <li><a href="#">Finalize 'Product IP' review for Target Alpha</a> (Due: May 9)</li>
+                                <li><a href="#">Schedule meeting with Beta Solutions CEO</a> (Due: May 10)</li>
                             </ul>
                         </section>
-                        <section class="pillar-comments">
-                            <h3><i class="fas fa-comments"></i> Pillar Discussion</h3>
-                            <div class="comment-item">
-                                <p><strong>Alex C.:</strong> "Sarah, can we get more detail on the 3-year strategic objectives?" <span class="comment-time">2h ago</span></p>
-                            </div>
-                             <textarea placeholder="Add a general comment for Project Pillar..." rows="3"></textarea>
-                             <button class="btn btn-secondary btn-small">Post Comment</button>
+                        <section class="recent-activity-dashboard">
+                            <h2>Recent Activity</h2>
+                            <ul>
+                                <li>Sarah Miller (Target Alpha) commented on 'Mission Statement'.</li>
+                                <li>'Financials Q1' document uploaded for Beta Solutions.</li>
+                            </ul>
                         </section>
                     </aside>
                 </div>
-            </div>
-        </template>
+            </section>
 
-        <section id="transformation-roadmap-page" class="page">
-            <div class="deal-workspace-page-container"> <nav class="deal-sub-nav"> <button data-deal-page="6p-overview-content" onclick="navigateToDeal('deal-workspace-page', currentDealName)">6P Framework</button>
-                    <button class="active">Transformation Plan</button>
-                    <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
-                </nav>
+            <section id="deal-workspace-page" class="page">
+                <div class="deal-workspace-page-container">
+                    <nav class="deal-sub-nav">
+                        <button class="active" data-deal-page="6p-overview-content" onclick="navigateToDealSubPage(this, '6p-overview-content')">6P Framework</button>
+                        <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
+                        <button data-deal-page="collaboration-content" onclick="navigateToDealSubPage(this, 'collaboration-content')">Collaboration Canvas</button>
+                        <button data-deal-page="tasks-content" onclick="navigateToDealSubPage(this, 'tasks-content')">Tasks <span class="badge">12</span></button>
+                        <button data-deal-page="team-content" onclick="navigateToDealSubPage(this, 'team-content')">Team <span class="badge">5</span></button>
+                        <button data-deal-page="reports-content" onclick="navigateToDealSubPage(this, 'reports-content')">Reports</button>
+                        <button data-deal-page="transformation-plan-content" onclick="navigateTo('transformation-roadmap-page')">Transformation Plan</button>
+                         <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                    </nav>
 
-                <main class="deal-main-content">
-                    <div class="roadmap-container">
-                        <div class="roadmap-header">
-                            <h1 id="roadmap-deal-name">Target Alpha Inc. - Transformation Roadmap</h1>
-                            <div class="roadmap-controls">
-                                <select>
-                                    <option>Filter by Owner</option>
-                                    <option>Alex Chen</option>
-                                    <option>Sarah Miller</option>
-                                </select>
-                                <select>
-                                    <option>Filter by Status</option>
-                                    <option>Planned</option>
-                                    <option>In Progress</option>
-                                    <option>Completed</option>
-                                </select>
-                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Initiative</button>
-                            </div>
-                        </div>
+                    <main id="deal-main-content-area" class="deal-main-content">
+                        </main>
 
-                        <div class="roadmap-main">
-                            <div class="roadmap-phase">
-                                <h2>Phase 1: Q3 2025 (Integration & Quick Wins)</h2>
-                                <div class="initiative-card status-inprogress">
-                                    <h3>Streamline Onboarding Process</h3>
-                                    <p class="initiative-owner">Owner: Alex C. & Team Bravo</p>
-                                    <p>Integrate CRM systems and automate initial client communication.</p>
-                                    <p class="initiative-kpis">KPIs: Reduce onboarding time by 20%; CSAT > 90%</p>
-                                    <p><small>Linked to: Processes, People</small></p>
-                                </div>
-                                <div class="initiative-card status-planned">
-                                    <h3>Product Feature Enhancement A</h3>
-                                    <p class="initiative-owner">Owner: Sarah M. & Dev Team</p>
-                                    <p>Roll out critical feature requested by key clients during DD.</p>
-                                    <p class="initiative-kpis">KPIs: Adoption rate > 50% in 2 months</p>
-                                     <p><small>Linked to: Product, Performance</small></p>
-                                </div>
-                            </div>
-                            <div class="roadmap-phase">
-                                <h2>Phase 2: Q4 2025 (Growth & Optimization)</h2>
-                                <div class="initiative-card status-planned">
-                                    <h3>New Market Entry Strategy</h3>
-                                    <p class="initiative-owner">Owner: Alex C. & Sarah M.</p>
-                                    <p>Research and develop plan for APAC market entry.</p>
-                                    <p class="initiative-kpis">KPIs: Market Research Complete; Business Plan Drafted</p>
-                                     <p><small>Linked to: Project, Performance</small></p>
-                                </div>
-                                 <div class="initiative-card status-onhold">
-                                    <h3>AI Integration for Support</h3>
-                                    <p class="initiative-owner">Owner: Tech Lead</p>
-                                    <p>Explore AI chatbot for Tier 1 customer support.</p>
-                                    <p class="initiative-kpis">KPIs: Feasibility study complete</p>
-                                     <p><small>Linked to: Processes, Posture (data privacy)</small></p>
-                                </div>
-                            </div>
-                             <div class="roadmap-phase">
-                                <h2>Phase 3: Q1 2026 (Scale & Innovation)</h2>
-                                <div class="initiative-card status-completed">
-                                    <h3>Leadership Training Program</h3>
-                                    <p class="initiative-owner">Owner: HR Department</p>
-                                    <p>Implement new leadership development curriculum.</p>
-                                    <p class="initiative-kpis">KPIs: 100% eligible manager participation</p>
-                                     <p><small>Linked to: People</small></p>
-                                </div>
-                            </div>
+                    <aside class="deal-sidebar">
+                        <section class="key-deal-info">
+                            <h3 id="sidebar-deal-name">Target Alpha Inc.</h3>
+                            <p><strong>Industry:</strong> SaaS Solutions</p>
+                            <p><strong>Primary Contact:</strong> Sarah Miller (CEO)</p>
+                        </section>
+                        <section class="ai-summary-widget">
+                            <h3><i class="fas fa-brain"></i> AI Quick Insights</h3>
+                            <p class="ai-insight-text">Consider potential misalignment between stated 'Project' innovation goals and current 'Product' development velocity.</p>
+                            <a href="#">Explore Insights</a>
+                        </section>
+                        <section class="deal-recent-activity">
+                            <h3>Recent Activity</h3>
+                            <ul id="deal-specific-activity-list">
+                                <li>Alex C. started assessment for 'Project'.</li>
+                                <li>Document 'Company Pitch Deck Q1' uploaded.</li>
+                            </ul>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+            <template id="project-assessment-template">
+                <div class="module-assessment-content">
+                    <div class="breadcrumbs">
+                        <span class="current-deal-breadcrumb">Target Alpha Inc.</span> &gt;
+                        <a href="#" onclick="loadDealWorkspaceContent('6p-overview-content')">6P Framework</a> &gt;
+                        <span>Project (Core DNA)</span>
+                    </div>
+
+                    <div class="module-header-actions">
+                        <h1><i class="fas fa-bullseye p-icon project"></i> Project (Core DNA) Assessment</h1>
+                        <div class="header-buttons">
+                            <span class="module-progress">Progress: 40%</span>
+                            <button class="btn btn-secondary btn-small"><i class="fas fa-eye"></i> View Related Docs</button>
+                            <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
                         </div>
                     </div>
-                </main>
-                 <aside class="deal-sidebar"> <section>
-                        <h3>Roadmap Context</h3>
-                        <p>Focus on realizing synergies identified in the 6P assessment.</p>
-                    </section>
-                     <section class="ai-summary-widget">
-                        <h3><i class="fas fa-brain"></i> AI Initiative Suggester</h3>
-                        <p class="ai-insight-text">Consider adding an initiative for 'Cross-functional knowledge sharing' based on 'People' and 'Processes' findings.</p>
-                    </section>
-                </aside>
-            </div>
-        </section>
 
-    </div> <footer class="main-footer-sticky">
-        © 2025 Horizon Strategists Inc.
-    </footer>
+                    <div class="assessment-layout">
+                        <div class="assessment-main">
+                            <div class="tab-navigation">
+                                <button class="tab-button active" data-tab="vision">Vision</button>
+                                <button class="tab-button" data-tab="mission">Mission</button>
+                                <button class="tab-button" data-tab="strategy">Strategy</button>
+                                <button class="tab-button" data-tab="client-needs">Client Needs</button>
+                                <button class="tab-button" data-tab="innovation">Innovation Outlook</button>
+                            </div>
 
-    <script>
+                            <div id="vision" class="tab-content active">
+                                <div class="assessment-item">
+                                    <label for="vision-text">What is the company's articulated long-term vision?</label>
+                                    <div class="input-area">
+                                        <textarea id="vision-text" rows="6" placeholder="Enter vision statement..."></textarea>
+                                        <button class="comment-btn" aria-label="View comments on Vision"><i class="fas fa-comment-dots"></i> <span class="badge">2</span></button>
+                                    </div>
+                                    <div class="ai-assist-panel">
+                                        <h4><i class="fas fa-lightbulb"></i> AI Suggester</h4>
+                                        <p>Based on <em>'pitch_deck_q1.pdf' (p.3)</em>, the vision is stated as: "To be the leading global provider of sustainable energy solutions."</p>
+                                        <button class="btn btn-ai-accept btn-small">Use This Text</button>
+                                        <button class="btn btn-ai-dismiss btn-small">Dismiss</button>
+                                    </div>
+                                     <div class="supporting-docs">
+                                        <label for="vision-docs">Attach supporting documents:</label>
+                                        <input type="file" id="vision-docs" multiple>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="mission" class="tab-content">
+                                <div class="assessment-item">
+                                    <label for="mission-text">Describe the company's mission.</label>
+                                     <div class="input-area">
+                                        <textarea id="mission-text" rows="6" placeholder="Enter mission statement..."></textarea>
+                                         <button class="comment-btn" aria-label="View comments on Mission"><i class="fas fa-comment-dots"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div id="strategy" class="tab-content"><div class="assessment-item"><label>Strategic Objectives</label><textarea rows="4" placeholder="Outline key strategic objectives..."></textarea></div></div>
+                             <div id="client-needs" class="tab-content"><div class="assessment-item"><label>Client Needs Analysis Summary</label><textarea rows="4" placeholder="Summarize how current offerings meet client needs..."></textarea></div></div>
+                             <div id="innovation" class="tab-content"><div class="assessment-item"><label>Innovation Pipeline & Outlook</label><textarea rows="4" placeholder="Describe the innovation pipeline and future outlook..."></textarea></div></div>
+                        </div>
+
+                        <aside class="assessment-sidebar">
+                            <section class="ai-pillar-summary">
+                                <h3><i class="fas fa-brain"></i> Project Pillar AI Summary</h3>
+                                <p class="ai-insight-text">Vision and Mission appear well-defined. Strategy section requires further detail on competitive differentiation for future-proofing.</p>
+                            </section>
+                            <section class="linked-tasks-module">
+                                <h3><i class="fas fa-tasks"></i> Related Tasks</h3>
+                                <ul>
+                                    <li>Alex: Clarify innovation roadmap (Due May 10)</li>
+                                    <li>Sarah M: Upload strategic plan document (Due May 12)</li>
+                                </ul>
+                            </section>
+                            <section class="pillar-comments">
+                                <h3><i class="fas fa-comments"></i> Pillar Discussion</h3>
+                                <div class="comment-item">
+                                    <p><strong>Alex C.:</strong> "Sarah, can we get more detail on the 3-year strategic objectives?" <span class="comment-time">2h ago</span></p>
+                                </div>
+                                 <textarea placeholder="Add a general comment for Project Pillar..." rows="3"></textarea>
+                                 <button class="btn btn-secondary btn-small">Post Comment</button>
+                            </section>
+                        </aside>
+                    </div>
+                </div>
+            </template>
+
+            <section id="transformation-roadmap-page" class="page">
+                <div class="deal-workspace-page-container">
+                     <nav class="deal-sub-nav">
+                        <button data-deal-page="6p-overview-content" onclick="navigateToDeal('deal-workspace-page', currentDealName)">6P Framework</button>
+                        <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
+                        <button data-deal-page="transformation-plan-content" class="active">Transformation Plan</button>
+                        <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                    </nav>
+
+                    <main class="deal-main-content">
+                        <div class="roadmap-container">
+                            <div class="roadmap-header">
+                                <h1 id="roadmap-deal-name">Target Alpha Inc. - Transformation Roadmap</h1>
+                                <div class="roadmap-controls">
+                                    <select>
+                                        <option>Filter by Owner</option>
+                                        <option>Alex Chen</option>
+                                        <option>Sarah Miller</option>
+                                    </select>
+                                    <select>
+                                        <option>Filter by Status</option>
+                                        <option>Planned</option>
+                                        <option>In Progress</option>
+                                        <option>Completed</option>
+                                    </select>
+                                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Initiative</button>
+                                </div>
+                            </div>
+
+                            <div class="roadmap-main">
+                                <div class="roadmap-phase">
+                                    <h2>Phase 1: Q3 2025 (Integration & Quick Wins)</h2>
+                                    <div class="initiative-card status-inprogress">
+                                        <h3>Streamline Onboarding Process</h3>
+                                        <p class="initiative-owner">Owner: Alex C. & Team Bravo</p>
+                                        <p>Integrate CRM systems and automate initial client communication.</p>
+                                        <p class="initiative-kpis">KPIs: Reduce onboarding time by 20%; CSAT > 90%</p>
+                                        <p><small>Linked to: Processes, People</small></p>
+                                    </div>
+                                    <div class="initiative-card status-planned">
+                                        <h3>Product Feature Enhancement A</h3>
+                                        <p class="initiative-owner">Owner: Sarah M. & Dev Team</p>
+                                        <p>Roll out critical feature requested by key clients during DD.</p>
+                                        <p class="initiative-kpis">KPIs: Adoption rate > 50% in 2 months</p>
+                                         <p><small>Linked to: Product, Performance</small></p>
+                                    </div>
+                                </div>
+                                <div class="roadmap-phase">
+                                    <h2>Phase 2: Q4 2025 (Growth & Optimization)</h2>
+                                    <div class="initiative-card status-planned">
+                                        <h3>New Market Entry Strategy</h3>
+                                        <p class="initiative-owner">Owner: Alex C. & Sarah M.</p>
+                                        <p>Research and develop plan for APAC market entry.</p>
+                                        <p class="initiative-kpis">KPIs: Market Research Complete; Business Plan Drafted</p>
+                                         <p><small>Linked to: Project, Performance</small></p>
+                                    </div>
+                                     <div class="initiative-card status-onhold">
+                                        <h3>AI Integration for Support</h3>
+                                        <p class="initiative-owner">Owner: Tech Lead</p>
+                                        <p>Explore AI chatbot for Tier 1 customer support.</p>
+                                        <p class="initiative-kpis">KPIs: Feasibility study complete</p>
+                                         <p><small>Linked to: Processes, Posture (data privacy)</small></p>
+                                    </div>
+                                </div>
+                                 <div class="roadmap-phase">
+                                    <h2>Phase 3: Q1 2026 (Scale & Innovation)</h2>
+                                    <div class="initiative-card status-completed">
+                                        <h3>Leadership Training Program</h3>
+                                        <p class="initiative-owner">Owner: HR Department</p>
+                                        <p>Implement new leadership development curriculum.</p>
+                                        <p class="initiative-kpis">KPIs: 100% eligible manager participation</p>
+                                         <p><small>Linked to: People</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                     <aside class="deal-sidebar">
+                        <section>
+                            <h3>Roadmap Context</h3>
+                            <p>Focus on realizing synergies identified in the 6P assessment. Click initiatives for details & collaboration.</p>
+                        </section>
+                         <section class="ai-summary-widget">
+                            <h3><i class="fas fa-brain"></i> AI Initiative Suggester</h3>
+                            <p class="ai-insight-text">Consider adding an initiative for 'Cross-functional knowledge sharing' based on 'People' and 'Processes' findings. <a href="#">Learn more</a></p>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+        </div> <footer class="main-footer-sticky">
+            © 2025 Horizon Strategists Inc.
+        </footer>
+    </div> <script>
         let currentDealName = 'Target Alpha Inc.'; // Global to store current deal context
 
         const pages = document.querySelectorAll('.page');
         const dealMainContentArea = document.getElementById('deal-main-content-area');
+        const appWrapper = document.getElementById('app-wrapper');
 
         function navigateTo(pageId) {
             pages.forEach(page => {
@@ -804,44 +860,51 @@
             if (targetPage) {
                 targetPage.classList.add('active-page');
             }
+            appWrapper.scrollTop = 0; // Scroll to top of new page view
 
-            // If navigating to deal workspace, ensure a default view is loaded
             if (pageId === 'deal-workspace-page') {
-                loadDealWorkspaceContent('6p-overview-content'); // Default to 6P overview
-                updateDealSubNavActiveState('6p-overview-content');
+                loadDealWorkspaceContent('6p-overview-content');
+                updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page="6p-overview-content"]'));
             }
             if (pageId === 'transformation-roadmap-page') {
                 document.getElementById('roadmap-deal-name').textContent = `${currentDealName} - Transformation Roadmap`;
+                // Ensure correct sub-nav item is active
+                const roadmapButton = document.querySelector('#transformation-roadmap-page .deal-sub-nav button[data-deal-page="transformation-plan-content"]');
+                 if(roadmapButton) updateDealSubNavActiveState('transformation-plan-content', roadmapButton, '#transformation-roadmap-page .deal-sub-nav');
+
             }
         }
 
         function navigateToDeal(pageId, dealName) {
             currentDealName = dealName;
-            document.getElementById('sidebar-deal-name').textContent = currentDealName;
-            // Potentially update other deal-specific elements here in a real app
-            // For now, just navigate to the deal workspace page
+            const sidebarDealName = document.getElementById('sidebar-deal-name');
+            if(sidebarDealName) sidebarDealName.textContent = currentDealName;
             navigateTo(pageId);
         }
 
-        function updateDealSubNavActiveState(activeContentId) {
-            const dealSubNavButtons = document.querySelectorAll('.deal-sub-nav button');
+        function updateDealSubNavActiveState(activeContentId, clickedButton, navSelector = '.deal-sub-nav') {
+            const dealSubNavButtons = document.querySelectorAll(`${navSelector} button`);
             dealSubNavButtons.forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.dealPage === activeContentId) {
-                    btn.classList.add('active');
-                }
             });
+            if (clickedButton) {
+                 clickedButton.classList.add('active');
+            } else { // Fallback if buttonElement isn't passed directly
+                const buttonToActivate = document.querySelector(`${navSelector} button[data-deal-page="${activeContentId}"]`);
+                if (buttonToActivate) buttonToActivate.classList.add('active');
+            }
         }
 
+
         function navigateToDealSubPage(buttonElement, contentIdToLoad) {
-            updateDealSubNavActiveState(contentIdToLoad);
+            updateDealSubNavActiveState(contentIdToLoad, buttonElement, '#deal-workspace-page .deal-sub-nav');
             loadDealWorkspaceContent(contentIdToLoad);
         }
 
 
         function loadDealWorkspaceContent(contentType) {
             if (!dealMainContentArea) return;
-            dealMainContentArea.innerHTML = ''; // Clear previous content
+            dealMainContentArea.innerHTML = '';
 
             let contentHTML = '';
             switch (contentType) {
@@ -851,32 +914,32 @@
                             <h1>${currentDealName} - 6P Framework Assessment</h1>
                         </div>
                         <div class="six-p-grid">
-                            <div class="p-card project" onclick="loadDealWorkspaceContent('project-assessment-content')">
+                            <div class="p-card project" onclick="loadDealWorkspaceContent('project-assessment-content'); updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page=\\'6p-overview-content\\']'));">
                                 <div class="p-card-header"><i class="fas fa-bullseye p-icon"></i><h2>Project</h2></div>
-                                <p class="p-description">Vision, Mission, Strategy clarity...</p>
+                                <p class="p-description">Vision, Mission, Strategy clarity, future-proofing, innovation outlook.</p>
                                 <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 40%;">40%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span> <span class="ai-insight-flag"><i class="fas fa-lightbulb"></i> 1 AI Insight</span></div>
                                 <button class="btn btn-primary btn-small p-action">View & Assess</button>
                             </div>
-                            <div class="p-card people" onclick="alert('Navigate to People Assessment')">
+                            <div class="p-card people" onclick="alert('Navigate to People Assessment (Content TBD)')">
                                 <div class="p-card-header"><i class="fas fa-users p-icon"></i><h2>People</h2></div>
-                                <p class="p-description">Growth culture, leadership...</p>
+                                <p class="p-description">Growth culture, leadership, talent development systems.</p>
                                 <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 15%;">15%</div></div><span><i class="fas fa-tasks"></i> 5 Tasks</span> <span class="risk-flag-pillar"><i class="fas fa-exclamation-triangle"></i> 1 Risk</span></div>
                                 <button class="btn btn-primary btn-small p-action">View & Assess</button>
                             </div>
-                            <div class="p-card product"><div class="p-card-header"><i class="fas fa-cogs p-icon"></i><h2>Product</h2></div> <p class="p-description">Technical foundation, IP...</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
-                            <div class="p-card processes"><div class="p-card-header"><i class="fas fa-project-diagram p-icon"></i><h2>Processes</h2></div> <p class="p-description">Operational leanness, AI automation...</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
-                            <div class="p-card performance"><div class="p-card-header"><i class="fas fa-chart-line p-icon"></i><h2>Performance</h2></div> <p class="p-description">KPIs, financial discipline...</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
-                            <div class="p-card posture"><div class="p-card-header"><i class="fas fa-shield-alt p-icon"></i><h2>Posture</h2></div> <p class="p-description">Compliance, risk management...</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card product" onclick="alert('Navigate to Product Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-cogs p-icon"></i><h2>Product</h2></div> <p class="p-description">Technical foundation, development methodologies, QA processes.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 2 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card processes" onclick="alert('Navigate to Processes Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-project-diagram p-icon"></i><h2>Processes</h2></div> <p class="p-description">Operational leanness, AI automation, resource allocation, learning.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 4 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card performance" onclick="alert('Navigate to Performance Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-chart-line p-icon"></i><h2>Performance</h2></div> <p class="p-description">KPI/OKR frameworks, financial discipline, AI-enabled execution.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 6 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card posture" onclick="alert('Navigate to Posture Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-shield-alt p-icon"></i><h2>Posture</h2></div> <p class="p-description">Compliance, risk management, audit/accountability processes.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
                         </div>`;
                     break;
                 case 'project-assessment-content':
                     const projectTemplate = document.getElementById('project-assessment-template');
                     if (projectTemplate) {
                         contentHTML = projectTemplate.innerHTML;
-                         // Update breadcrumb deal name
-                        setTimeout(() => { // Timeout to ensure DOM is updated
+                        setTimeout(() => {
                             const breadcrumbDealName = dealMainContentArea.querySelector('.current-deal-breadcrumb');
                             if(breadcrumbDealName) breadcrumbDealName.textContent = currentDealName;
+                            attachTabListeners(); // Re-attach listeners after content is injected
                         }, 0);
                     }
                     break;
@@ -896,19 +959,18 @@
                     contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Reports</h1></div><p>Options to generate and view Due Diligence reports, Risk summaries, etc.</p>`;
                     break;
                 default:
-                    contentHTML = `<p>Content for ${contentType} not yet implemented.</p>`;
+                    contentHTML = `<div class="deal-main-header"><h1>Content for ${contentType}</h1></div><p>Content for ${contentType} not yet implemented.</p>`;
             }
             dealMainContentArea.innerHTML = contentHTML;
-
-            // Re-attach tab listeners if project assessment content is loaded
-            if (contentType === 'project-assessment-content') {
-                attachTabListeners();
-            }
         }
 
         function attachTabListeners() {
-            const tabButtons = dealMainContentArea.querySelectorAll('.tab-button');
-            const tabContents = dealMainContentArea.querySelectorAll('.tab-content');
+            // Ensure this function is only targeting tabs within the currently loaded content
+            const currentAssessmentMain = dealMainContentArea.querySelector('.assessment-main');
+            if (!currentAssessmentMain) return;
+
+            const tabButtons = currentAssessmentMain.querySelectorAll('.tab-button');
+            const tabContents = currentAssessmentMain.querySelectorAll('.tab-content');
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -927,7 +989,7 @@
 
         // Initial page load
         document.addEventListener('DOMContentLoaded', () => {
-            navigateTo('dashboard-page'); // Start with dashboard
+            navigateTo('dashboard-page');
         });
 
     </script>
