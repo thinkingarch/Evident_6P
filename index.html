@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>6P Horizon Strategist - Mockup (White Theme)</title>
+    <title>6P Horizon Strategist - Mockup (White Theme with Image Logo)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Basic Reset & Body */
@@ -36,33 +36,28 @@
         .main-header {
             background-color: #FFFFFF; /* White header background */
             color: #212121; /* Dark text for header */
-            padding: 0.8rem 1.5rem; /* Adjusted padding */
+            padding: 0.5rem 1.5rem; /* Adjusted padding slightly */
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: center; /* This will vertically center items */
             border-bottom: 1px solid #E0E0E0; /* Light border for separation */
             position: sticky;
             top: 0; /* Sticky within app-wrapper if #app-wrapper is scrollable */
             z-index: 1000;
+            min-height: 90px; /* Ensure header is tall enough for the logo */
         }
         .header-left {
             display: flex;
-            align-items: center;
+            align-items: center; /* Vertically align logo and title */
         }
-        .logo-placeholder {
-            width: 120px; /* Adjust as needed */
-            height: 40px; /* Adjust as needed */
-            background-color: #E0E0E0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #757575;
+        .logo-image { /* For the <img> tag */
+            width: 200px;
+            height: 87px;
             margin-right: 1.5rem; /* Space between logo and title */
-            border-radius: 4px;
+            object-fit: contain; /* Ensures the image scales within the dimensions */
         }
-        .app-title { /* Formerly .logo */
-            font-size: 1.4rem; /* Slightly smaller if logo takes space */
+        .app-title {
+            font-size: 1.4rem;
             font-weight: bold;
             cursor: pointer;
             color: #1A237E; /* Keep brand color for title */
@@ -273,13 +268,24 @@
             flex-direction: column;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        /* Pillar specific border colors (already defined, should be fine) */
+        .p-card.project { border-left-color: #EF5350; } 
+        .p-card.people { border-left-color: #42A5F5; } 
+        .p-card.product { border-left-color: #66BB6A; } 
+        .p-card.processes { border-left-color: #FFA726; } 
+        .p-card.performance { border-left-color: #AB47BC; } 
+        .p-card.posture { border-left-color: #78909C; } 
         .p-card:hover {
             transform: translateY(-3px); /* Reduced hover effect */
             box-shadow: 0 3px 10px rgba(0,0,0,0.07);
         }
         .p-card-header { display: flex; align-items: center; margin-bottom: 0.5rem; }
         .p-icon { font-size: 1.6rem; margin-right: 0.8rem; width:28px; text-align:center; }
+        .p-card.project .p-icon { color: #EF5350; }
+        .p-card.people .p-icon { color: #42A5F5; }
+        .p-card.product .p-icon { color: #66BB6A; }
+        .p-card.processes .p-icon { color: #FFA726; }
+        .p-card.performance .p-icon { color: #AB47BC; }
+        .p-card.posture .p-icon { color: #78909C; }
         .p-card h2 { font-size: 1.1rem; margin: 0; color: #1A237E; }
         .p-description { font-size: 0.8rem; color: #424242; flex-grow: 1; margin-bottom: 0.8rem; }
         .p-status { font-size: 0.75rem; color: #555555; margin-bottom: 0.8rem; }
@@ -530,7 +536,6 @@
             padding: 1rem; /* Increased padding */
             font-size: 0.85rem;
             border-top: 1px solid #E0E0E0; /* Light border */
-            /* margin-top: auto; This is handled by app-wrapper flex */
         }
 
     </style>
@@ -539,7 +544,7 @@
     <div id="app-wrapper">
         <header class="main-header">
             <div class="header-left">
-                <div class="logo-placeholder">LOGO</div>
+                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9Ijg3IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODciIHN0eWxlPSJmaWxsOiNmMmYyZjI7IiAvPgogIDx0ZXh0IHg9IjEwMCIgeT0iNDguNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSIjY2NjY2NjIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5MT0dIPC90ZXh0Pgo8L3N2Zz4K" alt="Logo" class="logo-image">
                 <div class="app-title" onclick="navigateTo('dashboard-page')">6P Horizon Strategist</div>
             </div>
             <nav class="top-nav">
@@ -860,18 +865,16 @@
             if (targetPage) {
                 targetPage.classList.add('active-page');
             }
-            appWrapper.scrollTop = 0; // Scroll to top of new page view
+            appWrapper.scrollTop = 0; 
 
             if (pageId === 'deal-workspace-page') {
                 loadDealWorkspaceContent('6p-overview-content');
-                updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page="6p-overview-content"]'));
+                updateDealSubNavActiveState('6p-overview-content', document.querySelector('#deal-workspace-page .deal-sub-nav button[data-deal-page="6p-overview-content"]'), '#deal-workspace-page .deal-sub-nav');
             }
             if (pageId === 'transformation-roadmap-page') {
-                document.getElementById('roadmap-deal-name').textContent = `${currentDealName} - Transformation Roadmap`;
-                // Ensure correct sub-nav item is active
-                const roadmapButton = document.querySelector('#transformation-roadmap-page .deal-sub-nav button[data-deal-page="transformation-plan-content"]');
-                 if(roadmapButton) updateDealSubNavActiveState('transformation-plan-content', roadmapButton, '#transformation-roadmap-page .deal-sub-nav');
-
+                const roadmapDealNameEl = document.getElementById('roadmap-deal-name');
+                if (roadmapDealNameEl) roadmapDealNameEl.textContent = `${currentDealName} - Transformation Roadmap`;
+                updateDealSubNavActiveState('transformation-plan-content', document.querySelector('#transformation-roadmap-page .deal-sub-nav button[data-deal-page="transformation-plan-content"]'),'#transformation-roadmap-page .deal-sub-nav');
             }
         }
 
@@ -882,25 +885,27 @@
             navigateTo(pageId);
         }
 
-        function updateDealSubNavActiveState(activeContentId, clickedButton, navSelector = '.deal-sub-nav') {
-            const dealSubNavButtons = document.querySelectorAll(`${navSelector} button`);
+        function updateDealSubNavActiveState(activeContentId, clickedButton, navSelector) {
+            const currentNavSelector = navSelector || '.deal-sub-nav'; // Default to main deal nav if not specified
+            const dealSubNavButtons = document.querySelectorAll(`${currentNavSelector} button`);
             dealSubNavButtons.forEach(btn => {
                 btn.classList.remove('active');
             });
             if (clickedButton) {
                  clickedButton.classList.add('active');
-            } else { // Fallback if buttonElement isn't passed directly
-                const buttonToActivate = document.querySelector(`${navSelector} button[data-deal-page="${activeContentId}"]`);
+            } else { 
+                const buttonToActivate = document.querySelector(`${currentNavSelector} button[data-deal-page="${activeContentId}"]`);
                 if (buttonToActivate) buttonToActivate.classList.add('active');
             }
         }
 
-
         function navigateToDealSubPage(buttonElement, contentIdToLoad) {
-            updateDealSubNavActiveState(contentIdToLoad, buttonElement, '#deal-workspace-page .deal-sub-nav');
+            // Determine which sub-navigation we are in
+            const parentNav = buttonElement.closest('.deal-sub-nav');
+            const navSelector = `#${parentNav.parentElement.id} .deal-sub-nav`; // Make selector specific to current page's nav
+            updateDealSubNavActiveState(contentIdToLoad, buttonElement, navSelector);
             loadDealWorkspaceContent(contentIdToLoad);
         }
-
 
         function loadDealWorkspaceContent(contentType) {
             if (!dealMainContentArea) return;
@@ -914,7 +919,7 @@
                             <h1>${currentDealName} - 6P Framework Assessment</h1>
                         </div>
                         <div class="six-p-grid">
-                            <div class="p-card project" onclick="loadDealWorkspaceContent('project-assessment-content'); updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page=\\'6p-overview-content\\']'));">
+                            <div class="p-card project" onclick="loadDealWorkspaceContent('project-assessment-content'); updateDealSubNavActiveState('6p-overview-content', document.querySelector('#deal-workspace-page .deal-sub-nav button[data-deal-page=\\'6p-overview-content\\']'), '#deal-workspace-page .deal-sub-nav');">
                                 <div class="p-card-header"><i class="fas fa-bullseye p-icon"></i><h2>Project</h2></div>
                                 <p class="p-description">Vision, Mission, Strategy clarity, future-proofing, innovation outlook.</p>
                                 <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 40%;">40%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span> <span class="ai-insight-flag"><i class="fas fa-lightbulb"></i> 1 AI Insight</span></div>
@@ -936,10 +941,10 @@
                     const projectTemplate = document.getElementById('project-assessment-template');
                     if (projectTemplate) {
                         contentHTML = projectTemplate.innerHTML;
-                        setTimeout(() => {
+                        setTimeout(() => { // Ensure DOM is updated before trying to query elements within new content
                             const breadcrumbDealName = dealMainContentArea.querySelector('.current-deal-breadcrumb');
                             if(breadcrumbDealName) breadcrumbDealName.textContent = currentDealName;
-                            attachTabListeners(); // Re-attach listeners after content is injected
+                            attachTabListeners(); 
                         }, 0);
                     }
                     break;
@@ -965,7 +970,6 @@
         }
 
         function attachTabListeners() {
-            // Ensure this function is only targeting tabs within the currently loaded content
             const currentAssessmentMain = dealMainContentArea.querySelector('.assessment-main');
             if (!currentAssessmentMain) return;
 
