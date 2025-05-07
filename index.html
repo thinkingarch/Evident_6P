@@ -540,6 +540,2004 @@
         <header class="main-header">
             <div class="header-left">
                 <div class="logo-placeholder">LOGO</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6P Horizon Strategist - Mockup (White Theme)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Reset & Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: rgb(230, 255, 0); /* Bright Yellow/Lime border margin color */
+            color: #212121; /* Dark font color */
+            line-height: 1.6;
+            padding: 20px; /* This creates the "border margin" effect */
+            display: flex; /* For centering app-wrapper if needed, and footer */
+            flex-direction: column;
+            min-height: calc(100vh - 40px); /* Adjust for body padding */
+        }
+
+        #app-wrapper {
+            background-color: #FFFFFF; /* White app background */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
+            border-radius: 8px; /* Optional: rounded corners for the app wrapper */
+            overflow: hidden; /* Ensures children conform to rounded corners */
+        }
+
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+
+        /* Header */
+        .main-header {
+            background-color: #FFFFFF; /* White header background */
+            color: #212121; /* Dark text for header */
+            padding: 0.8rem 1.5rem; /* Adjusted padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E0E0E0; /* Light border for separation */
+            position: sticky;
+            top: 0; /* Sticky within app-wrapper if #app-wrapper is scrollable */
+            z-index: 1000;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .logo-placeholder {
+            width: 120px; /* Adjust as needed */
+            height: 40px; /* Adjust as needed */
+            background-color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #757575;
+            margin-right: 1.5rem; /* Space between logo and title */
+            border-radius: 4px;
+        }
+        .app-title { /* Formerly .logo */
+            font-size: 1.4rem; /* Slightly smaller if logo takes space */
+            font-weight: bold;
+            cursor: pointer;
+            color: #1A237E; /* Keep brand color for title */
+        }
+        .top-nav { display: flex; align-items: center; gap: 1.5rem; }
+        .global-search {
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #BDBDBD;
+            background-color: #F5F5F5;
+            color: #212121;
+        }
+        .nav-icon {
+            font-size: 1.2rem;
+            color: #555555; /* Darker icon color */
+            position: relative;
+            cursor: pointer;
+        }
+        .nav-icon:hover { color: #1A237E; }
+        .badge {
+            background-color: #D32F2F; /* Keep notification badge distinct */
+            color: white;
+            border-radius: 50%;
+            padding: 0.1em 0.4em;
+            font-size: 0.7rem;
+            position: absolute;
+            top: -5px;
+            right: -8px;
+        }
+        .user-profile { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #212121;}
+        .avatar-placeholder {
+            width: 30px; height: 30px; border-radius: 50%; background-color: #BDBDBD; /* Lighter grey for placeholder */
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+            color: #FFFFFF;
+        }
+
+
+        /* Buttons */
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn i { font-size: 0.9em; }
+        .btn-primary { background-color: #00897B; /* Slightly darker teal for better contrast on white */ color: white; }
+        .btn-primary:hover { background-color: #00695C; }
+        .btn-secondary { background-color: #E0E0E0; color: #333; border: 1px solid #BDBDBD;}
+        .btn-secondary:hover { background-color: #D4D4D4; }
+        .btn-small { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        .btn-ai-accept { background-color: #558B2F; color:white; margin-right:0.5rem;} /* Darker green */
+        .btn-ai-accept:hover { background-color: #33691E; }
+        .btn-ai-dismiss { background-color: #D84315; color:white; } /* Darker orange/red */
+        .btn-ai-dismiss:hover { background-color: #BF360C; }
+
+        /* Main App Container (within #app-wrapper) */
+        #app-container {
+            flex-grow: 1;
+            width: 100%;
+            background-color: #FFFFFF; /* Ensure app container itself is white */
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+            background-color: #FFFFFF; /* Each page section background */
+            min-height: 100%; /* Ensure page takes up space */
+        }
+        .page.active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Dashboard Page */
+        .dashboard-container {
+            padding: 1.5rem; /* Slightly reduced padding */
+            display: grid;
+            gap: 1.5rem;
+            grid-template-areas:
+                "header header"
+                "stats stats"
+                "deals sidebar"
+                "deals sidebar";
+            grid-template-columns: 3fr 1fr;
+        }
+        .dashboard-header {
+            grid-area: header;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .dashboard-header h1 { margin: 0; color: #1A237E; font-size: 1.8rem; }
+        .quick-stats {
+            grid-area: stats;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: space-around;
+        }
+        .stat-card {
+            background-color: #FFFFFF;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0; /* Add border to cards on white bg */
+            text-align: center;
+            flex-grow: 1;
+        }
+        .stat-card h2 { margin-top: 0; font-size: 1rem; color: #555555; }
+        .stat-value { font-size: 2rem; font-weight: bold; color: #1A237E; margin-bottom: 0;}
+        .active-deals { grid-area: deals; background-color: #FFFFFF; padding: 1.5rem; border-radius: 6px; border: 1px solid #E0E0E0;}
+        .active-deals h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #00897B; padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        .deal-card {
+            background-color: #F9F9F9; /* Light grey for card distinctness */
+            border: 1px solid #E0E0E0;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.2s ease;
+        }
+        .deal-card:hover { box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+        .deal-info h3 { margin: 0 0 0.3rem 0; color: #007bff; cursor: pointer;}
+        .deal-info p { margin: 0; font-size: 0.9rem; color: #424242; }
+        .progress-bar-container { width: 150px; height: 10px; background-color: #E0E0E0; border-radius: 5px; overflow: hidden; }
+        .progress-bar { height: 100%; background-color: #00897B; /* Darker Teal */ border-radius: 5px; font-size: 0.7rem; color: white; text-align: center; line-height: 10px;}
+        .deal-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .risk-flag { color: #C62828; font-weight: bold; font-size:0.9rem; } /* Darker Red for risk */
+        .opportunity-flag { color: #FF8F00; font-weight:bold; font-size:0.9rem; } /* Darker Amber for opportunity */
+        .sidebar-tasks-activity { grid-area: sidebar; display: flex; flex-direction: column; gap: 1.5rem; }
+        .my-tasks, .recent-activity-dashboard { background-color: #FFFFFF; padding: 1.5rem; border-radius: 6px; border: 1px solid #E0E0E0;}
+        .my-tasks h2, .recent-activity-dashboard h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #00897B; padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        .my-tasks ul, .recent-activity-dashboard ul { list-style: none; padding: 0; margin: 0; }
+        .my-tasks li, .recent-activity-dashboard li { margin-bottom: 0.75rem; font-size: 0.9rem; padding-left:10px; border-left:3px solid #9E9E9E;}
+        .my-tasks li a { color: #212121; }
+
+        /* Deal Workspace & 6P Overview Page */
+        .deal-workspace-page-container {
+            display: grid;
+            grid-template-columns: 220px 1fr auto;
+            grid-template-areas: "subnav main sidebar";
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background-color: #FFFFFF;
+        }
+        .deal-sub-nav {
+            grid-area: subnav;
+            background-color: #F9F9F9; /* Light grey for nav distinctness */
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            flex-direction: column;
+        }
+        .deal-sub-nav a, .deal-sub-nav button {
+            padding: 0.8rem 1rem;
+            color: #333;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        .deal-sub-nav a.active, .deal-sub-nav button.active,
+        .deal-sub-nav a:hover, .deal-sub-nav button:hover {
+            background-color: #E0F2F1; /* Light teal for active/hover */
+            color: #00695C; /* Darker teal text */
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .deal-main-content {
+            grid-area: main;
+            background-color: #FFFFFF;
+            padding: 1.5rem; /* Reduced padding */
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            overflow-y: auto;
+        }
+        .deal-main-header h1 {
+            color: #1A237E;
+            font-size: 1.6rem; /* Adjusted size */
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #00897B;
+            padding-bottom: 0.5rem;
+        }
+        .six-p-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Slightly smaller minmax */
+            gap: 1rem; /* Reduced gap */
+        }
+        .p-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-left: 5px solid;
+            padding: 1.2rem; /* Adjusted padding */
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        /* Pillar specific border colors (already defined, should be fine) */
+        .p-card:hover {
+            transform: translateY(-3px); /* Reduced hover effect */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+        }
+        .p-card-header { display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .p-icon { font-size: 1.6rem; margin-right: 0.8rem; width:28px; text-align:center; }
+        .p-card h2 { font-size: 1.1rem; margin: 0; color: #1A237E; }
+        .p-description { font-size: 0.8rem; color: #424242; flex-grow: 1; margin-bottom: 0.8rem; }
+        .p-status { font-size: 0.75rem; color: #555555; margin-bottom: 0.8rem; }
+        .p-status span { margin-right: 0.8rem; display:inline-flex; align-items:center; gap: 0.3rem; }
+        .p-status .progress-bar { font-size: 0.65rem;}
+        .ai-insight-flag { color: #00897B; font-weight: bold; }
+        .risk-flag-pillar { color: #C62828; font-weight: bold; }
+        .p-action { align-self: flex-start; }
+
+        .deal-sidebar {
+            grid-area: sidebar;
+            background-color: #F9F9F9; /* Light grey for sidebar distinctness */
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+            width: 260px; /* Adjusted width */
+        }
+        .key-deal-info h3, .ai-summary-widget h3, .deal-recent-activity h3 {
+            margin-top: 0;
+            color: #1A237E;
+            font-size: 0.9rem; /* Slightly smaller sidebar headers */
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .key-deal-info p { margin: 0.3rem 0; font-size: 0.85rem; color: #212121;}
+        .ai-summary-widget .fa-brain { color: #00897B; margin-right: 0.3rem;}
+        .ai-insight-text {
+            font-size: 0.8rem; font-style: italic; color: #212121;
+            background-color: #E0F2F1; padding: 0.5rem; border-radius:4px;
+            border-left: 3px solid #00897B;
+        }
+        .deal-recent-activity ul { list-style: none; padding: 0; margin: 0; }
+        .deal-recent-activity li { margin-bottom: 0.5rem; font-size: 0.8rem; color: #424242; }
+
+        /* Project Assessment Page */
+        .module-assessment-content { padding: 1.5rem; background-color: #FFFFFF;}
+        .breadcrumbs { font-size: 0.85rem; color: #555555; margin-bottom: 1rem; }
+        .breadcrumbs a { color: #007bff; }
+        .module-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .module-header-actions h1 { margin: 0; display:flex; align-items:center; gap:0.5rem; color: #1A237E; font-size: 1.5rem;}
+        .module-header-actions h1 .p-icon.project { color: #EF5350; }
+        .module-progress { font-size: 0.9rem; color: #555555; margin-right: 1rem; }
+        .assessment-layout {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 1.5rem;
+        }
+        .assessment-main {
+            background-color: #FFFFFF;
+            padding:1.5rem;
+            border-radius:6px;
+            border: 1px solid #E0E0E0;
+        }
+        .tab-navigation {
+            display: flex;
+            border-bottom: 2px solid #00897B;
+            margin-bottom: 1.5rem;
+        }
+        .tab-button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 0.95rem; /* Adjusted size */
+            color: #555555;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .tab-button.active, .tab-button:hover {
+            color: #00897B;
+            font-weight: bold;
+            border-bottom-color: #00897B;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .assessment-item {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #F9F9F9; /* Light grey for item distinctness */
+            border-radius: 4px;
+            border: 1px solid #E0E0E0;
+        }
+        .assessment-item label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1A237E;
+        }
+        .input-area {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+        }
+        .input-area textarea {
+            width: calc(100% - 40px);
+            padding: 0.8rem;
+            border: 1px solid #BDBDBD; /* Slightly darker border */
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            min-height: 80px;
+            background-color: #FFFFFF;
+            color: #212121;
+        }
+        .input-area .comment-btn {
+            background: transparent;
+            border: none;
+            color: #757575;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            position:relative;
+        }
+        .input-area .comment-btn .badge { top: 0px; right: -2px; font-size:0.6rem; }
+        .input-area .comment-btn:hover { color: #007bff; }
+        .ai-assist-panel {
+            background-color: #E0F2F1;
+            border: 1px solid #A7FFEB; /* Lighter teal border */
+            border-left: 4px solid #00897B;
+            padding: 1rem;
+            margin-top: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem; /* Adjusted size */
+            color: #212121;
+        }
+        .ai-assist-panel h4 { margin-top: 0; color: #00695C; font-size:0.85rem; }
+        .ai-assist-panel p em { font-style:normal; background-color: #FFF9C4; padding:0.1rem 0.3rem; border-radius:3px;} /* Lighter yellow */
+        .supporting-docs { margin-top: 1rem; }
+        .supporting-docs label { font-size: 0.8rem; color: #424242; }
+        .supporting-docs input[type="file"] { font-size: 0.8rem; }
+
+        .assessment-sidebar {
+            background-color: #F9F9F9; /* Light grey for distinctness */
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .assessment-sidebar section h3 {
+            font-size: 0.9rem; /* Smaller headers */
+            color: #1A237E;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .assessment-sidebar .fa-brain { color: #00897B; }
+        .assessment-sidebar .fa-tasks { color: #1E88E5; } /* Slightly darker blue */
+        .assessment-sidebar .fa-comments { color: #F9A825; } /* Slightly darker yellow/orange */
+        .linked-tasks-module ul { list-style: disc; padding-left: 1.2rem; margin: 0; font-size:0.8rem; }
+        .linked-tasks-module li { margin-bottom: 0.4rem; }
+        .pillar-comments .comment-item {
+            font-size: 0.8rem;
+            background-color: #FFFFFF;
+            padding: 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            border:1px solid #E0E0E0;
+        }
+        .pillar-comments .comment-item strong { color: #007bff; }
+        .pillar-comments .comment-time { font-size: 0.7rem; color: #757575; display:block; text-align:right;}
+        .pillar-comments textarea { width: calc(100% - 1.2rem); padding:0.5rem; border:1px solid #BDBDBD; border-radius:4px; margin-bottom:0.5rem; font-size:0.8rem;}
+
+        /* Transformation Roadmap Page */
+        .roadmap-container {
+            padding: 1.5rem; /* Adjusted padding */
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background-color: #FFFFFF;
+        }
+        .roadmap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .roadmap-header h1 { margin: 0; color: #1A237E; font-size: 1.6rem; }
+        .roadmap-controls { display: flex; gap: 1rem; align-items: center;}
+        .roadmap-controls select, .roadmap-controls .btn { font-size: 0.85rem; padding: 0.4rem 0.8rem;}
+        .roadmap-main {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 0.5rem; /* Padding for visual separation and scrollbar */
+            background-color: #F9F9F9; /* Light grey background for the scrollable area */
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+        }
+        .roadmap-phase {
+            background-color: #FFFFFF;
+            min-width: 320px; /* Slightly wider */
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* Subtle shadow for phases */
+        }
+        .roadmap-phase h2 {
+            font-size: 1.05rem; /* Adjusted size */
+            color: #1A237E;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00897B;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .initiative-card {
+            background-color: #FFFFFF;
+            border: 1px solid #D1D1D1; /* Slightly darker border for cards */
+            border-left: 4px solid;
+            padding: 0.8rem; /* Adjusted padding */
+            margin-bottom: 1rem;
+            border-radius: 4px; /* Sharper radius */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .initiative-card h3 { font-size: 0.95rem; margin-top: 0; margin-bottom: 0.3rem; color: #007bff;}
+        .initiative-card p { margin: 0.2rem 0; font-size: 0.8rem; color: #333333; }
+        .initiative-owner { font-weight: bold; font-size: 0.75rem; }
+        .initiative-kpis { font-style: italic; font-size: 0.75rem; color: #00897B;}
+        .status-planned { border-left-color: #78909C; }
+        .status-inprogress { border-left-color: #1E88E5; } /* Brighter Blue */
+        .status-completed { border-left-color: #43A047; } /* Brighter Green */
+        .status-onhold { border-left-color: #FB8C00; } /* Brighter Orange */
+
+        /* Footer */
+        .main-footer-sticky {
+            background-color: #FFFFFF; /* White footer */
+            color: #555555; /* Dark grey text */
+            text-align: center;
+            padding: 1rem; /* Increased padding */
+            font-size: 0.85rem;
+            border-top: 1px solid #E0E0E0; /* Light border */
+            /* margin-top: auto; This is handled by app-wrapper flex */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app-wrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <div class="logo-placeholder">LOGO</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6P Horizon Strategist - Mockup (White Theme)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Reset & Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: rgb(230, 255, 0); /* Bright Yellow/Lime border margin color */
+            color: #212121; /* Dark font color */
+            line-height: 1.6;
+            padding: 20px; /* This creates the "border margin" effect */
+            display: flex; /* For centering app-wrapper if needed, and footer */
+            flex-direction: column;
+            min-height: calc(100vh - 40px); /* Adjust for body padding */
+        }
+
+        #app-wrapper {
+            background-color: #FFFFFF; /* White app background */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); /* Optional: slight shadow for depth */
+            border-radius: 8px; /* Optional: rounded corners for the app wrapper */
+            overflow: hidden; /* Ensures children conform to rounded corners */
+        }
+
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+
+        /* Header */
+        .main-header {
+            background-color: #FFFFFF; /* White header background */
+            color: #212121; /* Dark text for header */
+            padding: 0.8rem 1.5rem; /* Adjusted padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E0E0E0; /* Light border for separation */
+            position: sticky;
+            top: 0; /* Sticky within app-wrapper if #app-wrapper is scrollable */
+            z-index: 1000;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .logo-placeholder {
+            width: 120px; /* Adjust as needed */
+            height: 40px; /* Adjust as needed */
+            background-color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #757575;
+            margin-right: 1.5rem; /* Space between logo and title */
+            border-radius: 4px;
+        }
+        .app-title { /* Formerly .logo */
+            font-size: 1.4rem; /* Slightly smaller if logo takes space */
+            font-weight: bold;
+            cursor: pointer;
+            color: #1A237E; /* Keep brand color for title */
+        }
+        .top-nav { display: flex; align-items: center; gap: 1.5rem; }
+        .global-search {
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #BDBDBD;
+            background-color: #F5F5F5;
+            color: #212121;
+        }
+        .nav-icon {
+            font-size: 1.2rem;
+            color: #555555; /* Darker icon color */
+            position: relative;
+            cursor: pointer;
+        }
+        .nav-icon:hover { color: #1A237E; }
+        .badge {
+            background-color: #D32F2F; /* Keep notification badge distinct */
+            color: white;
+            border-radius: 50%;
+            padding: 0.1em 0.4em;
+            font-size: 0.7rem;
+            position: absolute;
+            top: -5px;
+            right: -8px;
+        }
+        .user-profile { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #212121;}
+        .avatar-placeholder {
+            width: 30px; height: 30px; border-radius: 50%; background-color: #BDBDBD; /* Lighter grey for placeholder */
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+            color: #FFFFFF;
+        }
+
+
+        /* Buttons */
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn i { font-size: 0.9em; }
+        .btn-primary { background-color: #00897B; /* Slightly darker teal for better contrast on white */ color: white; }
+        .btn-primary:hover { background-color: #00695C; }
+        .btn-secondary { background-color: #E0E0E0; color: #333; border: 1px solid #BDBDBD;}
+        .btn-secondary:hover { background-color: #D4D4D4; }
+        .btn-small { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        .btn-ai-accept { background-color: #558B2F; color:white; margin-right:0.5rem;} /* Darker green */
+        .btn-ai-accept:hover { background-color: #33691E; }
+        .btn-ai-dismiss { background-color: #D84315; color:white; } /* Darker orange/red */
+        .btn-ai-dismiss:hover { background-color: #BF360C; }
+
+        /* Main App Container (within #app-wrapper) */
+        #app-container {
+            flex-grow: 1;
+            width: 100%;
+            background-color: #FFFFFF; /* Ensure app container itself is white */
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+            background-color: #FFFFFF; /* Each page section background */
+            min-height: 100%; /* Ensure page takes up space */
+        }
+        .page.active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Dashboard Page */
+        .dashboard-container {
+            padding: 1.5rem; /* Slightly reduced padding */
+            display: grid;
+            gap: 1.5rem;
+            grid-template-areas:
+                "header header"
+                "stats stats"
+                "deals sidebar"
+                "deals sidebar";
+            grid-template-columns: 3fr 1fr;
+        }
+        .dashboard-header {
+            grid-area: header;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .dashboard-header h1 { margin: 0; color: #1A237E; font-size: 1.8rem; }
+        .quick-stats {
+            grid-area: stats;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: space-around;
+        }
+        .stat-card {
+            background-color: #FFFFFF;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0; /* Add border to cards on white bg */
+            text-align: center;
+            flex-grow: 1;
+        }
+        .stat-card h2 { margin-top: 0; font-size: 1rem; color: #555555; }
+        .stat-value { font-size: 2rem; font-weight: bold; color: #1A237E; margin-bottom: 0;}
+        .active-deals { grid-area: deals; background-color: #FFFFFF; padding: 1.5rem; border-radius: 6px; border: 1px solid #E0E0E0;}
+        .active-deals h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #00897B; padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        .deal-card {
+            background-color: #F9F9F9; /* Light grey for card distinctness */
+            border: 1px solid #E0E0E0;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.2s ease;
+        }
+        .deal-card:hover { box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+        .deal-info h3 { margin: 0 0 0.3rem 0; color: #007bff; cursor: pointer;}
+        .deal-info p { margin: 0; font-size: 0.9rem; color: #424242; }
+        .progress-bar-container { width: 150px; height: 10px; background-color: #E0E0E0; border-radius: 5px; overflow: hidden; }
+        .progress-bar { height: 100%; background-color: #00897B; /* Darker Teal */ border-radius: 5px; font-size: 0.7rem; color: white; text-align: center; line-height: 10px;}
+        .deal-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .risk-flag { color: #C62828; font-weight: bold; font-size:0.9rem; } /* Darker Red for risk */
+        .opportunity-flag { color: #FF8F00; font-weight:bold; font-size:0.9rem; } /* Darker Amber for opportunity */
+        .sidebar-tasks-activity { grid-area: sidebar; display: flex; flex-direction: column; gap: 1.5rem; }
+        .my-tasks, .recent-activity-dashboard { background-color: #FFFFFF; padding: 1.5rem; border-radius: 6px; border: 1px solid #E0E0E0;}
+        .my-tasks h2, .recent-activity-dashboard h2 { margin-top: 0; color: #1A237E; border-bottom: 2px solid #00897B; padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        .my-tasks ul, .recent-activity-dashboard ul { list-style: none; padding: 0; margin: 0; }
+        .my-tasks li, .recent-activity-dashboard li { margin-bottom: 0.75rem; font-size: 0.9rem; padding-left:10px; border-left:3px solid #9E9E9E;}
+        .my-tasks li a { color: #212121; }
+
+        /* Deal Workspace & 6P Overview Page */
+        .deal-workspace-page-container {
+            display: grid;
+            grid-template-columns: 220px 1fr auto;
+            grid-template-areas: "subnav main sidebar";
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background-color: #FFFFFF;
+        }
+        .deal-sub-nav {
+            grid-area: subnav;
+            background-color: #F9F9F9; /* Light grey for nav distinctness */
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            flex-direction: column;
+        }
+        .deal-sub-nav a, .deal-sub-nav button {
+            padding: 0.8rem 1rem;
+            color: #333;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        .deal-sub-nav a.active, .deal-sub-nav button.active,
+        .deal-sub-nav a:hover, .deal-sub-nav button:hover {
+            background-color: #E0F2F1; /* Light teal for active/hover */
+            color: #00695C; /* Darker teal text */
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .deal-main-content {
+            grid-area: main;
+            background-color: #FFFFFF;
+            padding: 1.5rem; /* Reduced padding */
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            overflow-y: auto;
+        }
+        .deal-main-header h1 {
+            color: #1A237E;
+            font-size: 1.6rem; /* Adjusted size */
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #00897B;
+            padding-bottom: 0.5rem;
+        }
+        .six-p-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Slightly smaller minmax */
+            gap: 1rem; /* Reduced gap */
+        }
+        .p-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-left: 5px solid;
+            padding: 1.2rem; /* Adjusted padding */
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        /* Pillar specific border colors (already defined, should be fine) */
+        .p-card:hover {
+            transform: translateY(-3px); /* Reduced hover effect */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+        }
+        .p-card-header { display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .p-icon { font-size: 1.6rem; margin-right: 0.8rem; width:28px; text-align:center; }
+        .p-card h2 { font-size: 1.1rem; margin: 0; color: #1A237E; }
+        .p-description { font-size: 0.8rem; color: #424242; flex-grow: 1; margin-bottom: 0.8rem; }
+        .p-status { font-size: 0.75rem; color: #555555; margin-bottom: 0.8rem; }
+        .p-status span { margin-right: 0.8rem; display:inline-flex; align-items:center; gap: 0.3rem; }
+        .p-status .progress-bar { font-size: 0.65rem;}
+        .ai-insight-flag { color: #00897B; font-weight: bold; }
+        .risk-flag-pillar { color: #C62828; font-weight: bold; }
+        .p-action { align-self: flex-start; }
+
+        .deal-sidebar {
+            grid-area: sidebar;
+            background-color: #F9F9F9; /* Light grey for sidebar distinctness */
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+            width: 260px; /* Adjusted width */
+        }
+        .key-deal-info h3, .ai-summary-widget h3, .deal-recent-activity h3 {
+            margin-top: 0;
+            color: #1A237E;
+            font-size: 0.9rem; /* Slightly smaller sidebar headers */
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .key-deal-info p { margin: 0.3rem 0; font-size: 0.85rem; color: #212121;}
+        .ai-summary-widget .fa-brain { color: #00897B; margin-right: 0.3rem;}
+        .ai-insight-text {
+            font-size: 0.8rem; font-style: italic; color: #212121;
+            background-color: #E0F2F1; padding: 0.5rem; border-radius:4px;
+            border-left: 3px solid #00897B;
+        }
+        .deal-recent-activity ul { list-style: none; padding: 0; margin: 0; }
+        .deal-recent-activity li { margin-bottom: 0.5rem; font-size: 0.8rem; color: #424242; }
+
+        /* Project Assessment Page */
+        .module-assessment-content { padding: 1.5rem; background-color: #FFFFFF;}
+        .breadcrumbs { font-size: 0.85rem; color: #555555; margin-bottom: 1rem; }
+        .breadcrumbs a { color: #007bff; }
+        .module-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .module-header-actions h1 { margin: 0; display:flex; align-items:center; gap:0.5rem; color: #1A237E; font-size: 1.5rem;}
+        .module-header-actions h1 .p-icon.project { color: #EF5350; }
+        .module-progress { font-size: 0.9rem; color: #555555; margin-right: 1rem; }
+        .assessment-layout {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 1.5rem;
+        }
+        .assessment-main {
+            background-color: #FFFFFF;
+            padding:1.5rem;
+            border-radius:6px;
+            border: 1px solid #E0E0E0;
+        }
+        .tab-navigation {
+            display: flex;
+            border-bottom: 2px solid #00897B;
+            margin-bottom: 1.5rem;
+        }
+        .tab-button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 0.95rem; /* Adjusted size */
+            color: #555555;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .tab-button.active, .tab-button:hover {
+            color: #00897B;
+            font-weight: bold;
+            border-bottom-color: #00897B;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .assessment-item {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #F9F9F9; /* Light grey for item distinctness */
+            border-radius: 4px;
+            border: 1px solid #E0E0E0;
+        }
+        .assessment-item label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1A237E;
+        }
+        .input-area {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+        }
+        .input-area textarea {
+            width: calc(100% - 40px);
+            padding: 0.8rem;
+            border: 1px solid #BDBDBD; /* Slightly darker border */
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            min-height: 80px;
+            background-color: #FFFFFF;
+            color: #212121;
+        }
+        .input-area .comment-btn {
+            background: transparent;
+            border: none;
+            color: #757575;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            position:relative;
+        }
+        .input-area .comment-btn .badge { top: 0px; right: -2px; font-size:0.6rem; }
+        .input-area .comment-btn:hover { color: #007bff; }
+        .ai-assist-panel {
+            background-color: #E0F2F1;
+            border: 1px solid #A7FFEB; /* Lighter teal border */
+            border-left: 4px solid #00897B;
+            padding: 1rem;
+            margin-top: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem; /* Adjusted size */
+            color: #212121;
+        }
+        .ai-assist-panel h4 { margin-top: 0; color: #00695C; font-size:0.85rem; }
+        .ai-assist-panel p em { font-style:normal; background-color: #FFF9C4; padding:0.1rem 0.3rem; border-radius:3px;} /* Lighter yellow */
+        .supporting-docs { margin-top: 1rem; }
+        .supporting-docs label { font-size: 0.8rem; color: #424242; }
+        .supporting-docs input[type="file"] { font-size: 0.8rem; }
+
+        .assessment-sidebar {
+            background-color: #F9F9F9; /* Light grey for distinctness */
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .assessment-sidebar section h3 {
+            font-size: 0.9rem; /* Smaller headers */
+            color: #1A237E;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .assessment-sidebar .fa-brain { color: #00897B; }
+        .assessment-sidebar .fa-tasks { color: #1E88E5; } /* Slightly darker blue */
+        .assessment-sidebar .fa-comments { color: #F9A825; } /* Slightly darker yellow/orange */
+        .linked-tasks-module ul { list-style: disc; padding-left: 1.2rem; margin: 0; font-size:0.8rem; }
+        .linked-tasks-module li { margin-bottom: 0.4rem; }
+        .pillar-comments .comment-item {
+            font-size: 0.8rem;
+            background-color: #FFFFFF;
+            padding: 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            border:1px solid #E0E0E0;
+        }
+        .pillar-comments .comment-item strong { color: #007bff; }
+        .pillar-comments .comment-time { font-size: 0.7rem; color: #757575; display:block; text-align:right;}
+        .pillar-comments textarea { width: calc(100% - 1.2rem); padding:0.5rem; border:1px solid #BDBDBD; border-radius:4px; margin-bottom:0.5rem; font-size:0.8rem;}
+
+        /* Transformation Roadmap Page */
+        .roadmap-container {
+            padding: 1.5rem; /* Adjusted padding */
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background-color: #FFFFFF;
+        }
+        .roadmap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .roadmap-header h1 { margin: 0; color: #1A237E; font-size: 1.6rem; }
+        .roadmap-controls { display: flex; gap: 1rem; align-items: center;}
+        .roadmap-controls select, .roadmap-controls .btn { font-size: 0.85rem; padding: 0.4rem 0.8rem;}
+        .roadmap-main {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 0.5rem; /* Padding for visual separation and scrollbar */
+            background-color: #F9F9F9; /* Light grey background for the scrollable area */
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+        }
+        .roadmap-phase {
+            background-color: #FFFFFF;
+            min-width: 320px; /* Slightly wider */
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* Subtle shadow for phases */
+        }
+        .roadmap-phase h2 {
+            font-size: 1.05rem; /* Adjusted size */
+            color: #1A237E;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00897B;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .initiative-card {
+            background-color: #FFFFFF;
+            border: 1px solid #D1D1D1; /* Slightly darker border for cards */
+            border-left: 4px solid;
+            padding: 0.8rem; /* Adjusted padding */
+            margin-bottom: 1rem;
+            border-radius: 4px; /* Sharper radius */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .initiative-card h3 { font-size: 0.95rem; margin-top: 0; margin-bottom: 0.3rem; color: #007bff;}
+        .initiative-card p { margin: 0.2rem 0; font-size: 0.8rem; color: #333333; }
+        .initiative-owner { font-weight: bold; font-size: 0.75rem; }
+        .initiative-kpis { font-style: italic; font-size: 0.75rem; color: #00897B;}
+        .status-planned { border-left-color: #78909C; }
+        .status-inprogress { border-left-color: #1E88E5; } /* Brighter Blue */
+        .status-completed { border-left-color: #43A047; } /* Brighter Green */
+        .status-onhold { border-left-color: #FB8C00; } /* Brighter Orange */
+
+        /* Footer */
+        .main-footer-sticky {
+            background-color: #FFFFFF; /* White footer */
+            color: #555555; /* Dark grey text */
+            text-align: center;
+            padding: 1rem; /* Increased padding */
+            font-size: 0.85rem;
+            border-top: 1px solid #E0E0E0; /* Light border */
+            /* margin-top: auto; This is handled by app-wrapper flex */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app-wrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <div class="logo-placeholder"></div>
+                    <img id="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgoAAADkCAYAAAD5EAyOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAAFxnSURBVHhe7Z0J/FTj98evLXuFX5YUlZA2FSqSNpLsSouiRGSJX5IiRCkttiylRZKlVWXfFUURUaRfGwmlxU8pWX7+7v++jzvMd3ruzJ3t3pn5nvfr9dDMd+6dO3d5nvOc55zP2cl2sBRFURRFUQzs7P5fURRFURRlB9RQUBRFURTFEzUUFEVRFEXxRA0FRVEURVE8UUNBURRFURRP1FBQFEVRFMUTNRQURVEURfFEDQVFURRFUTxRQ0FRFEVRFE/UUFAURVEUxRM1FBRFURRF8UQNBUVRFEVRPFFDQVEURVEUT9RQUBRFURTFEzUUFEVRFEXxRA0FRVEURVE8UUNBURRFURRP1FBQFEVRFMUTNRQURVEURfFEDQVFURRFUTxRQ0FRFEVRFE92sh3cfysBwOneunWr9dNPP0nbvn279csvv1i//vqr9b///c/6v//7P/kM7Lzzztauu+5q7b777tYee+xh7bXXXtbee+9tlSxZ0ipdurRVokQJ+ZyipMuWLVusDz/8UO5H2GmnneT/wL9r1apllS9f3n1HUZTihBoKWeLPP/+0Nm/ebK1Zs8ZatWqV9eWXX8q/v//+e+uHH36Qv9E5b9u2zfr555/FWGAbExgEe+65p7XvvvtKw0jYb7/9rDJlykjnXaFCBevII4+U/x900EFiWChKMixcuNA655xzrO+++8595x922WUXa8yYMdall17qvqMoSnFCDYUMwClk4P/222+tL774QmZmn376qfX1119bGzduFG/B77//7n468+B5iBgS5cqVs6pXr26dcMIJ1vHHHy+GBMYDn1FyF+4hZvNBPI54CPBQYQBE4H49++yz5R6OBa/WY489Zl1yySXuO4qiFCfUUEgRZv8YAgsWLLA++OAD66OPPrI++eQTWVbIFXbbbTerSpUqVv369a26deta9erVk9e8r+QW69evt/r06SP/z6ZRx32LUdm3b1+rTp067rtqKCiK4o0aCkmAV2D16tXWW2+9Zb366qvWokWLZCnht99+cz+RuzB7ZKkCb8Opp55qnXXWWVblypV1mSJHYGnqlFNOMbr+Mw3XfPr06VbL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" alt="Evident Logo">
+                    </img 
+                <div class="app-title" onclick="navigateTo('dashboard-page')">6P Horizon Strategist</div>
+            </div>
+            <nav class="top-nav">
+                <input type="search" placeholder="Search..." class="global-search">
+                <a href="#" class="nav-icon" aria-label="Notifications">🔔 <span class="badge">3</span></a>
+                <div class="user-profile">
+                    <span>Carlo Purassanta</span>
+                    <span class="avatar-placeholder">AC</span>
+                </div>
+            </nav>
+        </header>
+
+        <div id="app-container">
+            <section id="dashboard-page" class="page active-page">
+                <div class="dashboard-container">
+                    <div class="dashboard-header">
+                        <h1>Welcome back, Carlo!</h1>
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Initiate New Deal</button>
+                    </div>
+
+                    <section class="quick-stats">
+                        <div class="stat-card">
+                            <h2>Active Deals</h2>
+                            <p class="stat-value">5</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>High-Priority Tasks</h2>
+                            <p class="stat-value">8</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>Unread Notifications</h2>
+                            <p class="stat-value">3</p>
+                        </div>
+                    </section>
+
+                    <section class="active-deals">
+                        <h2>My Active Deals</h2>
+                        <div class="deal-card">
+                            <div class="deal-info">
+                                <h3 onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')">Target Alpha Inc.</h3>
+                                <p>Status: Project (Core DNA) - 40% Complete</p>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 40%;">40%</div>
+                                </div>
+                            </div>
+                            <div class="deal-actions">
+                                <span class="risk-flag">⚠️ 2 Risks</span>
+                                <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')"><i class="fas fa-folder-open"></i> View Workspace</button>
+                            </div>
+                        </div>
+                        <div class="deal-card">
+                            <div class="deal-info">
+                                <h3 onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')">Beta Solutions Ltd.</h3>
+                                <p>Status: Performance - 85% Complete</p>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 85%;">85%</div>
+                                </div>
+                            </div>
+                            <div class="deal-actions">
+                                 <span class="opportunity-flag">✨ 1 Opportunity</span>
+                                <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')"><i class="fas fa-folder-open"></i> View Workspace</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <aside class="sidebar-tasks-activity">
+                        <section class="my-tasks">
+                            <h2>My Tasks</h2>
+                            <ul>
+                                <li><a href="#">Finalize 'Product IP' review for Target Alpha</a> (Due: May 9)</li>
+                                <li><a href="#">Schedule meeting with Beta Solutions CEO</a> (Due: May 10)</li>
+                            </ul>
+                        </section>
+                        <section class="recent-activity-dashboard">
+                            <h2>Recent Activity</h2>
+                            <ul>
+                                <li>Sarah Miller (Target Alpha) commented on 'Mission Statement'.</li>
+                                <li>'Financials Q1' document uploaded for Beta Solutions.</li>
+                            </ul>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="deal-workspace-page" class="page">
+                <div class="deal-workspace-page-container">
+                    <nav class="deal-sub-nav">
+                        <button class="active" data-deal-page="6p-overview-content" onclick="navigateToDealSubPage(this, '6p-overview-content')">6P Framework</button>
+                        <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
+                        <button data-deal-page="collaboration-content" onclick="navigateToDealSubPage(this, 'collaboration-content')">Collaboration Canvas</button>
+                        <button data-deal-page="tasks-content" onclick="navigateToDealSubPage(this, 'tasks-content')">Tasks <span class="badge">12</span></button>
+                        <button data-deal-page="team-content" onclick="navigateToDealSubPage(this, 'team-content')">Team <span class="badge">5</span></button>
+                        <button data-deal-page="reports-content" onclick="navigateToDealSubPage(this, 'reports-content')">Reports</button>
+                        <button data-deal-page="transformation-plan-content" onclick="navigateTo('transformation-roadmap-page')">Transformation Plan</button>
+                         <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                    </nav>
+
+                    <main id="deal-main-content-area" class="deal-main-content">
+                        </main>
+
+                    <aside class="deal-sidebar">
+                        <section class="key-deal-info">
+                            <h3 id="sidebar-deal-name">Target Alpha Inc.</h3>
+                            <p><strong>Industry:</strong> SaaS Solutions</p>
+                            <p><strong>Primary Contact:</strong> Sarah Miller (CEO)</p>
+                        </section>
+                        <section class="ai-summary-widget">
+                            <h3><i class="fas fa-brain"></i> AI Quick Insights</h3>
+                            <p class="ai-insight-text">Consider potential misalignment between stated 'Project' innovation goals and current 'Product' development velocity.</p>
+                            <a href="#">Explore Insights</a>
+                        </section>
+                        <section class="deal-recent-activity">
+                            <h3>Recent Activity</h3>
+                            <ul id="deal-specific-activity-list">
+                                <li>Alex C. started assessment for 'Project'.</li>
+                                <li>Document 'Company Pitch Deck Q1' uploaded.</li>
+                            </ul>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+            <template id="project-assessment-template">
+                <div class="module-assessment-content">
+                    <div class="breadcrumbs">
+                        <span class="current-deal-breadcrumb">Target Alpha Inc.</span> &gt;
+                        <a href="#" onclick="loadDealWorkspaceContent('6p-overview-content')">6P Framework</a> &gt;
+                        <span>Project (Core DNA)</span>
+                    </div>
+
+                    <div class="module-header-actions">
+                        <h1><i class="fas fa-bullseye p-icon project"></i> Project (Core DNA) Assessment</h1>
+                        <div class="header-buttons">
+                            <span class="module-progress">Progress: 40%</span>
+                            <button class="btn btn-secondary btn-small"><i class="fas fa-eye"></i> View Related Docs</button>
+                            <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+                        </div>
+                    </div>
+
+                    <div class="assessment-layout">
+                        <div class="assessment-main">
+                            <div class="tab-navigation">
+                                <button class="tab-button active" data-tab="vision">Vision</button>
+                                <button class="tab-button" data-tab="mission">Mission</button>
+                                <button class="tab-button" data-tab="strategy">Strategy</button>
+                                <button class="tab-button" data-tab="client-needs">Client Needs</button>
+                                <button class="tab-button" data-tab="innovation">Innovation Outlook</button>
+                            </div>
+
+                            <div id="vision" class="tab-content active">
+                                <div class="assessment-item">
+                                    <label for="vision-text">What is the company's articulated long-term vision?</label>
+                                    <div class="input-area">
+                                        <textarea id="vision-text" rows="6" placeholder="Enter vision statement..."></textarea>
+                                        <button class="comment-btn" aria-label="View comments on Vision"><i class="fas fa-comment-dots"></i> <span class="badge">2</span></button>
+                                    </div>
+                                    <div class="ai-assist-panel">
+                                        <h4><i class="fas fa-lightbulb"></i> AI Suggester</h4>
+                                        <p>Based on <em>'pitch_deck_q1.pdf' (p.3)</em>, the vision is stated as: "To be the leading global provider of sustainable energy solutions."</p>
+                                        <button class="btn btn-ai-accept btn-small">Use This Text</button>
+                                        <button class="btn btn-ai-dismiss btn-small">Dismiss</button>
+                                    </div>
+                                     <div class="supporting-docs">
+                                        <label for="vision-docs">Attach supporting documents:</label>
+                                        <input type="file" id="vision-docs" multiple>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="mission" class="tab-content">
+                                <div class="assessment-item">
+                                    <label for="mission-text">Describe the company's mission.</label>
+                                     <div class="input-area">
+                                        <textarea id="mission-text" rows="6" placeholder="Enter mission statement..."></textarea>
+                                         <button class="comment-btn" aria-label="View comments on Mission"><i class="fas fa-comment-dots"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div id="strategy" class="tab-content"><div class="assessment-item"><label>Strategic Objectives</label><textarea rows="4" placeholder="Outline key strategic objectives..."></textarea></div></div>
+                             <div id="client-needs" class="tab-content"><div class="assessment-item"><label>Client Needs Analysis Summary</label><textarea rows="4" placeholder="Summarize how current offerings meet client needs..."></textarea></div></div>
+                             <div id="innovation" class="tab-content"><div class="assessment-item"><label>Innovation Pipeline & Outlook</label><textarea rows="4" placeholder="Describe the innovation pipeline and future outlook..."></textarea></div></div>
+                        </div>
+
+                        <aside class="assessment-sidebar">
+                            <section class="ai-pillar-summary">
+                                <h3><i class="fas fa-brain"></i> Project Pillar AI Summary</h3>
+                                <p class="ai-insight-text">Vision and Mission appear well-defined. Strategy section requires further detail on competitive differentiation for future-proofing.</p>
+                            </section>
+                            <section class="linked-tasks-module">
+                                <h3><i class="fas fa-tasks"></i> Related Tasks</h3>
+                                <ul>
+                                    <li>Alex: Clarify innovation roadmap (Due May 10)</li>
+                                    <li>Sarah M: Upload strategic plan document (Due May 12)</li>
+                                </ul>
+                            </section>
+                            <section class="pillar-comments">
+                                <h3><i class="fas fa-comments"></i> Pillar Discussion</h3>
+                                <div class="comment-item">
+                                    <p><strong>Alex C.:</strong> "Sarah, can we get more detail on the 3-year strategic objectives?" <span class="comment-time">2h ago</span></p>
+                                </div>
+                                 <textarea placeholder="Add a general comment for Project Pillar..." rows="3"></textarea>
+                                 <button class="btn btn-secondary btn-small">Post Comment</button>
+                            </section>
+                        </aside>
+                    </div>
+                </div>
+            </template>
+
+            <section id="transformation-roadmap-page" class="page">
+                <div class="deal-workspace-page-container">
+                     <nav class="deal-sub-nav">
+                        <button data-deal-page="6p-overview-content" onclick="navigateToDeal('deal-workspace-page', currentDealName)">6P Framework</button>
+                        <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
+                        <button data-deal-page="transformation-plan-content" class="active">Transformation Plan</button>
+                        <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                    </nav>
+
+                    <main class="deal-main-content">
+                        <div class="roadmap-container">
+                            <div class="roadmap-header">
+                                <h1 id="roadmap-deal-name">Target Alpha Inc. - Transformation Roadmap</h1>
+                                <div class="roadmap-controls">
+                                    <select>
+                                        <option>Filter by Owner</option>
+                                        <option>Alex Chen</option>
+                                        <option>Sarah Miller</option>
+                                    </select>
+                                    <select>
+                                        <option>Filter by Status</option>
+                                        <option>Planned</option>
+                                        <option>In Progress</option>
+                                        <option>Completed</option>
+                                    </select>
+                                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Initiative</button>
+                                </div>
+                            </div>
+
+                            <div class="roadmap-main">
+                                <div class="roadmap-phase">
+                                    <h2>Phase 1: Q3 2025 (Integration & Quick Wins)</h2>
+                                    <div class="initiative-card status-inprogress">
+                                        <h3>Streamline Onboarding Process</h3>
+                                        <p class="initiative-owner">Owner: Alex C. & Team Bravo</p>
+                                        <p>Integrate CRM systems and automate initial client communication.</p>
+                                        <p class="initiative-kpis">KPIs: Reduce onboarding time by 20%; CSAT > 90%</p>
+                                        <p><small>Linked to: Processes, People</small></p>
+                                    </div>
+                                    <div class="initiative-card status-planned">
+                                        <h3>Product Feature Enhancement A</h3>
+                                        <p class="initiative-owner">Owner: Sarah M. & Dev Team</p>
+                                        <p>Roll out critical feature requested by key clients during DD.</p>
+                                        <p class="initiative-kpis">KPIs: Adoption rate > 50% in 2 months</p>
+                                         <p><small>Linked to: Product, Performance</small></p>
+                                    </div>
+                                </div>
+                                <div class="roadmap-phase">
+                                    <h2>Phase 2: Q4 2025 (Growth & Optimization)</h2>
+                                    <div class="initiative-card status-planned">
+                                        <h3>New Market Entry Strategy</h3>
+                                        <p class="initiative-owner">Owner: Alex C. & Sarah M.</p>
+                                        <p>Research and develop plan for APAC market entry.</p>
+                                        <p class="initiative-kpis">KPIs: Market Research Complete; Business Plan Drafted</p>
+                                         <p><small>Linked to: Project, Performance</small></p>
+                                    </div>
+                                     <div class="initiative-card status-onhold">
+                                        <h3>AI Integration for Support</h3>
+                                        <p class="initiative-owner">Owner: Tech Lead</p>
+                                        <p>Explore AI chatbot for Tier 1 customer support.</p>
+                                        <p class="initiative-kpis">KPIs: Feasibility study complete</p>
+                                         <p><small>Linked to: Processes, Posture (data privacy)</small></p>
+                                    </div>
+                                </div>
+                                 <div class="roadmap-phase">
+                                    <h2>Phase 3: Q1 2026 (Scale & Innovation)</h2>
+                                    <div class="initiative-card status-completed">
+                                        <h3>Leadership Training Program</h3>
+                                        <p class="initiative-owner">Owner: HR Department</p>
+                                        <p>Implement new leadership development curriculum.</p>
+                                        <p class="initiative-kpis">KPIs: 100% eligible manager participation</p>
+                                         <p><small>Linked to: People</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                     <aside class="deal-sidebar">
+                        <section>
+                            <h3>Roadmap Context</h3>
+                            <p>Focus on realizing synergies identified in the 6P assessment. Click initiatives for details & collaboration.</p>
+                        </section>
+                         <section class="ai-summary-widget">
+                            <h3><i class="fas fa-brain"></i> AI Initiative Suggester</h3>
+                            <p class="ai-insight-text">Consider adding an initiative for 'Cross-functional knowledge sharing' based on 'People' and 'Processes' findings. <a href="#">Learn more</a></p>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+        </div> <footer class="main-footer-sticky">
+            © 2025 Horizon Strategists Inc.
+        </footer>
+    </div> <script>
+        let currentDealName = 'Target Alpha Inc.'; // Global to store current deal context
+
+        const pages = document.querySelectorAll('.page');
+        const dealMainContentArea = document.getElementById('deal-main-content-area');
+        const appWrapper = document.getElementById('app-wrapper');
+
+        function navigateTo(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active-page');
+            }
+            appWrapper.scrollTop = 0; // Scroll to top of new page view
+
+            if (pageId === 'deal-workspace-page') {
+                loadDealWorkspaceContent('6p-overview-content');
+                updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page="6p-overview-content"]'));
+            }
+            if (pageId === 'transformation-roadmap-page') {
+                document.getElementById('roadmap-deal-name').textContent = `${currentDealName} - Transformation Roadmap`;
+                // Ensure correct sub-nav item is active
+                const roadmapButton = document.querySelector('#transformation-roadmap-page .deal-sub-nav button[data-deal-page="transformation-plan-content"]');
+                 if(roadmapButton) updateDealSubNavActiveState('transformation-plan-content', roadmapButton, '#transformation-roadmap-page .deal-sub-nav');
+
+            }
+        }
+
+        function navigateToDeal(pageId, dealName) {
+            currentDealName = dealName;
+            const sidebarDealName = document.getElementById('sidebar-deal-name');
+            if(sidebarDealName) sidebarDealName.textContent = currentDealName;
+            navigateTo(pageId);
+        }
+
+        function updateDealSubNavActiveState(activeContentId, clickedButton, navSelector = '.deal-sub-nav') {
+            const dealSubNavButtons = document.querySelectorAll(`${navSelector} button`);
+            dealSubNavButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (clickedButton) {
+                 clickedButton.classList.add('active');
+            } else { // Fallback if buttonElement isn't passed directly
+                const buttonToActivate = document.querySelector(`${navSelector} button[data-deal-page="${activeContentId}"]`);
+                if (buttonToActivate) buttonToActivate.classList.add('active');
+            }
+        }
+
+
+        function navigateToDealSubPage(buttonElement, contentIdToLoad) {
+            updateDealSubNavActiveState(contentIdToLoad, buttonElement, '#deal-workspace-page .deal-sub-nav');
+            loadDealWorkspaceContent(contentIdToLoad);
+        }
+
+
+        function loadDealWorkspaceContent(contentType) {
+            if (!dealMainContentArea) return;
+            dealMainContentArea.innerHTML = '';
+
+            let contentHTML = '';
+            switch (contentType) {
+                case '6p-overview-content':
+                    contentHTML = `
+                        <div class="deal-main-header">
+                            <h1>${currentDealName} - 6P Framework Assessment</h1>
+                        </div>
+                        <div class="six-p-grid">
+                            <div class="p-card project" onclick="loadDealWorkspaceContent('project-assessment-content'); updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page=\\'6p-overview-content\\']'));">
+                                <div class="p-card-header"><i class="fas fa-bullseye p-icon"></i><h2>Project</h2></div>
+                                <p class="p-description">Vision, Mission, Strategy clarity, future-proofing, innovation outlook.</p>
+                                <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 40%;">40%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span> <span class="ai-insight-flag"><i class="fas fa-lightbulb"></i> 1 AI Insight</span></div>
+                                <button class="btn btn-primary btn-small p-action">View & Assess</button>
+                            </div>
+                            <div class="p-card people" onclick="alert('Navigate to People Assessment (Content TBD)')">
+                                <div class="p-card-header"><i class="fas fa-users p-icon"></i><h2>People</h2></div>
+                                <p class="p-description">Growth culture, leadership, talent development systems.</p>
+                                <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 15%;">15%</div></div><span><i class="fas fa-tasks"></i> 5 Tasks</span> <span class="risk-flag-pillar"><i class="fas fa-exclamation-triangle"></i> 1 Risk</span></div>
+                                <button class="btn btn-primary btn-small p-action">View & Assess</button>
+                            </div>
+                            <div class="p-card product" onclick="alert('Navigate to Product Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-cogs p-icon"></i><h2>Product</h2></div> <p class="p-description">Technical foundation, development methodologies, QA processes.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 2 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card processes" onclick="alert('Navigate to Processes Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-project-diagram p-icon"></i><h2>Processes</h2></div> <p class="p-description">Operational leanness, AI automation, resource allocation, learning.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 4 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card performance" onclick="alert('Navigate to Performance Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-chart-line p-icon"></i><h2>Performance</h2></div> <p class="p-description">KPI/OKR frameworks, financial discipline, AI-enabled execution.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 6 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card posture" onclick="alert('Navigate to Posture Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-shield-alt p-icon"></i><h2>Posture</h2></div> <p class="p-description">Compliance, risk management, audit/accountability processes.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                        </div>`;
+                    break;
+                case 'project-assessment-content':
+                    const projectTemplate = document.getElementById('project-assessment-template');
+                    if (projectTemplate) {
+                        contentHTML = projectTemplate.innerHTML;
+                        setTimeout(() => {
+                            const breadcrumbDealName = dealMainContentArea.querySelector('.current-deal-breadcrumb');
+                            if(breadcrumbDealName) breadcrumbDealName.textContent = currentDealName;
+                            attachTabListeners(); // Re-attach listeners after content is injected
+                        }, 0);
+                    }
+                    break;
+                case 'documents-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Documents</h1></div><p>Document management interface would go here. Sections for upload, folder views, AI analysis status, etc.</p>`;
+                    break;
+                case 'collaboration-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Collaboration Canvas</h1></div><p>A flexible canvas (e.g., using a library like Miro Web SDK or a custom solution) for notes, mind maps, etc., would be embedded here.</p>`;
+                    break;
+                case 'tasks-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Tasks</h1></div><p>Task management board (Kanban or list view) specific to this deal.</p>`;
+                    break;
+                case 'team-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Team & Permissions</h1></div><p>Interface to manage internal and external collaborators for this deal.</p>`;
+                    break;
+                case 'reports-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Reports</h1></div><p>Options to generate and view Due Diligence reports, Risk summaries, etc.</p>`;
+                    break;
+                default:
+                    contentHTML = `<div class="deal-main-header"><h1>Content for ${contentType}</h1></div><p>Content for ${contentType} not yet implemented.</p>`;
+            }
+            dealMainContentArea.innerHTML = contentHTML;
+        }
+
+        function attachTabListeners() {
+            // Ensure this function is only targeting tabs within the currently loaded content
+            const currentAssessmentMain = dealMainContentArea.querySelector('.assessment-main');
+            if (!currentAssessmentMain) return;
+
+            const tabButtons = currentAssessmentMain.querySelectorAll('.tab-button');
+            const tabContents = currentAssessmentMain.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const targetTab = button.dataset.tab;
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetTab) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', () => {
+            navigateTo('dashboard-page');
+        });
+
+    </script>
+</body>
+</html>
+
+                <div class="app-title" onclick="navigateTo('dashboard-page')">6P Horizon Strategist</div>
+            </div>
+            <nav class="top-nav">
+                <input type="search" placeholder="Search..." class="global-search">
+                <a href="#" class="nav-icon" aria-label="Notifications">🔔 <span class="badge">3</span></a>
+                <div class="user-profile">
+                    <span>Alex Chen</span>
+                    <span class="avatar-placeholder">AC</span>
+                </div>
+            </nav>
+        </header>
+
+        <div id="app-container">
+            <section id="dashboard-page" class="page active-page">
+                <div class="dashboard-container">
+                    <div class="dashboard-header">
+                        <h1>Welcome back, Alex!</h1>
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Initiate New Deal</button>
+                    </div>
+
+                    <section class="quick-stats">
+                        <div class="stat-card">
+                            <h2>Active Deals</h2>
+                            <p class="stat-value">5</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>High-Priority Tasks</h2>
+                            <p class="stat-value">8</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2>Unread Notifications</h2>
+                            <p class="stat-value">3</p>
+                        </div>
+                    </section>
+
+                    <section class="active-deals">
+                        <h2>My Active Deals</h2>
+                        <div class="deal-card">
+                            <div class="deal-info">
+                                <h3 onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')">Target Alpha Inc.</h3>
+                                <p>Status: Project (Core DNA) - 40% Complete</p>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 40%;">40%</div>
+                                </div>
+                            </div>
+                            <div class="deal-actions">
+                                <span class="risk-flag">⚠️ 2 Risks</span>
+                                <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Target Alpha Inc.')"><i class="fas fa-folder-open"></i> View Workspace</button>
+                            </div>
+                        </div>
+                        <div class="deal-card">
+                            <div class="deal-info">
+                                <h3 onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')">Beta Solutions Ltd.</h3>
+                                <p>Status: Performance - 85% Complete</p>
+                            </div>
+                            <div class="deal-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 85%;">85%</div>
+                                </div>
+                            </div>
+                            <div class="deal-actions">
+                                 <span class="opportunity-flag">✨ 1 Opportunity</span>
+                                <button class="btn btn-secondary btn-small" onclick="navigateToDeal('deal-workspace-page', 'Beta Solutions Ltd.')"><i class="fas fa-folder-open"></i> View Workspace</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <aside class="sidebar-tasks-activity">
+                        <section class="my-tasks">
+                            <h2>My Tasks</h2>
+                            <ul>
+                                <li><a href="#">Finalize 'Product IP' review for Target Alpha</a> (Due: May 9)</li>
+                                <li><a href="#">Schedule meeting with Beta Solutions CEO</a> (Due: May 10)</li>
+                            </ul>
+                        </section>
+                        <section class="recent-activity-dashboard">
+                            <h2>Recent Activity</h2>
+                            <ul>
+                                <li>Sarah Miller (Target Alpha) commented on 'Mission Statement'.</li>
+                                <li>'Financials Q1' document uploaded for Beta Solutions.</li>
+                            </ul>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="deal-workspace-page" class="page">
+                <div class="deal-workspace-page-container">
+                    <nav class="deal-sub-nav">
+                        <button class="active" data-deal-page="6p-overview-content" onclick="navigateToDealSubPage(this, '6p-overview-content')">6P Framework</button>
+                        <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
+                        <button data-deal-page="collaboration-content" onclick="navigateToDealSubPage(this, 'collaboration-content')">Collaboration Canvas</button>
+                        <button data-deal-page="tasks-content" onclick="navigateToDealSubPage(this, 'tasks-content')">Tasks <span class="badge">12</span></button>
+                        <button data-deal-page="team-content" onclick="navigateToDealSubPage(this, 'team-content')">Team <span class="badge">5</span></button>
+                        <button data-deal-page="reports-content" onclick="navigateToDealSubPage(this, 'reports-content')">Reports</button>
+                        <button data-deal-page="transformation-plan-content" onclick="navigateTo('transformation-roadmap-page')">Transformation Plan</button>
+                         <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                    </nav>
+
+                    <main id="deal-main-content-area" class="deal-main-content">
+                        </main>
+
+                    <aside class="deal-sidebar">
+                        <section class="key-deal-info">
+                            <h3 id="sidebar-deal-name">Target Alpha Inc.</h3>
+                            <p><strong>Industry:</strong> SaaS Solutions</p>
+                            <p><strong>Primary Contact:</strong> Sarah Miller (CEO)</p>
+                        </section>
+                        <section class="ai-summary-widget">
+                            <h3><i class="fas fa-brain"></i> AI Quick Insights</h3>
+                            <p class="ai-insight-text">Consider potential misalignment between stated 'Project' innovation goals and current 'Product' development velocity.</p>
+                            <a href="#">Explore Insights</a>
+                        </section>
+                        <section class="deal-recent-activity">
+                            <h3>Recent Activity</h3>
+                            <ul id="deal-specific-activity-list">
+                                <li>Alex C. started assessment for 'Project'.</li>
+                                <li>Document 'Company Pitch Deck Q1' uploaded.</li>
+                            </ul>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+            <template id="project-assessment-template">
+                <div class="module-assessment-content">
+                    <div class="breadcrumbs">
+                        <span class="current-deal-breadcrumb">Target Alpha Inc.</span> &gt;
+                        <a href="#" onclick="loadDealWorkspaceContent('6p-overview-content')">6P Framework</a> &gt;
+                        <span>Project (Core DNA)</span>
+                    </div>
+
+                    <div class="module-header-actions">
+                        <h1><i class="fas fa-bullseye p-icon project"></i> Project (Core DNA) Assessment</h1>
+                        <div class="header-buttons">
+                            <span class="module-progress">Progress: 40%</span>
+                            <button class="btn btn-secondary btn-small"><i class="fas fa-eye"></i> View Related Docs</button>
+                            <button class="btn btn-primary btn-small"><i class="fas fa-save"></i> Save Progress</button>
+                        </div>
+                    </div>
+
+                    <div class="assessment-layout">
+                        <div class="assessment-main">
+                            <div class="tab-navigation">
+                                <button class="tab-button active" data-tab="vision">Vision</button>
+                                <button class="tab-button" data-tab="mission">Mission</button>
+                                <button class="tab-button" data-tab="strategy">Strategy</button>
+                                <button class="tab-button" data-tab="client-needs">Client Needs</button>
+                                <button class="tab-button" data-tab="innovation">Innovation Outlook</button>
+                            </div>
+
+                            <div id="vision" class="tab-content active">
+                                <div class="assessment-item">
+                                    <label for="vision-text">What is the company's articulated long-term vision?</label>
+                                    <div class="input-area">
+                                        <textarea id="vision-text" rows="6" placeholder="Enter vision statement..."></textarea>
+                                        <button class="comment-btn" aria-label="View comments on Vision"><i class="fas fa-comment-dots"></i> <span class="badge">2</span></button>
+                                    </div>
+                                    <div class="ai-assist-panel">
+                                        <h4><i class="fas fa-lightbulb"></i> AI Suggester</h4>
+                                        <p>Based on <em>'pitch_deck_q1.pdf' (p.3)</em>, the vision is stated as: "To be the leading global provider of sustainable energy solutions."</p>
+                                        <button class="btn btn-ai-accept btn-small">Use This Text</button>
+                                        <button class="btn btn-ai-dismiss btn-small">Dismiss</button>
+                                    </div>
+                                     <div class="supporting-docs">
+                                        <label for="vision-docs">Attach supporting documents:</label>
+                                        <input type="file" id="vision-docs" multiple>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="mission" class="tab-content">
+                                <div class="assessment-item">
+                                    <label for="mission-text">Describe the company's mission.</label>
+                                     <div class="input-area">
+                                        <textarea id="mission-text" rows="6" placeholder="Enter mission statement..."></textarea>
+                                         <button class="comment-btn" aria-label="View comments on Mission"><i class="fas fa-comment-dots"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div id="strategy" class="tab-content"><div class="assessment-item"><label>Strategic Objectives</label><textarea rows="4" placeholder="Outline key strategic objectives..."></textarea></div></div>
+                             <div id="client-needs" class="tab-content"><div class="assessment-item"><label>Client Needs Analysis Summary</label><textarea rows="4" placeholder="Summarize how current offerings meet client needs..."></textarea></div></div>
+                             <div id="innovation" class="tab-content"><div class="assessment-item"><label>Innovation Pipeline & Outlook</label><textarea rows="4" placeholder="Describe the innovation pipeline and future outlook..."></textarea></div></div>
+                        </div>
+
+                        <aside class="assessment-sidebar">
+                            <section class="ai-pillar-summary">
+                                <h3><i class="fas fa-brain"></i> Project Pillar AI Summary</h3>
+                                <p class="ai-insight-text">Vision and Mission appear well-defined. Strategy section requires further detail on competitive differentiation for future-proofing.</p>
+                            </section>
+                            <section class="linked-tasks-module">
+                                <h3><i class="fas fa-tasks"></i> Related Tasks</h3>
+                                <ul>
+                                    <li>Alex: Clarify innovation roadmap (Due May 10)</li>
+                                    <li>Sarah M: Upload strategic plan document (Due May 12)</li>
+                                </ul>
+                            </section>
+                            <section class="pillar-comments">
+                                <h3><i class="fas fa-comments"></i> Pillar Discussion</h3>
+                                <div class="comment-item">
+                                    <p><strong>Alex C.:</strong> "Sarah, can we get more detail on the 3-year strategic objectives?" <span class="comment-time">2h ago</span></p>
+                                </div>
+                                 <textarea placeholder="Add a general comment for Project Pillar..." rows="3"></textarea>
+                                 <button class="btn btn-secondary btn-small">Post Comment</button>
+                            </section>
+                        </aside>
+                    </div>
+                </div>
+            </template>
+
+            <section id="transformation-roadmap-page" class="page">
+                <div class="deal-workspace-page-container">
+                     <nav class="deal-sub-nav">
+                        <button data-deal-page="6p-overview-content" onclick="navigateToDeal('deal-workspace-page', currentDealName)">6P Framework</button>
+                        <button data-deal-page="documents-content" onclick="navigateToDealSubPage(this, 'documents-content')">Documents</button>
+                        <button data-deal-page="transformation-plan-content" class="active">Transformation Plan</button>
+                        <button onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+                    </nav>
+
+                    <main class="deal-main-content">
+                        <div class="roadmap-container">
+                            <div class="roadmap-header">
+                                <h1 id="roadmap-deal-name">Target Alpha Inc. - Transformation Roadmap</h1>
+                                <div class="roadmap-controls">
+                                    <select>
+                                        <option>Filter by Owner</option>
+                                        <option>Alex Chen</option>
+                                        <option>Sarah Miller</option>
+                                    </select>
+                                    <select>
+                                        <option>Filter by Status</option>
+                                        <option>Planned</option>
+                                        <option>In Progress</option>
+                                        <option>Completed</option>
+                                    </select>
+                                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Initiative</button>
+                                </div>
+                            </div>
+
+                            <div class="roadmap-main">
+                                <div class="roadmap-phase">
+                                    <h2>Phase 1: Q3 2025 (Integration & Quick Wins)</h2>
+                                    <div class="initiative-card status-inprogress">
+                                        <h3>Streamline Onboarding Process</h3>
+                                        <p class="initiative-owner">Owner: Alex C. & Team Bravo</p>
+                                        <p>Integrate CRM systems and automate initial client communication.</p>
+                                        <p class="initiative-kpis">KPIs: Reduce onboarding time by 20%; CSAT > 90%</p>
+                                        <p><small>Linked to: Processes, People</small></p>
+                                    </div>
+                                    <div class="initiative-card status-planned">
+                                        <h3>Product Feature Enhancement A</h3>
+                                        <p class="initiative-owner">Owner: Sarah M. & Dev Team</p>
+                                        <p>Roll out critical feature requested by key clients during DD.</p>
+                                        <p class="initiative-kpis">KPIs: Adoption rate > 50% in 2 months</p>
+                                         <p><small>Linked to: Product, Performance</small></p>
+                                    </div>
+                                </div>
+                                <div class="roadmap-phase">
+                                    <h2>Phase 2: Q4 2025 (Growth & Optimization)</h2>
+                                    <div class="initiative-card status-planned">
+                                        <h3>New Market Entry Strategy</h3>
+                                        <p class="initiative-owner">Owner: Alex C. & Sarah M.</p>
+                                        <p>Research and develop plan for APAC market entry.</p>
+                                        <p class="initiative-kpis">KPIs: Market Research Complete; Business Plan Drafted</p>
+                                         <p><small>Linked to: Project, Performance</small></p>
+                                    </div>
+                                     <div class="initiative-card status-onhold">
+                                        <h3>AI Integration for Support</h3>
+                                        <p class="initiative-owner">Owner: Tech Lead</p>
+                                        <p>Explore AI chatbot for Tier 1 customer support.</p>
+                                        <p class="initiative-kpis">KPIs: Feasibility study complete</p>
+                                         <p><small>Linked to: Processes, Posture (data privacy)</small></p>
+                                    </div>
+                                </div>
+                                 <div class="roadmap-phase">
+                                    <h2>Phase 3: Q1 2026 (Scale & Innovation)</h2>
+                                    <div class="initiative-card status-completed">
+                                        <h3>Leadership Training Program</h3>
+                                        <p class="initiative-owner">Owner: HR Department</p>
+                                        <p>Implement new leadership development curriculum.</p>
+                                        <p class="initiative-kpis">KPIs: 100% eligible manager participation</p>
+                                         <p><small>Linked to: People</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                     <aside class="deal-sidebar">
+                        <section>
+                            <h3>Roadmap Context</h3>
+                            <p>Focus on realizing synergies identified in the 6P assessment. Click initiatives for details & collaboration.</p>
+                        </section>
+                         <section class="ai-summary-widget">
+                            <h3><i class="fas fa-brain"></i> AI Initiative Suggester</h3>
+                            <p class="ai-insight-text">Consider adding an initiative for 'Cross-functional knowledge sharing' based on 'People' and 'Processes' findings. <a href="#">Learn more</a></p>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+
+        </div> <footer class="main-footer-sticky">
+            © 2025 Horizon Strategists Inc.
+        </footer>
+    </div> <script>
+        let currentDealName = 'Target Alpha Inc.'; // Global to store current deal context
+
+        const pages = document.querySelectorAll('.page');
+        const dealMainContentArea = document.getElementById('deal-main-content-area');
+        const appWrapper = document.getElementById('app-wrapper');
+
+        function navigateTo(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active-page');
+            }
+            appWrapper.scrollTop = 0; // Scroll to top of new page view
+
+            if (pageId === 'deal-workspace-page') {
+                loadDealWorkspaceContent('6p-overview-content');
+                updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page="6p-overview-content"]'));
+            }
+            if (pageId === 'transformation-roadmap-page') {
+                document.getElementById('roadmap-deal-name').textContent = `${currentDealName} - Transformation Roadmap`;
+                // Ensure correct sub-nav item is active
+                const roadmapButton = document.querySelector('#transformation-roadmap-page .deal-sub-nav button[data-deal-page="transformation-plan-content"]');
+                 if(roadmapButton) updateDealSubNavActiveState('transformation-plan-content', roadmapButton, '#transformation-roadmap-page .deal-sub-nav');
+
+            }
+        }
+
+        function navigateToDeal(pageId, dealName) {
+            currentDealName = dealName;
+            const sidebarDealName = document.getElementById('sidebar-deal-name');
+            if(sidebarDealName) sidebarDealName.textContent = currentDealName;
+            navigateTo(pageId);
+        }
+
+        function updateDealSubNavActiveState(activeContentId, clickedButton, navSelector = '.deal-sub-nav') {
+            const dealSubNavButtons = document.querySelectorAll(`${navSelector} button`);
+            dealSubNavButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (clickedButton) {
+                 clickedButton.classList.add('active');
+            } else { // Fallback if buttonElement isn't passed directly
+                const buttonToActivate = document.querySelector(`${navSelector} button[data-deal-page="${activeContentId}"]`);
+                if (buttonToActivate) buttonToActivate.classList.add('active');
+            }
+        }
+
+
+        function navigateToDealSubPage(buttonElement, contentIdToLoad) {
+            updateDealSubNavActiveState(contentIdToLoad, buttonElement, '#deal-workspace-page .deal-sub-nav');
+            loadDealWorkspaceContent(contentIdToLoad);
+        }
+
+
+        function loadDealWorkspaceContent(contentType) {
+            if (!dealMainContentArea) return;
+            dealMainContentArea.innerHTML = '';
+
+            let contentHTML = '';
+            switch (contentType) {
+                case '6p-overview-content':
+                    contentHTML = `
+                        <div class="deal-main-header">
+                            <h1>${currentDealName} - 6P Framework Assessment</h1>
+                        </div>
+                        <div class="six-p-grid">
+                            <div class="p-card project" onclick="loadDealWorkspaceContent('project-assessment-content'); updateDealSubNavActiveState('6p-overview-content', document.querySelector('.deal-sub-nav button[data-deal-page=\\'6p-overview-content\\']'));">
+                                <div class="p-card-header"><i class="fas fa-bullseye p-icon"></i><h2>Project</h2></div>
+                                <p class="p-description">Vision, Mission, Strategy clarity, future-proofing, innovation outlook.</p>
+                                <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 40%;">40%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span> <span class="ai-insight-flag"><i class="fas fa-lightbulb"></i> 1 AI Insight</span></div>
+                                <button class="btn btn-primary btn-small p-action">View & Assess</button>
+                            </div>
+                            <div class="p-card people" onclick="alert('Navigate to People Assessment (Content TBD)')">
+                                <div class="p-card-header"><i class="fas fa-users p-icon"></i><h2>People</h2></div>
+                                <p class="p-description">Growth culture, leadership, talent development systems.</p>
+                                <div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 15%;">15%</div></div><span><i class="fas fa-tasks"></i> 5 Tasks</span> <span class="risk-flag-pillar"><i class="fas fa-exclamation-triangle"></i> 1 Risk</span></div>
+                                <button class="btn btn-primary btn-small p-action">View & Assess</button>
+                            </div>
+                            <div class="p-card product" onclick="alert('Navigate to Product Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-cogs p-icon"></i><h2>Product</h2></div> <p class="p-description">Technical foundation, development methodologies, QA processes.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 2 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card processes" onclick="alert('Navigate to Processes Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-project-diagram p-icon"></i><h2>Processes</h2></div> <p class="p-description">Operational leanness, AI automation, resource allocation, learning.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 4 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card performance" onclick="alert('Navigate to Performance Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-chart-line p-icon"></i><h2>Performance</h2></div> <p class="p-description">KPI/OKR frameworks, financial discipline, AI-enabled execution.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 6 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                            <div class="p-card posture" onclick="alert('Navigate to Posture Assessment (Content TBD)')"><div class="p-card-header"><i class="fas fa-shield-alt p-icon"></i><h2>Posture</h2></div> <p class="p-description">Compliance, risk management, audit/accountability processes.</p><div class="p-status"><div class="progress-bar-container"><div class="progress-bar" style="width: 0%;">0%</div></div><span><i class="fas fa-tasks"></i> 3 Tasks</span></div><button class="btn btn-primary btn-small p-action">View & Assess</button></div>
+                        </div>`;
+                    break;
+                case 'project-assessment-content':
+                    const projectTemplate = document.getElementById('project-assessment-template');
+                    if (projectTemplate) {
+                        contentHTML = projectTemplate.innerHTML;
+                        setTimeout(() => {
+                            const breadcrumbDealName = dealMainContentArea.querySelector('.current-deal-breadcrumb');
+                            if(breadcrumbDealName) breadcrumbDealName.textContent = currentDealName;
+                            attachTabListeners(); // Re-attach listeners after content is injected
+                        }, 0);
+                    }
+                    break;
+                case 'documents-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Documents</h1></div><p>Document management interface would go here. Sections for upload, folder views, AI analysis status, etc.</p>`;
+                    break;
+                case 'collaboration-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Collaboration Canvas</h1></div><p>A flexible canvas (e.g., using a library like Miro Web SDK or a custom solution) for notes, mind maps, etc., would be embedded here.</p>`;
+                    break;
+                case 'tasks-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Tasks</h1></div><p>Task management board (Kanban or list view) specific to this deal.</p>`;
+                    break;
+                case 'team-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Team & Permissions</h1></div><p>Interface to manage internal and external collaborators for this deal.</p>`;
+                    break;
+                case 'reports-content':
+                    contentHTML = `<div class="deal-main-header"><h1>${currentDealName} - Reports</h1></div><p>Options to generate and view Due Diligence reports, Risk summaries, etc.</p>`;
+                    break;
+                default:
+                    contentHTML = `<div class="deal-main-header"><h1>Content for ${contentType}</h1></div><p>Content for ${contentType} not yet implemented.</p>`;
+            }
+            dealMainContentArea.innerHTML = contentHTML;
+        }
+
+        function attachTabListeners() {
+            // Ensure this function is only targeting tabs within the currently loaded content
+            const currentAssessmentMain = dealMainContentArea.querySelector('.assessment-main');
+            if (!currentAssessmentMain) return;
+
+            const tabButtons = currentAssessmentMain.querySelectorAll('.tab-button');
+            const tabContents = currentAssessmentMain.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const targetTab = button.dataset.tab;
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetTab) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', () => {
+            navigateTo('dashboard-page');
+        });
+
+    </script>
+</body>
+</html>
+
                 <div class="app-title" onclick="navigateTo('dashboard-page')">6P Horizon Strategist</div>
             </div>
             <nav class="top-nav">
